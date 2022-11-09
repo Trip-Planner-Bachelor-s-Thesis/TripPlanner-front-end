@@ -33,6 +33,11 @@ const MainNavigation = () => {
           )}
           {isLoggedIn && (
             <li>
+              <NavLink to='/my-trips' className={navData => navData.isActive ? classes.active : '' }>My trips</NavLink >
+            </li>
+          )}
+          {isLoggedIn && (
+            <li>
               <NavLink to='/new-trip' className={navData => navData.isActive ? classes.active : '' }>Create trip</NavLink >
             </li>
           )}

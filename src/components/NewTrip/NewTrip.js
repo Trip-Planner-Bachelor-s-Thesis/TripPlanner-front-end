@@ -2,10 +2,13 @@ import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet-control-geocoder";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import classes from "./NewTrip.module.css";
 
 const NewTripPage = () => {
+  const navigate = useNavigate();
+  
   useEffect(() => {
     var container = L.DomUtil.get("map");
 
@@ -137,6 +140,9 @@ const NewTripPage = () => {
     if (!response.ok) {
       // throw new Error(data.message || "Could not create quote.");
       alert(data.message || "Could not create quote.");
+    } else {
+      alert(data.message);
+      navigate("/my-trips", { replace: true });
     }
 
     //return null;
