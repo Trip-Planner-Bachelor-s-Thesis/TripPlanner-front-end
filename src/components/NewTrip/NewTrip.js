@@ -22,21 +22,33 @@ const NewTripPage = () => {
 
     var control = L.Routing.control({
       waypoints: [
-        // L.Routing.waypoint(
-        //   L.latLng(53.7767239, 20.477780523409734),
-        //   "Olsztyn, powiat olsztyński, województwo warmińsko-mazurskie, Polska"
-        // ),
-        // L.Routing.waypoint(
-        //   L.latLng(54.3706858, 18.61298210330077),
-        //   "Gdańsk, województwo pomorskie, Polska"
-        // ),
+        L.Routing.waypoint(
+          L.latLng(53.7767239, 20.477780523409734),
+          "Olsztyn, powiat olsztyński, województwo warmińsko-mazurskie, Polska"
+        ),
+        L.Routing.waypoint(
+          L.latLng(54.3706858, 18.61298210330077),
+          "Gdańsk, województwo pomorskie, Polska"
+        ),
       ],
       routeWhileDragging: true,
       geocoder: L.Control.Geocoder.nominatim(),
     })
       .on("routeselected", function (e) {
         var route = e.route;
-        console.log(route.inputWaypoints[0].name);
+        let userWaypoints = [];
+        route.inputWaypoints.forEach((element) => {
+          let waypoint = {
+            lat: element.latLng.lat,
+            lng: element.latLng.lng,
+            name: element.name,
+          };
+          userWaypoints.push(waypoint);
+        });
+        setEnteredWaypoints(userWaypoints);
+        for (const element of userWaypoints) {
+          console.log(element);
+        }
         alert(
           "Showing route between waypoints:\n" +
             JSON.stringify(route.inputWaypoints, null, 2)
@@ -87,7 +99,12 @@ const NewTripPage = () => {
 
   const [enteredType, setEnteredType] = useState("");
   const [enteredPreferences, setEnteredPreferences] = useState("");
-  let enableCreateButtonFlag = !!(enteredType && enteredPreferences);
+  const [enteredWaypoints, setEnteredWaypoints] = useState([]);
+  let enableCreateButtonFlag = !!(
+    enteredType &&
+    enteredPreferences &&
+    enteredWaypoints.length
+  );
 
   const typeDropDownHandler = (event) => {
     setEnteredType(event.target.value);
@@ -97,12 +114,48 @@ const NewTripPage = () => {
     setEnteredPreferences(event.target.value);
   };
 
+  const submitFormHandler = async (event) => {
+    event.preventDefault();
+
+    let tripData = {
+      type: enteredType,
+      preferences: enteredPreferences,
+      waypoints: enteredWaypoints,
+    };
+    const response = await fetch(
+      "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json",
+      {
+        method: "POST",
+        body: JSON.stringify(tripData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+
+    if (!response.ok) {
+      // throw new Error(data.message || "Could not create quote.");
+      alert(data.message || "Could not create quote.");
+    }
+
+    //return null;
+  };
+
   return (
     <section>
       <div className={classes["new-trip"]}>
         <div className={classes["new-trip__control"]}>
-          <form>
+          <form onSubmit={submitFormHandler}>
             <div className={classes["form-container"]}>
+              <input
+                type="date"
+                // id="start"
+                // name="trip-start"
+                // value="2018-07-22"
+                min={new Date().toISOString().split("T")[0]}
+                max="2023-12-31"
+              ></input>
               <select
                 onChange={typeDropDownHandler}
                 defaultValue="Choose trip type"
@@ -122,21 +175,23 @@ const NewTripPage = () => {
                   Choose preferences
                 </option>
                 {enteredType &&
-                  enteredType == "car" &&
+                  enteredType === "car" &&
                   optionsCar.map((option) => (
                     <option key={option.label} value={option.value}>
                       {option.label}
                     </option>
                   ))}
                 {enteredType &&
-                  enteredType == "bike" &&
+                  enteredType === "bike" &&
                   optionsBike.map((option) => (
                     <option key={option.label} value={option.value}>
                       {option.label}
                     </option>
                   ))}
               </select>
-              <button type="submit" disabled={!enableCreateButtonFlag}>Create</button>
+              <button type="submit" disabled={!enableCreateButtonFlag}>
+                Create
+              </button>
             </div>
           </form>
         </div>

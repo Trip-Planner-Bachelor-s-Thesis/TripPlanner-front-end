@@ -53,6 +53,15 @@
   text-align: center;
 }
 
+.form-container input {
+  font: inherit;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+}
+
 .map {
   flex-grow: 1;
   width: 100%;
