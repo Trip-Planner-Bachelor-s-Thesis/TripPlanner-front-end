@@ -1,0 +1,55 @@
+.new-trip__control {
+    margin-bottom: 2rem;
+    padding: 1.5rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-container {
+    display: flex;
+  }
+  
+  .form-container button {
+    padding: 0.5rem 1.5rem;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    font: inherit;
+    color: white;
+    background-color: #9f5ccc;
+    border: 1px solid #9f5ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container button:hover {
+    background-color: #873abb;
+    border-color: #873abb;
+  }
+  
+  .form-container button:disabled {
+    cursor: not-allowed;
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  }
+  
+  .form-container select {
+    font: inherit;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
+  }
+  
+  .form-container input {
+    font: inherit;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
+  }
