@@ -44,12 +44,7 @@ const DropdownList = (props) => {
     <div className={classes["new-trip__control"]}>
       <form onSubmit={submitHandler}>
         <div className={classes["form-container"]}>
-          <input
-            type="date"
-            min={new Date().toISOString().split("T")[0]}
-            max="2023-12-31"
-            onChange={dateDropDownHandler}
-          />
+          <input type="date" min={new Date().toISOString().split("T")[0]} max="2023-12-31" onChange={dateDropDownHandler} />
 
           <select onChange={typeDropDownHandler}>
             <option value="" hidden>
@@ -59,10 +54,7 @@ const DropdownList = (props) => {
             <option value="bike">Bike ride</option>
           </select>
 
-          <select
-            onChange={preferencesDropDownHandler}
-            disabled={!props.enteredType}
-          >
+          <select onChange={preferencesDropDownHandler} disabled={!props.enteredType}>
             <option value="" hidden>
               Choose preferences
             </option>

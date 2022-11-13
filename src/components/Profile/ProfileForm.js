@@ -38,10 +38,22 @@ const ProfileForm = () => {
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
         <label htmlFor='new-password'>New Password</label>
-        <input type='password' id='new-password' minLength="7" ref={newPasswordInputRef} />
+        <select>
+          <option value="car">Car trip</option>
+          <option value="bike">Bike ride</option>
+        </select>
+        {/* <input type='password' id='new-password' minLength="7" ref={newPasswordInputRef} /> */}
+      </div>
+      <div className={classes.control}>
+        <label htmlFor='new-password'>New Password</label>
+        <select>
+          <option value="car">Free ride</option>
+          <option value="bike">Training</option>
+        </select>
+        {/* <input type='password' id='new-password' minLength="7" ref={newPasswordInputRef} /> */}
       </div>
       <div className={classes.action}>
-        <button>Change Password</button>
+        <button>Confirm</button>
       </div>
     </form>
   );

@@ -51,10 +51,10 @@ const Map = (props) => {
         // for (const element of userWaypoints) {
         //   console.log(element);
         // }
-        alert(
-          "Showing route between waypoints:\n" +
-            JSON.stringify(route.inputWaypoints, null, 2)
-        );
+        // alert(
+        //   "Showing route between waypoints:\n" +
+        //     JSON.stringify(route.inputWaypoints, null, 2)
+        // );
       })
       .addTo(map);
 

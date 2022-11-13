@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import NewTripPage from "./pages/NewTripPage";
 import AuthContext from "./store/auth-context";
+import AllTripsPage from "./pages/AllTripsPage";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -27,6 +28,12 @@ function App() {
           path="/new-trip"
           element={
             authCtx.isLoggedIn ? <NewTripPage /> : <Navigate to="/auth" />
+          }
+        />
+         <Route
+          path="/trips"
+          element={
+            authCtx.isLoggedIn ? <AllTripsPage /> : <Navigate to="/auth" />
           }
         />
         <Route path="*" element={<NotFoundPage />} />

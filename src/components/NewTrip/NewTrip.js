@@ -13,12 +13,7 @@ const NewTripPage = () => {
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredWaypoints, setEnteredWaypoints] = useState([]);
 
-  let enableCreateButtonFlag = !!(
-    enteredType &&
-    enteredPreferences &&
-    enteredDate &&
-    enteredWaypoints.length
-  );
+  let enableCreateButtonFlag = !!(enteredType && enteredPreferences && enteredDate && enteredWaypoints.length);
 
   const typeHandler = (value) => {
     setEnteredType(value);
@@ -44,27 +39,19 @@ const NewTripPage = () => {
       date: enteredDate,
       waypoints: enteredWaypoints,
     };
-    const response = await fetch(
-      "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json",
-      {
-        method: "POST",
-        body: JSON.stringify(tripData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch("https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json", {
+      method: "POST",
+      body: JSON.stringify(tripData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
-
     if (!response.ok) {
-      // throw new Error(data.message || "Could not create quote.");
       alert(data.message || "Could not create quote.");
     } else {
-      alert(data.message);
       navigate("/my-trips", { replace: true });
     }
-
-    //return null;
   };
 
   return (

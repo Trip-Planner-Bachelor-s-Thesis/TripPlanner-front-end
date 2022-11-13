@@ -3,7 +3,9 @@
   width: 95%;
   max-width: 25rem;
   border-radius: 6px;
-  background-color: #38015c;
+  /* background-color: #38015c; */
+  background-color: #4b4b4b;
+  /* background-color: #008080; */
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   text-align: center;
@@ -50,6 +52,8 @@
   color: white;
   background-color: #9f5ccc;
   border: 1px solid #9f5ccc;
+  /* background-color: #2a2a2a;
+  border: 1px solid #2a2a2a; */
   border-radius: 4px;
   padding: 0.5rem 2.5rem;
 }
@@ -62,7 +66,8 @@
 .actions .toggle {
   margin-top: 1rem;
   background-color: transparent;
-  color: #9f5ccc;
+  /* color: #9f5ccc; */
+  color: white;
   border: none;
   padding: 0.15rem 1.5rem;
 }
