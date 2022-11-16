@@ -23,7 +23,7 @@ const AllTrips = () => {
   }, []);
 
   return (
-    <section className={classes.container}>
+    <section>
       <ul className={classes.list}>
         {allTrips.map((trip) => (
           <SingleTrip

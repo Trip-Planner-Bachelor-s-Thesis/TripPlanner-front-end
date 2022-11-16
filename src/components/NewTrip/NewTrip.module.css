@@ -1,7 +1,11 @@
+.new-trip-section {
+  height: 100%;
+}
+
 .new-trip {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 3rem;
-  height: calc(100vh - 5rem);
+  /* height: calc(100vh - 5rem - 6rem); */
+  height: 100%;
 }

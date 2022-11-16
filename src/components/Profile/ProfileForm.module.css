@@ -15,7 +15,7 @@
   display: block;
 }
 
-.control input {
+.control select {
   display: block;
   font: inherit;
   width: 100%;

@@ -37,7 +37,7 @@ const ProfileForm = () => {
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.control}>
-        <label htmlFor='new-password'>New Password</label>
+        <label htmlFor='new-password'>Trip type</label>
         <select>
           <option value="car">Car trip</option>
           <option value="bike">Bike ride</option>
@@ -45,10 +45,10 @@ const ProfileForm = () => {
         {/* <input type='password' id='new-password' minLength="7" ref={newPasswordInputRef} /> */}
       </div>
       <div className={classes.control}>
-        <label htmlFor='new-password'>New Password</label>
+        <label htmlFor='new-password'>Trip preferences</label>
         <select>
-          <option value="car">Free ride</option>
-          <option value="bike">Training</option>
+          <option value="ride">Free ride</option>
+          <option value="training">Training</option>
         </select>
         {/* <input type='password' id='new-password' minLength="7" ref={newPasswordInputRef} /> */}
       </div>

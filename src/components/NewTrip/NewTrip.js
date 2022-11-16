@@ -55,7 +55,7 @@ const NewTripPage = () => {
   };
 
   return (
-    <section>
+    <section className={classes["new-trip-section"]}>
       <div className={classes["new-trip"]}>
         <DropdownList
           onTypeHandler={typeHandler}
