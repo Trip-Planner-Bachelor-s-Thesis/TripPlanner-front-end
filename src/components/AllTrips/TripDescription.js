@@ -1,17 +1,9 @@
 import { Fragment } from "react";
 
-import classes from "./TripDetails.module.css";
+import classes from "./TripDescription.module.css";
+import { options } from "../../helpers/helpers";
 
-const TripDetails = (props) => {
-  const options = {
-    car: "Car trip",
-    bike: "Bike ride",
-    entertainment: "Entertainment",
-    sightseeing: "Sightseeing",
-    freeride: "Free ride",
-    training: "Training",
-  };
-
+const TripDescription = (props) => {
   return (
     <Fragment>
       <div className={classes["trip-description"]}>
@@ -27,4 +19,4 @@ const TripDetails = (props) => {
   );
 };
 
-export default TripDetails;
+export default TripDescription;

@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 
 import classes from "./AllTrips.module.css";
 import SingleTrip from "./SingleTrip";
+import FilterTrips from "./FilterTrips";
 
 const AllTrips = () => {
   const [allTrips, setAllTrips] = useState([]);
+  
 
   useEffect(() => {
     fetch("https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json")

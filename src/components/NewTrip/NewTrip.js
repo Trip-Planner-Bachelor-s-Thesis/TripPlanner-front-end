@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import classes from "./NewTrip.module.css";
 import DropdownList from "./DropdownList";
-import Map from "./Map";
+// import Map from "./Map";
+import Map from "../Map/Map";
 
-const NewTripPage = () => {
+const NewTrip = () => {
   const navigate = useNavigate();
 
   const [enteredType, setEnteredType] = useState("");
@@ -65,10 +66,11 @@ const NewTripPage = () => {
           enableCreateButtonFlag={enableCreateButtonFlag}
           enteredType={enteredType}
         />
-        <Map onWaypointsHandler={waypointsHandler} />
+        <Map onWaypointsHandler={waypointsHandler} userWaypointsInput={[]} />
+        {/* <Map onWaypointsHandler={waypointsHandler} /> */}
       </div>
     </section>
   );
 };
 
-export default NewTripPage;
+export default NewTrip;

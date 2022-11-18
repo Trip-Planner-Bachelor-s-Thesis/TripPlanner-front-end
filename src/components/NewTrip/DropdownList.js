@@ -1,28 +1,8 @@
 import classes from "./DropdownList.module.css";
+import { optionsCar } from "../../helpers/helpers";
+import { optionsBike } from "../../helpers/helpers";
 
 const DropdownList = (props) => {
-  const optionsBike = [
-    {
-      label: "Training",
-      value: "training",
-    },
-    {
-      label: "Free ride",
-      value: "freeride",
-    },
-  ];
-
-  const optionsCar = [
-    {
-      label: "Sightseeing",
-      value: "sightseeing",
-    },
-    {
-      label: "Entertainment",
-      value: "entertainment",
-    },
-  ];
-
   const typeDropDownHandler = (event) => {
     props.onTypeHandler(event.target.value);
   };

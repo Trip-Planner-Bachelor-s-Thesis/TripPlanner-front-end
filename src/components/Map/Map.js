@@ -7,12 +7,15 @@ import classes from "./Map.module.css";
 
 const Map = (props) => {
   let onWaypointsHandler = props.onWaypointsHandler;
+  let userWaypointsInput = props.userWaypointsInput;
+  if (userWaypointsInput.length === 0) {
+    userWaypointsInput = false;
+  }
 
-  console.log("aaa");
+  console.log("aaaaa");
 
   useEffect(() => {
     var container = L.DomUtil.get("map");
-
     if (container != null) {
       container._leaflet_id = null;
     }
@@ -23,41 +26,42 @@ const Map = (props) => {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
+    let userWaypointsInputTransformed = [];
+    if (userWaypointsInput) {
+      userWaypointsInput.forEach((element) => {
+        let waypoint = L.Routing.waypoint(L.latLng(element.lat, element.lng), element.name);
+        userWaypointsInputTransformed.push(waypoint);
+      });
+    }
+
     console.log("test");
 
     var control = L.Routing.control({
-      //   waypoints: [
-      //     L.Routing.waypoint(
-      //       L.latLng(53.7767239, 20.477780523409734),
-      //       "Olsztyn, powiat olsztyński, województwo warmińsko-mazurskie, Polska"
-      //     ),
-      //     L.Routing.waypoint(
-      //       L.latLng(54.3706858, 18.61298210330077),
-      //       "Gdańsk, województwo pomorskie, Polska"
-      //     ),
-      //   ],
+      waypoints: userWaypointsInputTransformed,
       routeWhileDragging: true,
       geocoder: L.Control.Geocoder.nominatim(),
     })
       .on("routeselected", function (e) {
-        var route = e.route;
-        let userWaypoints = [];
-        route.inputWaypoints.forEach((element) => {
-          let waypoint = {
-            lat: element.latLng.lat,
-            lng: element.latLng.lng,
-            name: element.name,
-          };
-          userWaypoints.push(waypoint);
-        });
-        onWaypointsHandler(userWaypoints);
-        // for (const element of userWaypoints) {
-        //   console.log(element);
-        // }
-        // alert(
-        //   "Showing route between waypoints:\n" +
-        //     JSON.stringify(route.inputWaypoints, null, 2)
-        // );
+        if (!userWaypointsInput) {
+          var route = e.route;
+          let userWaypointsReturn = [];
+          route.inputWaypoints.forEach((element) => {
+            let waypoint = {
+              lat: element.latLng.lat,
+              lng: element.latLng.lng,
+              name: element.name,
+            };
+            userWaypointsReturn.push(waypoint);
+          });
+          onWaypointsHandler(userWaypointsReturn);
+          // for (const element of userWaypoints) {
+          //   console.log(element);
+          // }
+          // alert(
+          //   "Showing route between waypoints:\n" +
+          //     JSON.stringify(route.inputWaypoints, null, 2)
+          // );
+        }
       })
       .addTo(map);
 
@@ -78,7 +82,7 @@ const Map = (props) => {
         map.closePopup();
       });
     });
-  }, [onWaypointsHandler]);
+  }, [onWaypointsHandler, userWaypointsInput]);
 
   return <div id="map" className={classes.map} />;
 };

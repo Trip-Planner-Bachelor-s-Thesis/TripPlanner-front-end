@@ -9,6 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import NewTripPage from "./pages/NewTripPage";
 import AuthContext from "./store/auth-context";
 import AllTripsPage from "./pages/AllTripsPage";
+import TripDetailsAllPage from "./pages/TripDetailsAllPage";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -18,28 +19,14 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         {!authCtx.isLoggedIn && <Route path="/auth" element={<AuthPage />} />}
-        <Route
-          path="/profile"
-          element={
-            authCtx.isLoggedIn ? <UserProfile /> : <Navigate to="/auth" />
-          }
-        />
-        <Route
-          path="/new-trip"
-          element={
-            authCtx.isLoggedIn ? <NewTripPage /> : <Navigate to="/auth" />
-          }
-        />
-         <Route
-          path="/trips"
-          element={
-            authCtx.isLoggedIn ? <AllTripsPage /> : <Navigate to="/auth" />
-          }
-        />
+        <Route path="/profile" element={authCtx.isLoggedIn ? <UserProfile /> : <Navigate to="/auth" />} />
+        <Route path="/new-trip" element={authCtx.isLoggedIn ? <NewTripPage /> : <Navigate to="/auth" />} />
+        <Route path="/trips" element={authCtx.isLoggedIn ? <AllTripsPage /> : <Navigate to="/auth" />} />
+        <Route path="/trips/:tripId" element={authCtx.isLoggedIn ? <TripDetailsAllPage /> : <Navigate to="/auth" />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
   );
 }
 
-export default App; 
+export default App;
