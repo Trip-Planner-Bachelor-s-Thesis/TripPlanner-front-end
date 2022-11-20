@@ -7,10 +7,10 @@ function DateBox(props) {
   const year = date.getFullYear();
 
   return (
-    <div className={classes["expense-date"]}>
-      <div className={classes["expense-date__month"]}>{month}</div>
-      <div className={classes["expense-date__year"]}>{year}</div>
-      <div className={classes["expense-date__day"]}>{day}</div>
+    <div className={classes["trip-date"]}>
+      <div className={classes["trip-date-month"]}>{month}</div>
+      <div className={classes["trip-date-year"]}>{year}</div>
+      <div className={classes["trip-date-day"]}>{day}</div>
     </div>
   );
 }

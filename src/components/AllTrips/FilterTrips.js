@@ -4,7 +4,7 @@ import classes from "./FilterTrips.module.css";
 import { optionsCar } from "../../helpers/helpers";
 import { optionsBike } from "../../helpers/helpers";
 
-const DropdownList = () => {
+const DropdownList = (props) => {
   const [enteredType, setEnteredType] = useState("");
   const [enteredPreferences, setEnteredPreferences] = useState("");
   const [enteredStartDate, setEnteredStartDate] = useState("");
@@ -20,34 +20,83 @@ const DropdownList = () => {
 
   const startDateDropDownHandler = (event) => {
     setEnteredStartDate(event.target.value);
+    console.log(new Date(event.target.value).getDate());
+    console.log(new Date(event.target.value).getFullYear());
+    console.log(new Date(event.target.value).getMonth() + 1);
   };
 
   const endDateDropDownHandler = (event) => {
     setEnteredEndDate(event.target.value);
   };
 
-//   const submitHandler = (event) => {
-//     event.preventDefault();
-//     props.onSubmitFormHandler();
-//   };
+  const clickHandler = (event) => {
+    event.preventDefault();
+    let filteredTrips = props.trips;
+    if (enteredType) {
+      filteredTrips = filteredTrips.filter(checkType.bind(this, enteredType));
+    }
+    if (enteredPreferences) {
+      filteredTrips = filteredTrips.filter(checkPreferences.bind(this, enteredPreferences));
+    }
+    if (enteredStartDate) {
+      filteredTrips = filteredTrips.filter(checkStartDate.bind(this, enteredStartDate));
+    }
+    if (enteredEndDate) {
+      filteredTrips = filteredTrips.filter(checkEndDate.bind(this, enteredEndDate));
+    }
+    props.onFilterHandler(filteredTrips);
+  };
+
+  const resetHandler = () => {
+    setEnteredStartDate("");
+    setEnteredEndDate("");
+    setEnteredType("");
+    setEnteredPreferences("");
+    props.onFilterHandler(props.trips);
+  };
 
   return (
     <div className={classes["new-trip__control"]}>
-        <div className={classes["form-container"]}>
-          <input type="date" min={new Date().toISOString().split("T")[0]} max="2023-12-31" onChange={startDateDropDownHandler} />
-          <input type="date" min={new Date().toISOString().split("T")[0]} max="2023-12-31" onChange={endDateDropDownHandler} />
+      <div className={classes["form-container"]}>
+        <div className={classes["label-box"]}>
+          <label htmlFor="startDate">Start date</label>
+          <input
+            type="date"
+            min={new Date().toISOString().split("T")[0]}
+            max="2023-12-31"
+            onChange={startDateDropDownHandler}
+            value={enteredStartDate}
+            id="startDate"
+          />
+        </div>
+        <div className={classes["label-box"]}>
+          <label htmlFor="endDate">End date</label>
+          <input
+            type="date"
+            min={new Date().toISOString().split("T")[0]}
+            max="2023-12-31"
+            onChange={endDateDropDownHandler}
+            value={enteredEndDate}
+            id="endDate"
+          />
+        </div>
 
-          <select onChange={typeDropDownHandler}>
+        <div className={classes["label-box"]}>
+          <label htmlFor="type">Trip type</label>
+          <select id="type" onChange={typeDropDownHandler} value={enteredType}>
             <option value="" hidden>
-              Trip type
+                Choose
             </option>
             <option value="car">Car trip</option>
             <option value="bike">Bike ride</option>
           </select>
+        </div>
 
-          <select onChange={preferencesDropDownHandler} disabled={!enteredType}>
+        <div className={classes["label-box"]}>
+          <label htmlFor="preferences">Trip preferences</label>
+          <select id="preferences" onChange={preferencesDropDownHandler} disabled={!enteredType} value={enteredPreferences}>
             <option value="" hidden>
-              Preferences
+              Choose
             </option>
             {enteredType &&
               enteredType === "car" &&
@@ -64,13 +113,33 @@ const DropdownList = () => {
                 </option>
               ))}
           </select>
-
-          <button type="button">
-            Filter
-          </button>
         </div>
+
+        <button type="button" onClick={clickHandler}>
+          Filter
+        </button>
+        <button type="button" onClick={resetHandler}>
+          Reset
+        </button>
+      </div>
     </div>
   );
 };
+
+function checkType(type, trip) {
+  return trip.type === type;
+}
+
+function checkPreferences(preference, trip) {
+  return trip.preferences === preference;
+}
+
+function checkStartDate(startDate, trip) {
+  return new Date(trip.date) >= new Date(startDate);
+}
+
+function checkEndDate(endDate, trip) {
+  return new Date(trip.date) <= new Date(endDate);
+}
 
 export default DropdownList;

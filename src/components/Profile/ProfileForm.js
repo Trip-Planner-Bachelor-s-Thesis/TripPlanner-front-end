@@ -1,14 +1,14 @@
 import { useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import AuthContext from '../../store/auth-context';
+import LogRegisterContext from '../../contexts/log-register-context';
 import classes from './ProfileForm.module.css';
 
 const ProfileForm = () => {
   const navigate = useNavigate();
 
   const newPasswordInputRef = useRef();
-  const authCtx = useContext(AuthContext);
+  const authCtx = useContext(LogRegisterContext);
 
   const submitHandler = (event) => {
     event.preventDefault();

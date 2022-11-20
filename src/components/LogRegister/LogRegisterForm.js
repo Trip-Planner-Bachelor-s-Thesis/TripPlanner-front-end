@@ -1,19 +1,21 @@
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import AuthContext from "../../store/auth-context";
-import classes from "./AuthForm.module.css";
+import LogRegisterContext from "../../contexts/log-register-context";
+import classes from "./LogRegisterForm.module.css";
 
-const AuthForm = () => {
-  const usernameInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const navigate = useNavigate();
+const LOGIN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
+const REGISTER_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
 
+const LogRegisterForm = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [isSendingRequest, setisSendingRequest] = useState(false);
+  const logRegisterContext = useContext(LogRegisterContext);
 
-  const authCtx = useContext(AuthContext);
+  const usernameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const navigate = useNavigate();
 
   const toggleHandler = () => {
     setIsLoginForm((previousState) => !previousState);
@@ -22,26 +24,18 @@ const AuthForm = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    const enteredUsername = !isLoginForm && usernameInputRef.current.value;
+    const enteredUsername = !isLoginForm && usernameRef.current.value;
     console.log(enteredUsername);
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-
-    // optional: Add validation
 
     setisSendingRequest(true);
     let url;
-    if (isLoginForm) {
-      url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
-    } else {
-      url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
-    }
+    isLoginForm ? (url = LOGIN_URL) : (url = REGISTER_URL);
     try {
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
           returnSecureToken: true,
         }),
         headers: {
@@ -55,9 +49,8 @@ const AuthForm = () => {
         let errorMessage = "Authentication failed!";
         throw new Error(errorMessage);
       }
-
-      const expirationTime = new Date(new Date().getTime() + +data.expiresIn * 1000);
-      authCtx.login(data.idToken, expirationTime.toISOString());
+      
+      logRegisterContext.login(data.idToken);
       navigate("/", { replace: true });
     } catch (err) {
       alert(err.message);
@@ -69,9 +62,9 @@ const AuthForm = () => {
       <div className={classes["form-container"]}>
         <h1>{isLoginForm ? "Login" : "Sign up"}</h1>
         <form className={classes["form-element"]} onSubmit={submitHandler}>
-          {!isLoginForm && <input type="text" id="username" placeholder="Username" ref={usernameInputRef} required></input>}
-          <input type="email" id="email" placeholder="Email" ref={emailInputRef} required></input>
-          <input type="password" id="password" placeholder="Password" ref={passwordInputRef} required></input>
+          {!isLoginForm && <input type="text" id="username" placeholder="Username" ref={usernameRef} required></input>}
+          <input type="email" id="email" placeholder="Email" ref={emailRef} required></input>
+          <input type="password" id="password" placeholder="Password" ref={passwordRef} required></input>
           {isSendingRequest && <p className={classes["send-request-paragraph"]}>Sending request</p>}
           {!isSendingRequest && (
             <button className={classes["submit-button"]} type="submit">
@@ -94,4 +87,4 @@ const AuthForm = () => {
   );
 };
 
-export default AuthForm;
+export default LogRegisterForm;

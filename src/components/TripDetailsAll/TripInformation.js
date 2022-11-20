@@ -18,9 +18,18 @@ const TripInformation = (props) => {
     <div className={classes["new-trip__control"]}>
       <form>
         <div className={classes["form-container"]}>
-          <input type="text" value={`${day}\\${month}\\${year}`} disabled />
-          <input type="text" value={options[props.tripData.type]} disabled />
-          <input type="text" value={options[props.tripData.preferences]} disabled />
+          <div className={classes["label-box"]}>
+            <label htmlFor="tripDate">Trip date</label>
+            <input type="text" id="tripDate" value={`${day}\\${month}\\${year}`} disabled />{" "}
+          </div>
+          <div className={classes["label-box"]}>
+            <label htmlFor="type">Type</label>
+            <input type="text" id="type" value={options[props.tripData.type]} disabled />{" "}
+          </div>
+          <div className={classes["label-box"]}>
+            <label htmlFor="preferences">Preferences</label>
+            <input type="text" id="preferences" value={options[props.tripData.preferences]} disabled />{" "}
+          </div>
           <button type="submit">Join</button>
         </div>
       </form>

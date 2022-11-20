@@ -1,0 +1,41 @@
+.greeting-text {
+  margin: 0;
+  text-align: center;
+  font-size: 5rem;
+}
+
+.home-page-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.images-container {
+  flex-grow: 1;
+  display: flex;
+  margin: 4rem 0;
+}
+
+.authors-footer {
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.car-background {
+  margin-right: 3rem;
+  height: 100%;
+  flex-grow: 1;
+  background-image: url("https://contents.mediadecathlon.com/s860057/k$2b04047f45dd91d00d3bcfffa7589049/800x0/2304pt1945/3456xcr3456/default.jpg?format=auto&quality=80");
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 12px;
+}
+
+.bike-background {
+  margin-left: 3rem;
+  height: 100%;
+  flex-grow: 1;
+  background-image: url("https://imageio.forbes.com/specials-images/imageserve/623572a4a08650e2ccdcafb5/0x0.jpg?format=jpg&width=1200");
+  background-repeat: no-repeat;
+  border-radius: 12px;
+}

@@ -3,26 +3,26 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./components/Layout/Layout";
 import UserProfile from "./components/Profile/UserProfile";
-import AuthPage from "./pages/AuthPage";
+import LogRegisterPage from "./pages/LogRegisterPage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import NewTripPage from "./pages/NewTripPage";
-import AuthContext from "./store/auth-context";
+import LogRegisterContext from "./contexts/log-register-context";
 import AllTripsPage from "./pages/AllTripsPage";
 import TripDetailsAllPage from "./pages/TripDetailsAllPage";
 
 function App() {
-  const authCtx = useContext(AuthContext);
+  const logRegisterContext = useContext(LogRegisterContext);
 
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {!authCtx.isLoggedIn && <Route path="/auth" element={<AuthPage />} />}
-        <Route path="/profile" element={authCtx.isLoggedIn ? <UserProfile /> : <Navigate to="/auth" />} />
-        <Route path="/new-trip" element={authCtx.isLoggedIn ? <NewTripPage /> : <Navigate to="/auth" />} />
-        <Route path="/trips" element={authCtx.isLoggedIn ? <AllTripsPage /> : <Navigate to="/auth" />} />
-        <Route path="/trips/:tripId" element={authCtx.isLoggedIn ? <TripDetailsAllPage /> : <Navigate to="/auth" />} />
+        {!logRegisterContext.token && <Route path="/auth" element={<LogRegisterPage />} />}
+        <Route path="/profile" element={logRegisterContext.token ? <UserProfile /> : <Navigate to="/auth" />} />
+        <Route path="/new-trip" element={logRegisterContext.token ? <NewTripPage /> : <Navigate to="/auth" />} />
+        <Route path="/trips" element={logRegisterContext.token ? <AllTripsPage /> : <Navigate to="/auth" />} />
+        <Route path="/trips/:tripId" element={logRegisterContext.token ? <TripDetailsAllPage /> : <Navigate to="/auth" />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>

@@ -3,16 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { AuthContextProvider } from "./store/auth-context";
+import { ContextComponent } from "./contexts/log-register-context";
 import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthContextProvider>
+  <ContextComponent>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </AuthContextProvider>
+  </ContextComponent>
 );
 
 // If you want to start measuring performance in your app, pass a function

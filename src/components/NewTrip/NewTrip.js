@@ -40,6 +40,7 @@ const NewTrip = () => {
       date: enteredDate,
       waypoints: enteredWaypoints,
     };
+    console.log(tripData);
     const response = await fetch("https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json", {
       method: "POST",
       body: JSON.stringify(tripData),
@@ -49,7 +50,7 @@ const NewTrip = () => {
     });
     const data = await response.json();
     if (!response.ok) {
-      alert(data.message || "Could not create quote.");
+      alert(data.message || "Could not create trip.");
     } else {
       navigate("/my-trips", { replace: true });
     }

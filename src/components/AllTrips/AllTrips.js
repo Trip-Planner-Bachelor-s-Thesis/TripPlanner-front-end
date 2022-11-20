@@ -5,8 +5,8 @@ import SingleTrip from "./SingleTrip";
 import FilterTrips from "./FilterTrips";
 
 const AllTrips = () => {
-  const [allTrips, setAllTrips] = useState([]);
-  
+  const [allFetchedTrips, setAllFetchedTrips] = useState(null);
+  const [allTrips, setAllTrips] = useState(null);
 
   useEffect(() => {
     fetch("https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json")
@@ -20,25 +20,38 @@ const AllTrips = () => {
           };
           trips.push(trip);
         }
+        setAllFetchedTrips(trips);
         setAllTrips(trips);
       });
   }, []);
 
+  const filterHandler = (filteredTrips) => {
+    setAllTrips(filteredTrips);
+  };
+
+  console.log(allTrips);
+
   return (
     <section>
-      <ul className={classes.list}>
-        {allTrips.map((trip) => (
-          <SingleTrip
-            key={trip.id}
-            id={trip.id}
-            date={trip.date}
-            type={trip.type}
-            preferences={trip.preferences}
-            start={trip.waypoints[0].name}
-            end={trip.waypoints[trip.waypoints.length - 1].name}
-          ></SingleTrip>
+      {allTrips && <FilterTrips onFilterHandler={filterHandler} trips={allFetchedTrips}></FilterTrips>}
+      {allTrips &&
+        (allTrips.length === 0 ? (
+          <p className={classes["no-trips-found"]}>No trips found</p>
+        ) : (
+          <ul className={classes.list}>
+            {allTrips.map((trip) => (
+              <SingleTrip
+                key={trip.id}
+                id={trip.id}
+                date={trip.date}
+                type={trip.type}
+                preferences={trip.preferences}
+                start={trip.waypoints[0].name}
+                end={trip.waypoints[trip.waypoints.length - 1].name}
+              ></SingleTrip>
+            ))}
+          </ul>
         ))}
-      </ul>
     </section>
   );
 };

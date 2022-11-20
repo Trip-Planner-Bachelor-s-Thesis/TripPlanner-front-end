@@ -24,35 +24,44 @@ const DropdownList = (props) => {
     <div className={classes["new-trip__control"]}>
       <form onSubmit={submitHandler}>
         <div className={classes["form-container"]}>
-          <input type="date" min={new Date().toISOString().split("T")[0]} max="2023-12-31" onChange={dateDropDownHandler} />
+          <div className={classes["label-box"]}>
+            <label htmlFor="tripDate">Trip date</label>
+            <input type="date" id="tripDate" min={new Date().toISOString().split("T")[0]} max="2023-12-31" onChange={dateDropDownHandler} />
+          </div>
 
-          <select onChange={typeDropDownHandler}>
-            <option value="" hidden>
-              Choose trip type
-            </option>
-            <option value="car">Car trip</option>
-            <option value="bike">Bike ride</option>
-          </select>
+          <div className={classes["label-box"]}>
+            <label htmlFor="type">Type</label>
+            <select id="type" onChange={typeDropDownHandler}>
+              <option value="" hidden>
+                Choose
+              </option>
+              <option value="car">Car trip</option>
+              <option value="bike">Bike ride</option>
+            </select>
+          </div>
 
-          <select onChange={preferencesDropDownHandler} disabled={!props.enteredType}>
-            <option value="" hidden>
-              Choose preferences
-            </option>
-            {props.enteredType &&
-              props.enteredType === "car" &&
-              optionsCar.map((option) => (
-                <option key={option.label} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            {props.enteredType &&
-              props.enteredType === "bike" &&
-              optionsBike.map((option) => (
-                <option key={option.label} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-          </select>
+          <div className={classes["label-box"]}>
+            <label htmlFor="preferences">Preferences</label>
+            <select id="preferences" onChange={preferencesDropDownHandler} disabled={!props.enteredType}>
+              <option value="" hidden>
+                Choose
+              </option>
+              {props.enteredType &&
+                props.enteredType === "car" &&
+                optionsCar.map((option) => (
+                  <option key={option.label} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              {props.enteredType &&
+                props.enteredType === "bike" &&
+                optionsBike.map((option) => (
+                  <option key={option.label} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+            </select>
+          </div>
 
           <button type="submit" disabled={!props.enableCreateButtonFlag}>
             Create
