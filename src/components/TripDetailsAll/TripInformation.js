@@ -1,4 +1,4 @@
-import classes from "./TripInformation.module.css";
+import styles from "./TripInformation.module.css";
 import { options } from "../../helpers/helpers";
 
 const TripInformation = (props) => {
@@ -15,18 +15,18 @@ const TripInformation = (props) => {
   }
 
   return (
-    <div className={classes["new-trip__control"]}>
+    <div className={styles["new-trip-control"]}>
       <form>
-        <div className={classes["form-container"]}>
-          <div className={classes["label-box"]}>
+        <div className={styles["form-container"]}>
+          <div className={styles["label-box"]}>
             <label htmlFor="tripDate">Trip date</label>
             <input type="text" id="tripDate" value={`${day}\\${month}\\${year}`} disabled />{" "}
           </div>
-          <div className={classes["label-box"]}>
+          <div className={styles["label-box"]}>
             <label htmlFor="type">Type</label>
             <input type="text" id="type" value={options[props.tripData.type]} disabled />{" "}
           </div>
-          <div className={classes["label-box"]}>
+          <div className={styles["label-box"]}>
             <label htmlFor="preferences">Preferences</label>
             <input type="text" id="preferences" value={options[props.tripData.preferences]} disabled />{" "}
           </div>

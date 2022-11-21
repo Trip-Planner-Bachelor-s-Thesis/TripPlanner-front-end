@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import classes from "./AllTrips.module.css";
+import styles from "./AllTrips.module.css";
 import SingleTrip from "./SingleTrip";
 import FilterTrips from "./FilterTrips";
 
@@ -36,9 +36,9 @@ const AllTrips = () => {
       {allTrips && <FilterTrips onFilterHandler={filterHandler} trips={allFetchedTrips}></FilterTrips>}
       {allTrips &&
         (allTrips.length === 0 ? (
-          <p className={classes["no-trips-found"]}>No trips found</p>
+          <p className={styles["no-trips-found"]}>No trips found</p>
         ) : (
-          <ul className={classes.list}>
+          <ul className={styles["list-of-trips"]}>
             {allTrips.map((trip) => (
               <SingleTrip
                 key={trip.id}

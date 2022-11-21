@@ -1,4 +1,4 @@
-import classes from "./DropdownList.module.css";
+import styles from "./DropdownList.module.css";
 import { optionsCar } from "../../helpers/helpers";
 import { optionsBike } from "../../helpers/helpers";
 
@@ -21,15 +21,15 @@ const DropdownList = (props) => {
   };
 
   return (
-    <div className={classes["new-trip__control"]}>
+    <div className={styles["new-trip-control"]}>
       <form onSubmit={submitHandler}>
-        <div className={classes["form-container"]}>
-          <div className={classes["label-box"]}>
+        <div className={styles["form-container"]}>
+          <div className={styles["label-box"]}>
             <label htmlFor="tripDate">Trip date</label>
             <input type="date" id="tripDate" min={new Date().toISOString().split("T")[0]} max="2023-12-31" onChange={dateDropDownHandler} />
           </div>
 
-          <div className={classes["label-box"]}>
+          <div className={styles["label-box"]}>
             <label htmlFor="type">Type</label>
             <select id="type" onChange={typeDropDownHandler}>
               <option value="" hidden>
@@ -40,7 +40,7 @@ const DropdownList = (props) => {
             </select>
           </div>
 
-          <div className={classes["label-box"]}>
+          <div className={styles["label-box"]}>
             <label htmlFor="preferences">Preferences</label>
             <select id="preferences" onChange={preferencesDropDownHandler} disabled={!props.enteredType}>
               <option value="" hidden>

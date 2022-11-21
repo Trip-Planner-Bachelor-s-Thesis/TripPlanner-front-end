@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import LogRegisterContext from "../../contexts/log-register-context";
-import classes from "./NavigationBar.module.css";
+import styles from "./NavigationBar.module.css";
 
 const NavigationBar = () => {
   const logRegisterContext = useContext(LogRegisterContext);
@@ -12,30 +12,30 @@ const NavigationBar = () => {
   };
 
   return (
-    <header className={classes["form-navigation"]}>
+    <header className={styles["form-navigation"]}>
       <NavLink to="/">
-        <div className={classes["app-title"]}>Trip Planner</div>
+        <div className={styles["app-title"]}>Trip Planner</div>
       </NavLink>
       <nav>
-        <div className={classes["link-container"]}>
+        <div className={styles["link-container"]}>
           {!logRegisterContext.token && <NavLink to="/auth">Login</NavLink>}
           {logRegisterContext.token && (
-            <NavLink to="/trips" className={(navData) => (navData.isActive ? classes.active : "")}>
+            <NavLink to="/trips" className={(navData) => (navData.isActive ? styles.active : "")}>
               All trips
             </NavLink>
           )}
           {logRegisterContext.token && (
-            <NavLink to="/my-trips" className={(navData) => (navData.isActive ? classes.active : "")}>
+            <NavLink to="/my-trips" className={(navData) => (navData.isActive ? styles.active : "")}>
               My trips
             </NavLink>
           )}
           {logRegisterContext.token && (
-            <NavLink to="/new-trip" className={(navData) => (navData.isActive ? classes.active : "")}>
+            <NavLink to="/new-trip" className={(navData) => (navData.isActive ? styles.active : "")}>
               Create trip
             </NavLink>
           )}
           {logRegisterContext.token && (
-            <NavLink to="/profile" className={(navData) => (navData.isActive ? classes.active : "")}>
+            <NavLink to="/profile" className={(navData) => (navData.isActive ? styles.active : "")}>
               Profile
             </NavLink>
           )}

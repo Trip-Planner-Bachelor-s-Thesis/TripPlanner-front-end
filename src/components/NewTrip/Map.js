@@ -3,7 +3,7 @@ import "leaflet-routing-machine";
 import "leaflet-control-geocoder";
 import { useEffect } from "react";
 
-import classes from "./Map.module.css";
+import styles from "./Map.module.css";
 
 const Map = (props) => {
   let onWaypointsHandler = props.onWaypointsHandler;
@@ -80,7 +80,7 @@ const Map = (props) => {
     });
   }, [onWaypointsHandler]);
 
-  return <div id="map" className={classes.map} />;
+  return <div id="map" className={styles.map} />;
 };
 
 function createButton(label, container) {

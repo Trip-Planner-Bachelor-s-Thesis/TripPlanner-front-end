@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import classes from "./NewTrip.module.css";
+import styles from "./NewTrip.module.css";
 import DropdownList from "./DropdownList";
 // import Map from "./Map";
 import Map from "../Map/Map";
@@ -57,8 +57,8 @@ const NewTrip = () => {
   };
 
   return (
-    <section className={classes["new-trip-section"]}>
-      <div className={classes["new-trip"]}>
+    <section className={styles["new-trip-section"]}>
+      <div className={styles["new-trip"]}>
         <DropdownList
           onTypeHandler={typeHandler}
           onPreferencesHandler={preferencesHandler}

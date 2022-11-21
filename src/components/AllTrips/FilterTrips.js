@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import classes from "./FilterTrips.module.css";
+import styles from "./FilterTrips.module.css";
 import { optionsCar } from "../../helpers/helpers";
 import { optionsBike } from "../../helpers/helpers";
 
@@ -56,9 +56,9 @@ const DropdownList = (props) => {
   };
 
   return (
-    <div className={classes["new-trip__control"]}>
-      <div className={classes["form-container"]}>
-        <div className={classes["label-box"]}>
+    <div className={styles["new-trip__control"]}>
+      <div className={styles["form-container"]}>
+        <div className={styles["label-box"]}>
           <label htmlFor="startDate">Start date</label>
           <input
             type="date"
@@ -69,7 +69,7 @@ const DropdownList = (props) => {
             id="startDate"
           />
         </div>
-        <div className={classes["label-box"]}>
+        <div className={styles["label-box"]}>
           <label htmlFor="endDate">End date</label>
           <input
             type="date"
@@ -81,7 +81,7 @@ const DropdownList = (props) => {
           />
         </div>
 
-        <div className={classes["label-box"]}>
+        <div className={styles["label-box"]}>
           <label htmlFor="type">Trip type</label>
           <select id="type" onChange={typeDropDownHandler} value={enteredType}>
             <option value="" hidden>
@@ -92,7 +92,7 @@ const DropdownList = (props) => {
           </select>
         </div>
 
-        <div className={classes["label-box"]}>
+        <div className={styles["label-box"]}>
           <label htmlFor="preferences">Trip preferences</label>
           <select id="preferences" onChange={preferencesDropDownHandler} disabled={!enteredType} value={enteredPreferences}>
             <option value="" hidden>

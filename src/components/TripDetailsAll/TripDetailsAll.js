@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import classes from "./TripDetailsAll.module.css";
+import styles from "./TripDetailsAll.module.css";
 import TripInformation from "./TripInformation";
 import TripParticipants from "./TripParticipants";
 import Map from "../Map/Map";
@@ -47,11 +47,11 @@ const TripDetailsAll = () => {
   // };
 
   return (
-    <section className={classes["new-trip-section"]}>
-      <div className={classes["new-trip"]}>
+    <section className={styles["new-trip-section"]}>
+      <div className={styles["new-trip"]}>
         {trip && <TripInformation tripData={trip} />}
         {trip && (
-          <button type="button" className={classes["button-switch-display-users"]} onClick={toggleHandler}>
+          <button type="button" className={styles["button-switch-display-users"]} onClick={toggleHandler}>
             {isDisplayingMap ? "Show participants" : "Show route"}
           </button>
         )}

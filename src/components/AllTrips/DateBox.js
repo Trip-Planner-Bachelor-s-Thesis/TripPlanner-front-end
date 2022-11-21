@@ -1,4 +1,4 @@
-import classes from "./DateBox.module.css";
+import styles from "./DateBox.module.css";
 
 function DateBox(props) {
   const date = new Date(props.date);
@@ -7,10 +7,10 @@ function DateBox(props) {
   const year = date.getFullYear();
 
   return (
-    <div className={classes["trip-date"]}>
-      <div className={classes["trip-date-month"]}>{month}</div>
-      <div className={classes["trip-date-year"]}>{year}</div>
-      <div className={classes["trip-date-day"]}>{day}</div>
+    <div className={styles["trip-date"]}>
+      <div className={styles["trip-date-month"]}>{month}</div>
+      <div className={styles["trip-date-year"]}>{year}</div>
+      <div className={styles["trip-date-day"]}>{day}</div>
     </div>
   );
 }

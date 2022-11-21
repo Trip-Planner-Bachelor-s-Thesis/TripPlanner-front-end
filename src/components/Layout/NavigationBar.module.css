@@ -53,6 +53,6 @@
   color: #aa65d8;
 }
 
-li a.active {
+.form-navigation a.active {
   font-size: 1.5rem;
 }

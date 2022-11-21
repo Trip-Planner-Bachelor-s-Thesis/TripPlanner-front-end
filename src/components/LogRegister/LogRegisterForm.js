@@ -2,7 +2,7 @@ import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import LogRegisterContext from "../../contexts/log-register-context";
-import classes from "./LogRegisterForm.module.css";
+import styles from "./LogRegisterForm.module.css";
 
 const LOGIN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
 const REGISTER_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
@@ -58,26 +58,26 @@ const LogRegisterForm = () => {
   };
 
   return (
-    <section className={classes.forms}>
-      <div className={classes["form-container"]}>
+    <section className={styles.forms}>
+      <div className={styles["form-container"]}>
         <h1>{isLoginForm ? "Login" : "Sign up"}</h1>
-        <form className={classes["form-element"]} onSubmit={submitHandler}>
+        <form className={styles["form-element"]} onSubmit={submitHandler}>
           {!isLoginForm && <input type="text" id="username" placeholder="Username" ref={usernameRef} required></input>}
           <input type="email" id="email" placeholder="Email" ref={emailRef} required></input>
           <input type="password" id="password" placeholder="Password" ref={passwordRef} required></input>
-          {isSendingRequest && <p className={classes["send-request-paragraph"]}>Sending request</p>}
+          {isSendingRequest && <p className={styles["send-request-paragraph"]}>Sending request</p>}
           {!isSendingRequest && (
-            <button className={classes["submit-button"]} type="submit">
+            <button className={styles["submit-button"]} type="submit">
               {isLoginForm ? "Login" : "Create"}
             </button>
           )}
           {isLoginForm && (
-            <button className={classes["toggle-button"]} type="button" onClick={toggleHandler}>
+            <button className={styles["toggle-button"]} type="button" onClick={toggleHandler}>
               Create new account
             </button>
           )}
           {!isLoginForm && (
-            <button className={classes["toggle-button"]} type="button" onClick={toggleHandler}>
+            <button className={styles["toggle-button"]} type="button" onClick={toggleHandler}>
               Login with existing account
             </button>
           )}
