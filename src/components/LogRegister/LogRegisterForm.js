@@ -42,7 +42,7 @@ const LogRegisterForm = () => {
           "Content-Type": "application/json",
         },
       });
-      setIsLoginForm(false);
+      setisSendingRequest(false);
       const data = await response.json();
 
       if (!response.ok) {
@@ -60,7 +60,7 @@ const LogRegisterForm = () => {
   return (
     <section className={styles.forms}>
       <div className={styles["form-container"]}>
-        <h1>{isLoginForm ? "Login" : "Sign up"}</h1>
+        <h1 className={styles["form-title"]}>{isLoginForm ? "Login" : "Sign up"}</h1>
         <form className={styles["form-element"]} onSubmit={submitHandler}>
           {!isLoginForm && <input type="text" id="username" placeholder="Username" ref={usernameRef} required></input>}
           <input type="email" id="email" placeholder="Email" ref={emailRef} required></input>
