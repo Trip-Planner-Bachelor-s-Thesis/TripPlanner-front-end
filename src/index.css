@@ -33,12 +33,10 @@ h6 {
   font-size: 3rem;
 }
 
-/* .leaflet-container {
-  height: 500px;
-  width: 80%;
-  margin: 5rem auto;
-} */
-
 .root-element-overflow {
   overflow: hidden;
+}
+
+.nav-link.active {
+  color: #aa65d8 !important;
 }
