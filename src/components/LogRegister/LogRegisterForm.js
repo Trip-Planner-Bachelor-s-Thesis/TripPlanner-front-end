@@ -49,8 +49,8 @@ const LogRegisterForm = () => {
         let errorMessage = "Authentication failed!";
         throw new Error(errorMessage);
       }
-      
-      logRegisterContext.login(data.idToken);
+      isLoginForm && logRegisterContext.login(data.idToken, false);
+      !isLoginForm && logRegisterContext.login(data.idToken, true);      
       navigate("/", { replace: true });
     } catch (err) {
       alert(err.message);

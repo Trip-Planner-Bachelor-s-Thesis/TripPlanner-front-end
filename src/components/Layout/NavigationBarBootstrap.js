@@ -42,11 +42,14 @@ const NavigationBarBootstrap = () => {
               Create trip
             </Nav.Link>
           )}
-          {logRegisterContext.token && <Avatar style={{ marginLeft: "0.5rem" }}>JG</Avatar>}
+          {logRegisterContext.token && <Avatar style={{ marginLeft: "0.5rem" }}></Avatar>}
           {logRegisterContext.token && (
             <NavDropdown>
               <NavDropdown.Item as={NavLink} to="/profile">
                 Profile
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/help">
+                Help
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item as={Button} onClick={logoutHandler}>

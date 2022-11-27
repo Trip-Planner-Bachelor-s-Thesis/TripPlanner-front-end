@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 import styles from "./TripDetailsAll.module.css";
 import TripInformation from "./TripInformation";
@@ -8,7 +10,8 @@ import Map from "../Map/Map";
 
 const TripDetailsAll = () => {
   const [trip, setTrip] = useState(null);
-  const [isDisplayingMap, setIsDisplayingMap] = useState(true);
+  // const [isDisplayingMap, setIsDisplayingMap] = useState(true);
+  const [tab, setTab] = useState("route");
   const { tripId } = useParams();
 
   useEffect(() => {
@@ -20,9 +23,9 @@ const TripDetailsAll = () => {
       });
   }, [tripId]);
 
-  const toggleHandler = () => {
-    setIsDisplayingMap((previousState) => !previousState);
-  };
+  // const toggleHandler = () => {
+  //   setIsDisplayingMap((previousState) => !previousState);
+  // };
 
   // const submitFormHandler = async () => {
   //   let tripData = {
@@ -50,13 +53,21 @@ const TripDetailsAll = () => {
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
         {trip && <TripInformation tripData={trip} />}
-        {trip && (
+        {/* {trip && (
           <button type="button" className={styles["button-switch-display-users"]} onClick={toggleHandler}>
             {isDisplayingMap ? "Show participants" : "Show route"}
           </button>
+        )} */}
+        {trip && (
+          <div className={styles["tabs-container"]}>
+            <Tabs activeKey={tab} onSelect={(tabName) => setTab(tabName)} id="justify-tab-example" justify>
+              <Tab eventKey="route" title="Show Route"></Tab>
+              <Tab eventKey="participants" title="Show Participants"></Tab>
+            </Tabs>
+          </div>
         )}
-        {trip && isDisplayingMap && <Map userWaypointsInput={trip.waypoints} />}
-        {trip && !isDisplayingMap && <TripParticipants />}
+        {trip && tab === "route" && <Map userWaypointsInput={trip.waypoints} />}
+        {trip && tab === "participants" && <TripParticipants />}
       </div>
     </section>
   );

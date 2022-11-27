@@ -3,6 +3,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: "Public Sans";
 }
 
 body {
@@ -34,7 +35,7 @@ h6 {
 }
 
 .root-element-overflow {
-  overflow: hidden;
+  overflow: auto;
 }
 
 .nav-link.active {
