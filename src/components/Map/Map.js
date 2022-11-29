@@ -12,8 +12,6 @@ const Map = (props) => {
     userWaypointsInput = false;
   }
 
-  console.log("aaaaa");
-
   useEffect(() => {
     var container = L.DomUtil.get("map");
     if (container != null) {

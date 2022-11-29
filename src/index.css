@@ -41,3 +41,27 @@ h6 {
 .nav-link.active {
   color: #aa65d8 !important;
 }
+
+.leaflet-routing-container {
+  border-radius: 8px;
+}
+
+.leaflet-routing-geocoders {
+  border: none;
+}
+
+.leaflet-routing-geocoder {
+  border-radius: 8px !important;
+}
+
+.leaflet-routing-add-waypoint  {
+  margin-top: 0.25rem !important;
+}
+
+.leaflet-routing-alternatives-container {
+  display: none !important;
+}
+
+/* .leaflet-routing-alternatives-container table {
+  display: none !important;
+} */
