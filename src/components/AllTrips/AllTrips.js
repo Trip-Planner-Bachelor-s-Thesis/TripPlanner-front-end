@@ -6,7 +6,12 @@ import FilterTrips from "./FilterTrips";
 import PaginationList from "./PaginationList";
 import SpinnerBox from "./SpinnerBox";
 
-const initialState = { tripsPerPage: 4, currentPage: 1, firstIndex: 0, lastIndex: 4 };
+const initialState = {
+  tripsPerPage: 4,
+  currentPage: 1,
+  firstIndex: 0,
+  lastIndex: 4,
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -21,15 +26,28 @@ const reducer = (state, action) => {
       return {
         ...state,
         currentPage: Number(state.currentPage) - 1,
-        firstIndex: (Number(state.currentPage) - 2) * Number(state.tripsPerPage),
-        lastIndex: (Number(state.currentPage) - 2) * Number(state.tripsPerPage) + 4,
+        firstIndex:
+          (Number(state.currentPage) - 2) * Number(state.tripsPerPage),
+        lastIndex:
+          (Number(state.currentPage) - 2) * Number(state.tripsPerPage) + 4,
       };
     case "change":
+      if (action.page === undefined) {
+        return { ...state };
+      } else {
+        return {
+          ...state,
+          currentPage: Number(action.page),
+          firstIndex: (Number(action.page) - 1) * Number(state.tripsPerPage),
+          lastIndex: Number(action.page) * Number(state.tripsPerPage),
+        };
+      }
+    case "reset":
       return {
         ...state,
-        currentPage: Number(action.page),
-        firstIndex: (Number(action.page) - 1) * Number(state.tripsPerPage),
-        lastIndex: Number(action.page) * Number(state.tripsPerPage),
+        currentPage: 1,
+        firstIndex: 0,
+        lastIndex: 4,
       };
     default:
       throw new Error();
@@ -43,7 +61,9 @@ const AllTrips = () => {
   const [paginationState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch("https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json")
+    fetch(
+      "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json"
+    )
       .then((response) => response.json())
       .then((data) => {
         let trips = [];
@@ -72,27 +92,38 @@ const AllTrips = () => {
   const pageNumberClickHandler = (pageNumber) => {
     dispatch({ type: "change", page: pageNumber });
   };
+  const resetPage = () => {
+    dispatch({ type: "reset" });
+  };
 
   return (
     <section>
       {isSendingRequest && <SpinnerBox />}
-      {allTrips && <FilterTrips onFilterHandler={filterHandler} trips={allFetchedTrips}></FilterTrips>}
+      {allTrips && (
+        <FilterTrips
+          onFilterHandler={filterHandler}
+          onResetPage={resetPage}
+          trips={allFetchedTrips}
+        ></FilterTrips>
+      )}
       {allTrips &&
         (allTrips.length === 0 ? (
           <p className={styles["no-trips-found"]}>No trips found</p>
         ) : (
           <ul className={styles["list-of-trips"]}>
-            {allTrips.slice(paginationState.firstIndex, paginationState.lastIndex).map((trip) => (
-              <SingleTrip
-                key={trip.id}
-                id={trip.id}
-                date={trip.date}
-                type={trip.type}
-                preferences={trip.preferences}
-                start={trip.waypoints[0].name}
-                end={trip.waypoints[trip.waypoints.length - 1].name}
-              ></SingleTrip>
-            ))}
+            {allTrips
+              .slice(paginationState.firstIndex, paginationState.lastIndex)
+              .map((trip) => (
+                <SingleTrip
+                  key={trip.id}
+                  id={trip.id}
+                  date={trip.date}
+                  type={trip.type}
+                  preferences={trip.preferences}
+                  start={trip.waypoints[0].name}
+                  end={trip.waypoints[trip.waypoints.length - 1].name}
+                ></SingleTrip>
+              ))}
           </ul>
         ))}
       {allTrips && allTrips.length > 4 && (

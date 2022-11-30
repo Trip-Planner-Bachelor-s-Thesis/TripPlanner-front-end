@@ -7,12 +7,12 @@ const PaginationList = (props) => {
   };
 
   const nextClick = (event) => {
-    console.log(event.target);
+    // console.log(event.target);
     props.onNextHandler();
   };
 
   const pageNumberClick = (event) => {
-    console.log(event.target);
+    // console.log(event.target);
     props.onPageNumberHandler(event.target.text);
   };
 

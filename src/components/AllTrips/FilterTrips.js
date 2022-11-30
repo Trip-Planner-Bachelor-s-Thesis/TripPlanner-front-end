@@ -29,7 +29,7 @@ const DropdownList = (props) => {
     setEnteredEndDate(event.target.value);
   };
 
-  const clickHandler = (event) => {
+  const filterHandler = (event) => {
     event.preventDefault();
     let filteredTrips = props.trips;
     if (enteredType) {
@@ -45,6 +45,7 @@ const DropdownList = (props) => {
       filteredTrips = filteredTrips.filter(checkEndDate.bind(this, enteredEndDate));
     }
     props.onFilterHandler(filteredTrips);
+    props.onResetPage();
   };
 
   const resetHandler = () => {
@@ -53,6 +54,7 @@ const DropdownList = (props) => {
     setEnteredType("");
     setEnteredPreferences("");
     props.onFilterHandler(props.trips);
+    props.onResetPage();
   };
 
   return (
@@ -115,7 +117,7 @@ const DropdownList = (props) => {
           </select>
         </div>
 
-        <button type="button" onClick={clickHandler}>
+        <button type="button" onClick={filterHandler}>
           Filter
         </button>
         <button type="button" onClick={resetHandler}>
