@@ -1,4 +1,6 @@
 .new-post-control {
+  height: 20%;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   padding: 1.5rem 1.5rem;
   /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); */

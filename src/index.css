@@ -58,9 +58,9 @@ h6 {
   margin-top: 0.25rem !important;
 }
 
-.leaflet-routing-alternatives-container {
+/* .leaflet-routing-alternatives-container {
   display: none !important;
-}
+} */
 
 /* .leaflet-routing-alternatives-container table {
   display: none !important;
