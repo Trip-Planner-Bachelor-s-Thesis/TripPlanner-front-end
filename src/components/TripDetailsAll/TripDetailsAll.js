@@ -4,7 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
 import styles from "./TripDetailsAll.module.css";
-import TripInformation from "../Utils/TripInformation";
+import TripInformation from "../Utils/TripInformationSingle";
 import TripParticipants from "./TripParticipants";
 import Map from "../Map/Map";
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./SingleTrip.module.css";
 import DateBox from "../Utils/DateBox";
-import TripDescription from "../Utils/TripDescription";
+import TripDescription from "../Utils/TripDescriptionList";
 
 const SingleTrip = (props) => {
   return (

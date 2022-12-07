@@ -1,8 +1,9 @@
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import LogRegisterContext from "../../contexts/log-register-context";
 import styles from "./LogRegisterForm.module.css";
+import LogRegisterContext from "../../contexts/log-register-context";
+import SpinnerBox from "../Utils/SpinnerBox";
 
 const LOGIN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
 const REGISTER_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
@@ -65,7 +66,7 @@ const LogRegisterForm = () => {
           {!isLoginForm && <input type="text" id="username" placeholder="Username" ref={usernameRef} required></input>}
           <input type="email" id="email" placeholder="Email" ref={emailRef} required></input>
           <input type="password" id="password" placeholder="Password" ref={passwordRef} required></input>
-          {isSendingRequest && <p className={styles["send-request-paragraph"]}>Sending request</p>}
+          {isSendingRequest && <SpinnerBox />}
           {!isSendingRequest && (
             <button className={styles["submit-button"]} type="submit">
               {isLoginForm ? "Login" : "Create"}
