@@ -13,8 +13,8 @@
     width: 20%;
     margin: 0 auto;
     padding: 1rem;
-    /* background-color: #4b4b4b;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); */
+    background-color: #4b4b4b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
 }
 
@@ -28,22 +28,23 @@
 .form-title {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: black;
+}
+
+.form-container h1 {
+    color: white;
 }
 
 .form-element input {
     width: 100%;
     font: inherit;
-    border-radius: 3px;
+    border-radius: 6px;
     padding: 0.25rem;
     margin-bottom: 1rem;
 }
 
 .submit-button {
-    /* background-color: #aa65d8;
-    border: 1px solid #aa65d8; */
-    background-color: #0275d8;
-    border: 1px solid #0275d8;
+    background-color: #aa65d8;
+    border: 1px solid #aa65d8;
     border-radius: 6px;
     cursor: pointer;
     font: inherit;
@@ -54,27 +55,24 @@
 }
 
 .submit-button:hover {
-    /* background-color: #9418e7;
-    border: 1px solid #9418e7; */
-    background-color: #138af1;
-    border: 1px solid #138af1;
+    background-color: #9418e7;
+    border: 1px solid #9418e7;
 }
 
 .toggle-button {
     background-color: transparent;
-    /* color: white; */
-    color: #0275d8;
+    color: white;
     border: none;
     cursor: pointer;
     font: inherit;
 }
 
 .toggle-button:hover {
-    color: #138af1;
+    color: #aa65d8;
 }
 
 .send-request-paragraph {
-    color: black;
+    color: white;
 }
 
 .submit-error-info {

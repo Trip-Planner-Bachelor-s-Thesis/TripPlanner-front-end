@@ -1,8 +1,7 @@
-// import LogRegisterForm from "../components/LogRegister/LogRegisterForm";
-import LogRegisterFormNew from "../components/LogRegister/LogRegisterFormNew";
+import LogRegisterForm from "../components/LogRegister/LogRegisterForm";
 
 const LogRegisterPage = () => {
-  return <LogRegisterFormNew />;
+  return <LogRegisterForm />;
 };
 
 export default LogRegisterPage;

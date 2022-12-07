@@ -73,7 +73,7 @@ const LogRegisterForm = () => {
           )}
           {isLoginForm && (
             <button className={styles["toggle-button"]} type="button" onClick={toggleHandler}>
-              Create new account
+              Don't have an account yet?
             </button>
           )}
           {!isLoginForm && (

@@ -3,8 +3,8 @@ import { useState, useEffect, useReducer } from "react";
 import styles from "./AllTrips.module.css";
 import SingleTrip from "./SingleTrip";
 import FilterTrips from "./FilterTrips";
-import PaginationList from "./PaginationList";
-import SpinnerBox from "./SpinnerBox";
+import PaginationList from "../Utils/PaginationList";
+import SpinnerBox from "../Utils/SpinnerBox";
 
 const initialState = {
   tripsPerPage: 4,

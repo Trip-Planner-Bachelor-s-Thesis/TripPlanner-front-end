@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./NewTrip.module.css";
 import DropdownList from "./DropdownList";
-import MapNew from "../Map/MapNew";
-// import Map from "../Map/Map";
+import Map from "../Map/Map";
 
 const NewTrip = () => {
   const navigate = useNavigate();
@@ -67,8 +66,7 @@ const NewTrip = () => {
           enableCreateButtonFlag={enableCreateButtonFlag}
           enteredType={enteredType}
         />
-        {/* <Map onWaypointsHandler={waypointsHandler} userWaypointsInput={[]} /> */}
-        <MapNew onWaypointsHandler={waypointsHandler} userWaypointsInput={[]} />
+        <Map onWaypointsHandler={waypointsHandler} userWaypointsInput={[]} />
       </div>
     </section>
   );

@@ -5,8 +5,8 @@ import Tabs from "react-bootstrap/Tabs";
 import styles from "./MyTrips.module.css";
 import SingleTrip from "./SingleTrip";
 // import FilterTrips from "./FilterTrips";
-import PaginationList from "./PaginationList";
-import SpinnerBox from "./SpinnerBox";
+import PaginationList from "../Utils/PaginationList";
+import SpinnerBox from "../Utils/SpinnerBox";
 
 const initialState = { tripsPerPage: 4, currentPage: 1, firstIndex: 0, lastIndex: 4 };
 

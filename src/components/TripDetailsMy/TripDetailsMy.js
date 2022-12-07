@@ -4,10 +4,9 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
 import styles from "./TripDetailsMy.module.css";
-import TripInformation from "./TripInformation";
+import TripInformation from "../Utils/TripInformation";
 import TripParticipants from "./TripParticipants";
-// import Map from "../Map/Map";
-import MapNew from "../Map/MapNew";
+import Map from "../Map/Map";
 
 const TripDetailsMy = () => {
   const [trip, setTrip] = useState(null);
@@ -44,7 +43,7 @@ const TripDetailsMy = () => {
           </div>
         )}
         {trip && tab === "route" && (
-          <MapNew userWaypointsInput={trip.waypoints} />
+          <Map userWaypointsInput={trip.waypoints} />
         )}
         {trip && tab === "participants" && <TripParticipants />}
       </div>

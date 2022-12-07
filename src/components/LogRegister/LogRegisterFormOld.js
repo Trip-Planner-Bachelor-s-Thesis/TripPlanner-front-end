@@ -2,12 +2,12 @@ import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import LogRegisterContext from "../../contexts/log-register-context";
-import styles from "./LogRegisterFormNew.module.css";
+import styles from "./LogRegisterFormOld.module.css";
 
 const LOGIN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
 const REGISTER_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
 
-const LogRegisterForm = () => {
+const LogRegisterFormOld = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [isSendingRequest, setisSendingRequest] = useState(false);
   const logRegisterContext = useContext(LogRegisterContext);
@@ -73,7 +73,7 @@ const LogRegisterForm = () => {
           )}
           {isLoginForm && (
             <button className={styles["toggle-button"]} type="button" onClick={toggleHandler}>
-              Don't have an account yet?
+              Create new account
             </button>
           )}
           {!isLoginForm && (
@@ -87,4 +87,4 @@ const LogRegisterForm = () => {
   );
 };
 
-export default LogRegisterForm;
+export default LogRegisterFormOld;
