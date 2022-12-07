@@ -1,0 +1,83 @@
+.forms {
+    height: 100%;
+    padding-top: 3rem;
+    /* background-image: url(https://hips.hearstapps.com/hmg-prod/images/two-cyclists-descent-1529528894.jpg);
+    background-position: bottom;
+    background-size: cover; */
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    margin: 0 auto;
+    padding: 1rem;
+    /* background-color: #4b4b4b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); */
+    border-radius: 6px;
+}
+
+.form-element {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: black;
+}
+
+.form-element input {
+    width: 100%;
+    font: inherit;
+    border-radius: 3px;
+    padding: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.submit-button {
+    /* background-color: #aa65d8;
+    border: 1px solid #aa65d8; */
+    background-color: #0275d8;
+    border: 1px solid #0275d8;
+    border-radius: 6px;
+    cursor: pointer;
+    font: inherit;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.submit-button:hover {
+    /* background-color: #9418e7;
+    border: 1px solid #9418e7; */
+    background-color: #138af1;
+    border: 1px solid #138af1;
+}
+
+.toggle-button {
+    background-color: transparent;
+    /* color: white; */
+    color: #0275d8;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+}
+
+.toggle-button:hover {
+    color: #138af1;
+}
+
+.send-request-paragraph {
+    color: black;
+}
+
+.submit-error-info {
+    color: #ec1919;
+    margin: 0
+}

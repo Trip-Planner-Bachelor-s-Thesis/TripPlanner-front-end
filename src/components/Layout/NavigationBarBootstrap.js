@@ -16,7 +16,7 @@ const NavigationBarBootstrap = () => {
     logRegisterContext.logout();
   };
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className="navigation-bar-bootstrap">
       <Container fluid style={{ margin: "0 10rem" }}>
         <Navbar.Brand as={NavLink} to="/">
           Trip Planner
