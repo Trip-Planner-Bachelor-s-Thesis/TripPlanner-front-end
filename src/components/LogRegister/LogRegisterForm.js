@@ -5,8 +5,10 @@ import styles from "./LogRegisterForm.module.css";
 import LogRegisterContext from "../../contexts/log-register-context";
 import SpinnerBox from "../Utils/SpinnerBox";
 
-const LOGIN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
-const REGISTER_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
+const LOGIN_URL =
+  "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
+const REGISTER_URL =
+  "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCAh7CrGjATeyccm4Yw8dTpxNd4ZdS6aN0";
 
 const LogRegisterForm = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -51,7 +53,7 @@ const LogRegisterForm = () => {
         throw new Error(errorMessage);
       }
       isLoginForm && logRegisterContext.login(data.idToken, false);
-      !isLoginForm && logRegisterContext.login(data.idToken, true);      
+      !isLoginForm && logRegisterContext.login(data.idToken, true);
       navigate("/", { replace: true });
     } catch (err) {
       alert(err.message);
@@ -61,11 +63,33 @@ const LogRegisterForm = () => {
   return (
     <section className={styles.forms}>
       <div className={styles["form-container"]}>
-        <h1 className={styles["form-title"]}>{isLoginForm ? "Login" : "Sign up"}</h1>
+        <h1 className={styles["form-title"]}>
+          {isLoginForm ? "Login" : "Sign up"}
+        </h1>
         <form className={styles["form-element"]} onSubmit={submitHandler}>
-          {!isLoginForm && <input type="text" id="username" placeholder="Username" ref={usernameRef} required></input>}
-          <input type="email" id="email" placeholder="Email" ref={emailRef} required></input>
-          <input type="password" id="password" placeholder="Password" ref={passwordRef} required></input>
+          {!isLoginForm && (
+            <input
+              type="text"
+              id="username"
+              placeholder="Username"
+              ref={usernameRef}
+              required
+            ></input>
+          )}
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            ref={emailRef}
+            required
+          ></input>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            ref={passwordRef}
+            required
+          ></input>
           {isSendingRequest && <SpinnerBox />}
           {!isSendingRequest && (
             <button className={styles["submit-button"]} type="submit">
@@ -73,12 +97,20 @@ const LogRegisterForm = () => {
             </button>
           )}
           {isLoginForm && (
-            <button className={styles["toggle-button"]} type="button" onClick={toggleHandler}>
+            <button
+              className={styles["toggle-button"]}
+              type="button"
+              onClick={toggleHandler}
+            >
               Don't have an account yet?
             </button>
           )}
           {!isLoginForm && (
-            <button className={styles["toggle-button"]} type="button" onClick={toggleHandler}>
+            <button
+              className={styles["toggle-button"]}
+              type="button"
+              onClick={toggleHandler}
+            >
               Login with existing account
             </button>
           )}

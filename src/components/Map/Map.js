@@ -2,63 +2,50 @@ import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet-control-geocoder";
 import "lrm-graphhopper";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { useEffect } from "react";
 
 import styles from "./Map.module.css";
-import { useState } from "react";
 
 const Map = (props) => {
-  return (
-    <MapContainer
-      className={styles.map}
-      center={[52.2297, 21.0122]}
-      zoom={6}
-      scrollWheelZoom={false}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <RoutingControl
-        onWaypointsHandler={props.onWaypointsHandler}
-        userWaypointsInput={props.userWaypointsInput}
-      />
-    </MapContainer>
-  );
-};
-
-const RoutingControl = (props) => {
-  const map = useMap();
-  const [isRouting, setIsRouting] = useState(false);
-  let control;
-
-  let userWaypointsInputTransformed = [];
-  if (props.userWaypointsInput.length !== 0) {
-    props.userWaypointsInput.forEach((element) => {
-      let waypoint = L.Routing.waypoint(
-        L.latLng(element.lat, element.lng),
-        element.name
-      );
-      userWaypointsInputTransformed.push(waypoint);
-    });
+  let onWaypointsHandler = props.onWaypointsHandler;
+  let userWaypointsInput = props.userWaypointsInput;
+  if (userWaypointsInput.length === 0) {
+    userWaypointsInput = false;
   }
 
-  console.log("test");
+  useEffect(() => {
+    // var container = L.DomUtil.get("map");
+    // if (container != null) {
+    //   container._leaflet_id = null;
+    // }
 
-  if (!isRouting) {
-    control = L.Routing.control({
+    var map = L.map("map").setView([52.2297, 21.0122], 6);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    let userWaypointsInputTransformed = [];
+    if (userWaypointsInput) {
+      userWaypointsInput.forEach((element) => {
+        let waypoint = L.Routing.waypoint(L.latLng(element.lat, element.lng), element.name);
+        userWaypointsInputTransformed.push(waypoint);
+      });
+    }
+
+    var control = L.Routing.control({
       waypoints: userWaypointsInputTransformed,
-      routeWhileDragging: false,
+      routeWhileDragging: true,
       router: L.Routing.graphHopper("44c78c7e-16d3-4fd5-80a9-fa1b12807da7", {
         urlParameters: {
           vehicle: "bike",
         },
       }),
-      geocoder: L.Control.Geocoder.nominatim(),
+      geocoder: L.Control.Geocoder.nominatim()     
     })
       .on("routeselected", function (e) {
-        if (props.userWaypointsInput.length === 0) {
-          let route = e.route;
+        if (!userWaypointsInput) {
+          var route = e.route;
           let userWaypointsReturn = [];
           route.inputWaypoints.forEach((element) => {
             let waypoint = {
@@ -68,13 +55,13 @@ const RoutingControl = (props) => {
             };
             userWaypointsReturn.push(waypoint);
           });
-          props.onWaypointsHandler(userWaypointsReturn);
+          onWaypointsHandler(userWaypointsReturn);
         }
       })
       .addTo(map);
 
     map.on("click", function (e) {
-      let container = L.DomUtil.create("div"),
+      var container = L.DomUtil.create("div"),
         startBtn = createButton("Start from this location", container),
         destBtn = createButton("Go to this location", container);
 
@@ -90,12 +77,13 @@ const RoutingControl = (props) => {
         map.closePopup();
       });
     });
-    setIsRouting(true);
-  }
+  }, [onWaypointsHandler, userWaypointsInput]);
+
+  return <div id="map" className={styles.map} />;
 };
 
 function createButton(label, container) {
-  let btn = L.DomUtil.create("button", "", container);
+  var btn = L.DomUtil.create("button", "", container);
   btn.setAttribute("type", "button");
   btn.innerHTML = label;
   return btn;
