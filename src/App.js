@@ -1,93 +1,43 @@
-import { useContext } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 
-import LogRegisterContext from "./contexts/log-register-context";
+import "./App.css";
+import NavigationBarBootstrap from "./components/Layout/NavigationBarBootstrap";
 import MainContent from "./components/Layout/MainContent";
-import LogRegisterPage from "./pages/LogRegisterPage";
-import HomePage from "./pages/HomePage";
-import NotFoundPage from "./pages/NotFoundPage";
-import NewTripPage from "./pages/NewTripPage";
-import AllTripsPage from "./pages/AllTripsPage";
-import TripDetailsAllPage from "./pages/TripDetailsAllPage";
-import MyTripsPage from "./pages/MyTripsPage";
-import TripDetailsMyPage from "./pages/TripDetailsMyPage";
-import ProfilePage from "./pages/ProfilePage";
-import HelpPage from "./pages/HelpPage";
-import PostsPage from "./pages/PostsPage";
+import LogRegisterContext from "./contexts/log-register-context";
 
 function App() {
-  const logRegisterContext = useContext(LogRegisterContext);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [firstLogin, setFirstLogin] = useState(false);
+  console.log(localStorage.getItem("token"));
+
+  const loginHandler = (token, isFirstLogin) => {
+    localStorage.setItem("token", token);
+    setFirstLogin(isFirstLogin);
+    setToken(token);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
+
+  const updateFirstLoginHandler = () => {
+    setFirstLogin(false);
+  };
+
+  const initialContext = {
+    token: token,
+    firstLogin: firstLogin,
+    login: loginHandler,
+    logout: logoutHandler,
+    updateFirstLogin: updateFirstLoginHandler,
+  };
 
   return (
-    <MainContent>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        {!logRegisterContext.token && (
-          <Route path="/auth" element={<LogRegisterPage />} />
-        )}
-        <Route
-          path="/profile"
-          element={
-            logRegisterContext.token ? <ProfilePage /> : <Navigate to="/auth" />
-          }
-        />
-        <Route
-          path="/help"
-          element={
-            logRegisterContext.token ? <HelpPage /> : <Navigate to="/auth" />
-          }
-        />
-        <Route
-          path="/new-trip"
-          element={
-            logRegisterContext.token ? <NewTripPage /> : <Navigate to="/auth" />
-          }
-        />
-        <Route
-          path="/trips"
-          element={
-            logRegisterContext.token ? (
-              <AllTripsPage />
-            ) : (
-              <Navigate to="/auth" />
-            )
-          }
-        />
-        <Route
-          path="/trips/:tripId"
-          element={
-            logRegisterContext.token ? (
-              <TripDetailsAllPage />
-            ) : (
-              <Navigate to="/auth" />
-            )
-          }
-        />
-        <Route
-          path="/my-trips"
-          element={
-            logRegisterContext.token ? <MyTripsPage /> : <Navigate to="/auth" />
-          }
-        />
-        <Route
-          path="/my-trips/:tripId"
-          element={
-            logRegisterContext.token ? (
-              <TripDetailsMyPage />
-            ) : (
-              <Navigate to="/auth" />
-            )
-          }
-        />
-        <Route
-          path="/my-trips/:tripId/chat"
-          element={
-            logRegisterContext.token ? <PostsPage /> : <Navigate to="/auth" />
-          }
-        />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </MainContent>
+    <LogRegisterContext.Provider value={initialContext}>
+      <NavigationBarBootstrap />
+      <MainContent />
+    </LogRegisterContext.Provider>
   );
 }
 

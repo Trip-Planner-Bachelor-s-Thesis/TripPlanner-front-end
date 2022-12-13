@@ -1,7 +1,9 @@
-import styles from "./TripInformationSingle.module.css";
+import styles from "./TripInformation.module.css";
 import { options } from "../../helpers/helpers";
+import { useNavigate } from "react-router-dom";
 
-const TripInformationSingle = (props) => {
+const TripInformation = (props) => {
+  const navigate = useNavigate();
   const date = new Date(props.tripData.date);
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -14,6 +16,10 @@ const TripInformationSingle = (props) => {
     month = "0" + month;
   }
 
+  const chatHandler = () => {
+    navigate("chat");
+  };
+
   return (
     <div className={styles["new-trip-control"]}>
       <form>
@@ -25,7 +31,7 @@ const TripInformationSingle = (props) => {
               id="tripDate"
               value={`${day}\\${month}\\${year}`}
               disabled
-            />{" "}
+            />
           </div>
           <div className={styles["label-box"]}>
             <label htmlFor="type">Type</label>
@@ -34,7 +40,7 @@ const TripInformationSingle = (props) => {
               id="type"
               value={options[props.tripData.type]}
               disabled
-            />{" "}
+            />
           </div>
           <div className={styles["label-box"]}>
             <label htmlFor="preferences">Preferences</label>
@@ -43,13 +49,15 @@ const TripInformationSingle = (props) => {
               id="preferences"
               value={options[props.tripData.preferences]}
               disabled
-            />{" "}
+            />
           </div>
-          <button type="submit">Join</button>
+          <button type="submit" onClick={chatHandler}>
+            Chat
+          </button>
         </div>
       </form>
     </div>
   );
 };
 
-export default TripInformationSingle;
+export default TripInformation;

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
+import Tabs from "@mui/joy/Tabs";
+import TabList from "@mui/joy/TabList";
+import Tab from "@mui/joy/Tab";
 
 import styles from "./TripDetailsAll.module.css";
 import TripInformation from "../Utils/TripInformationSingle";
@@ -10,12 +11,13 @@ import Map from "../Map/Map";
 
 const TripDetailsAll = () => {
   const [trip, setTrip] = useState(null);
-  // const [isDisplayingMap, setIsDisplayingMap] = useState(true);
-  const [tab, setTab] = useState("route");
+  const [index, setIndex] = useState(0);
   const { tripId } = useParams();
 
   useEffect(() => {
-    fetch(`https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips/${tripId}.json`)
+    fetch(
+      `https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips/${tripId}.json`
+    )
       .then((response) => response.json())
       .then((data) => {
         setTrip(data);
@@ -27,21 +29,35 @@ const TripDetailsAll = () => {
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
         {trip && <TripInformation tripData={trip} />}
-        {/* {trip && (
-          <button type="button" className={styles["button-switch-display-users"]} onClick={toggleHandler}>
-            {isDisplayingMap ? "Show participants" : "Show route"}
-          </button>
-        )} */}
         {trip && (
           <div className={styles["tabs-container"]}>
-            <Tabs activeKey={tab} onSelect={(tabName) => setTab(tabName)} id="justify-tab-example" justify>
-              <Tab eventKey="route" title="Show Route"></Tab>
-              <Tab eventKey="participants" title="Show Participants"></Tab>
+            <Tabs
+              aria-label="Outlined tabs"
+              value={index}
+              onChange={(event, value) => setIndex(value)}
+              sx={{ borderRadius: "lg" }}
+            >
+              <TabList variant="outlined">
+                <Tab
+                  variant={index === 0 ? "soft" : "plain"}
+                  color={index === 0 ? "primary" : "neutral"}
+                >
+                  Show Route
+                </Tab>
+                <Tab
+                  variant={index === 1 ? "soft" : "plain"}
+                  color={index === 1 ? "primary" : "neutral"}
+                >
+                  Show Participants
+                </Tab>
+              </TabList>
             </Tabs>
           </div>
         )}
-        {trip && tab === "route" && <Map userWaypointsInput={trip.waypoints} />}
-        {trip && tab === "participants" && <TripParticipants />}
+        {trip && index === 0 && (
+          <Map userWaypointsInput={trip.waypoints} staticMap={true} />
+        )}
+        {trip && index === 1 && <TripParticipants />}
       </div>
     </section>
   );

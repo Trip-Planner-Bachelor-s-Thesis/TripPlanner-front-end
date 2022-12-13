@@ -7,17 +7,14 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Context } from "./contexts/log-register-context";
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <CssVarsProvider>
-    <Context>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Context>
   </CssVarsProvider>
 );
 

@@ -8,9 +8,12 @@ function DateBox(props) {
 
   return (
     <div className={styles["trip-date"]}>
-      <div className={styles["trip-date-month"]}>{month}</div>
-      <div className={styles["trip-date-year"]}>{year}</div>
-      <div className={styles["trip-date-day"]}>{day}</div>
+      <div className={styles["trip-date-month"]} data-testid="month">{month}</div>
+      <div className={styles["trip-date-year"]} data-testid="year">{year}</div>
+      <div className={styles["trip-date-day"]} data-testid="day">{day}</div>
+      {/* <input className={styles["trip-date-month"]} value={month} disabled></input>
+      <input className={styles["trip-date-year"]} value={year} disabled></input>
+      <input className={styles["trip-date-day"]} value={day} disabled></input> */}
     </div>
   );
 }

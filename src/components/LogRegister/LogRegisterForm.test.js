@@ -16,7 +16,7 @@ describe("LogRegisterForm component", () => {
     // ... nothing
 
     // Assert
-    expect(screen.getByRole("heading")).toBeInTheDocument();
+    expect(screen.getByRole("heading")).toHaveTextContent(/^Login$/);
     expect(screen.getByPlaceholderText(/^email$/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^password$/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /^Login$/ })).toBeInTheDocument();
@@ -39,7 +39,7 @@ describe("LogRegisterForm component", () => {
     );
 
     // Assert
-    expect(screen.getByRole("heading")).toBeInTheDocument();
+    expect(screen.getByRole("heading")).toHaveTextContent(/^Sign up$/);
     expect(screen.getByPlaceholderText(/^username$/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^email$/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^password$/i)).toBeInTheDocument();

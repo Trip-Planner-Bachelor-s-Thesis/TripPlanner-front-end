@@ -1,12 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { BrowserRouter } from "react-router-dom";
 import FilterTrips from "./FilterTrips";
 
 describe("FilterTrips component", () => {
   test("renders filter dropdowns correctly", () => {
     // Arrange
-    render(<FilterTrips />);
+    render(<FilterTrips />); 
 
     // Act
     // ... nothing

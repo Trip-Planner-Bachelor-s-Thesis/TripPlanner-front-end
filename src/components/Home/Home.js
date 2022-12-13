@@ -27,7 +27,7 @@ const Home = () => {
         <Modal.Body>Click Go to button to get to know more about the functionalities</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={closeModalRedirect}>Go to</Button>
-          <Button variant="secondary" onClick={closeModal}>
+          <Button variant="secondary" onClick={closeModal} data-testid="close">
             Close
           </Button>
         </Modal.Footer>

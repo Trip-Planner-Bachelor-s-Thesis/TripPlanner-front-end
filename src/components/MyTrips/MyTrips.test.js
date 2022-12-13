@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import mockFetch from "../../mocks/mockFetch";
 import { BrowserRouter } from "react-router-dom";
-import AllTrips from "./AllTrips";
+import mockFetch from "../../mocks/mockFetch";
+import MyTrips from "./MyTrips";
 
-describe("AllTrips component", () => {
+describe("MyTrips component", () => {
   beforeEach(() => {
     jest.spyOn(window, "fetch").mockImplementation(mockFetch);
   });
@@ -12,11 +12,11 @@ describe("AllTrips component", () => {
     jest.restoreAllMocks();
   });
 
-  test("renders all trips page correctly", async () => {
+  test("renders my trips page correctly", async () => {
     // Arrange
     render(
       <BrowserRouter>
-        <AllTrips />
+        <MyTrips />
       </BrowserRouter>
     );
 
@@ -24,20 +24,22 @@ describe("AllTrips component", () => {
     // ... nothing
 
     // Assert
-    const startDateLabel = await screen.findByLabelText(/^Start date$/);
-    const endDateLabel = await screen.findByLabelText(/^End date$/);
-    expect(startDateLabel).toBeInTheDocument();
-    expect(endDateLabel).toBeInTheDocument();
-    expect(screen.getByLabelText(/^Trip type$/)).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: /^Car trip$/ }).selected).toBe(
-      false
-    );
-    expect(screen.getByRole("option", { name: /^Bike ride$/ }).selected).toBe(
-      false
-    );
-    expect(screen.getByLabelText(/^Trip preferences$/)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /^Filter$/ })).toBeEnabled();
-    expect(screen.getByRole("button", { name: /^Reset$/ })).toBeEnabled();
+    const createdFutureButton = await screen.findByRole("tab", {
+      name: /^Created future trips$/,
+    });
+    const joinedFutureButton = await screen.findByRole("tab", {
+      name: /^Joined future trips$/,
+    });
+    const createdPastButton = await screen.findByRole("tab", {
+      name: /^Created past trips$/,
+    });
+    const joinedPastButton = await screen.findByRole("tab", {
+      name: /^Joined past trips$/,
+    });
+    expect(createdFutureButton).toBeInTheDocument();
+    expect(joinedFutureButton).toBeInTheDocument();
+    expect(createdPastButton).toBeInTheDocument();
+    expect(joinedPastButton).toBeInTheDocument();
     expect(screen.getByTestId("month")).toHaveTextContent("November");
     expect(screen.getByTestId("year")).toHaveTextContent("2022");
     expect(screen.getByTestId("day")).toHaveTextContent("30");

@@ -9,6 +9,7 @@ import styles from "./Map.module.css";
 const Map = (props) => {
   let onWaypointsHandler = props.onWaypointsHandler;
   let userWaypointsInput = props.userWaypointsInput;
+  let isMapStatic = props.staticMap;
   if (userWaypointsInput.length === 0) {
     userWaypointsInput = false;
   }
@@ -22,13 +23,17 @@ const Map = (props) => {
     var map = L.map("map").setView([52.2297, 21.0122], 6);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
     let userWaypointsInputTransformed = [];
     if (userWaypointsInput) {
       userWaypointsInput.forEach((element) => {
-        let waypoint = L.Routing.waypoint(L.latLng(element.lat, element.lng), element.name);
+        let waypoint = L.Routing.waypoint(
+          L.latLng(element.lat, element.lng),
+          element.name
+        );
         userWaypointsInputTransformed.push(waypoint);
       });
     }
@@ -41,7 +46,7 @@ const Map = (props) => {
           vehicle: "bike",
         },
       }),
-      geocoder: L.Control.Geocoder.nominatim()     
+      geocoder: L.Control.Geocoder.nominatim(),
     })
       .on("routeselected", function (e) {
         if (!userWaypointsInput) {
@@ -77,7 +82,18 @@ const Map = (props) => {
         map.closePopup();
       });
     });
-  }, [onWaypointsHandler, userWaypointsInput]);
+
+    if (isMapStatic) {
+      let waypoints = document.getElementsByClassName("leaflet-routing-geocoder");
+      for (let waypoint of waypoints) {
+        waypoint.style.pointerEvents = "none"; 
+      }
+      let buttonAdd = document.getElementsByClassName("leaflet-routing-add-waypoint")
+      for (let button of buttonAdd) {
+        button.style.visibility = "hidden" ;
+      }
+    }
+  }, [onWaypointsHandler, userWaypointsInput, isMapStatic]);
 
   return <div id="map" className={styles.map} />;
 };

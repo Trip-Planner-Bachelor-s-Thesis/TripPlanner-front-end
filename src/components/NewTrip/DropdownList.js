@@ -26,12 +26,19 @@ const DropdownList = (props) => {
         <div className={styles["form-container"]}>
           <div className={styles["label-box"]}>
             <label htmlFor="tripDate">Trip date</label>
-            <input type="date" id="tripDate" min={new Date().toISOString().split("T")[0]} max="2023-12-31" onChange={dateDropDownHandler} />
+            <input
+              type="date"
+              id="tripDate"
+              min={new Date().toISOString().split("T")[0]}
+              max="2023-12-31"
+              onChange={dateDropDownHandler}
+              data-testid="date"
+            />
           </div>
 
           <div className={styles["label-box"]}>
             <label htmlFor="type">Type</label>
-            <select id="type" onChange={typeDropDownHandler}>
+            <select id="type" onChange={typeDropDownHandler} data-testid="type">
               <option value="" hidden>
                 Choose
               </option>
@@ -42,7 +49,12 @@ const DropdownList = (props) => {
 
           <div className={styles["label-box"]}>
             <label htmlFor="preferences">Preferences</label>
-            <select id="preferences" onChange={preferencesDropDownHandler} disabled={!props.enteredType}>
+            <select
+              id="preferences"
+              onChange={preferencesDropDownHandler}
+              disabled={!props.enteredType}
+              data-testid="preferences"
+            >
               <option value="" hidden>
                 Choose
               </option>

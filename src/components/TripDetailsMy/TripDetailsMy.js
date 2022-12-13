@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
+import Tabs from "@mui/joy/Tabs";
+import TabList from "@mui/joy/TabList";
+import Tab from "@mui/joy/Tab";
 
 import styles from "./TripDetailsMy.module.css";
-import TripInformation from "../Utils/TripInformationSingle";
+// import TripInformation from "../Utils/TripInformationSingle";
+import TripInformation from "./TripInformation";
 import TripParticipants from "./TripParticipants";
 import Map from "../Map/Map";
 
 const TripDetailsMy = () => {
   const [trip, setTrip] = useState(null);
-  const [tab, setTab] = useState("route");
+  const [index, setIndex] = useState(0);
   const { tripId } = useParams();
 
   useEffect(() => {
@@ -24,7 +26,6 @@ const TripDetailsMy = () => {
       });
   }, [tripId]);
 
-
   return (
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
@@ -32,20 +33,32 @@ const TripDetailsMy = () => {
         {trip && (
           <div className={styles["tabs-container"]}>
             <Tabs
-              activeKey={tab}
-              onSelect={(tabName) => setTab(tabName)}
-              id="justify-tab-example"
-              justify
+              aria-label="Outlined tabs"
+              value={index}
+              onChange={(event, value) => setIndex(value)}
+              sx={{ borderRadius: "lg" }}
             >
-              <Tab eventKey="route" title="Show Route"></Tab>
-              <Tab eventKey="participants" title="Show Participants"></Tab>
+              <TabList variant="outlined">
+                <Tab
+                  variant={index === 0 ? "soft" : "plain"}
+                  color={index === 0 ? "primary" : "neutral"}
+                >
+                  Show Route
+                </Tab>
+                <Tab
+                  variant={index === 1 ? "soft" : "plain"}
+                  color={index === 1 ? "primary" : "neutral"}
+                >
+                  Show Participants
+                </Tab>
+              </TabList>
             </Tabs>
           </div>
         )}
-        {trip && tab === "route" && (
-          <Map userWaypointsInput={trip.waypoints} />
+        {trip && index === 0 && (
+          <Map userWaypointsInput={trip.waypoints} staticMap={true} />
         )}
-        {trip && tab === "participants" && <TripParticipants />}
+        {trip && index === 1 && <TripParticipants />}
       </div>
     </section>
   );
