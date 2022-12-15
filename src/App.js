@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import "./App.css";
 import NavigationBarBootstrap from "./components/Layout/NavigationBarBootstrap";
 import MainContent from "./components/Layout/MainContent";
 import LogRegisterContext from "./contexts/log-register-context";
@@ -12,7 +11,7 @@ function App() {
 
   const loginHandler = (token, isFirstLogin) => {
     localStorage.setItem("token", token);
-    setFirstLogin(isFirstLogin);
+    setFirstLogin(isFirstLogin); 
     setToken(token);
   };
 

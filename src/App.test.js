@@ -1,13 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import LogRegisterContext from "../../contexts/log-register-context";
-import NavigationBarBootstrap from "./NavigationBarBootstrap";
+import LogRegisterContext from "./contexts/log-register-context";
+import NavigationBarBootstrap from "./components/Layout/NavigationBarBootstrap";
+import MainContent from "./components/Layout/MainContent";
 
 function renderNavigationBar(context) {
   return render(
     <BrowserRouter>
       <LogRegisterContext.Provider value={context}>
         <NavigationBarBootstrap />
+        <MainContent />
       </LogRegisterContext.Provider>
     </BrowserRouter>
   );
@@ -45,6 +47,15 @@ describe("NavigationBarBootstrap component", () => {
     expect(
       screen.queryByRole("link", { name: /^login$/i })
     ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /^Welcome on Board!$/ })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("close")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /^Go to$/ })
+    ).not.toBeInTheDocument();
   });
 
   test("renders navigation bar correctly in case token is not provided", () => {
@@ -57,7 +68,6 @@ describe("NavigationBarBootstrap component", () => {
       updateFirstLogin: () => {},
     };
     renderNavigationBar(contextValue);
-
     // Act
     // ... nothing
 
@@ -74,6 +84,15 @@ describe("NavigationBarBootstrap component", () => {
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("link", { name: /^create trip$/i })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /^Welcome on Board!$/ })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("close")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /^Go to$/ })
     ).not.toBeInTheDocument();
   });
 });

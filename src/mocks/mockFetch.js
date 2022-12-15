@@ -19,6 +19,15 @@ const myTripsList = [
   },
 ];
 
+const postList = [
+  {
+    id: "-NISNGPSehqRi7-uvD1U",
+    author: "johnsmith96",
+    content: "There are many variations of passages of Lorem Ipsum available",
+    publishDate: "2022-12-04T13:43:57.820Z",
+  },
+];
+
 export default async function mockFetch(url) {
   switch (url) {
     case "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json": {
@@ -28,12 +37,11 @@ export default async function mockFetch(url) {
         json: async () => myTripsList,
       };
     }
-    case "https://dog.ceo/api/breed/husky/images":
-    case "https://dog.ceo/api/breed/cattledog/images": {
+    case "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/posts.json": {
       return {
         ok: true,
         status: 200,
-        json: async () => dogImagesResponse,
+        json: async () => postList,
       };
     }
     default: {
