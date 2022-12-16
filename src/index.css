@@ -44,22 +44,35 @@ h6 {
 }
 
 .leaflet-routing-container {
-  border-radius: 8px;
+  /* border-radius: 8px; */
+  border: none !important;
 }
 
 .leaflet-routing-geocoders {
-  border: none;
+  border: none !important;
 }
 
 .leaflet-routing-geocoder {
   border-radius: 8px !important;
 }
 
-.leaflet-routing-add-waypoint  {
+.leaflet-routing-add-waypoint {
   margin-top: 0.25rem !important;
 }
 
-.leaflet-routing-alternatives-container {
+leaflet-routing-alternatives-container {
+  display: none !important;
+}
+
+.leaflet-routing-alt {
+  display: none !important;
+}
+
+.leaflet-routing-alternatives-container h2 {
+  display: none !important;
+}
+
+.leaflet-routing-alternatives-container h3 {
   display: none !important;
 }
 
@@ -67,9 +80,9 @@ h6 {
   display: none !important;
 }
 
-.navigation-bar-bootstrap {
+/* .navigation-bar-bootstrap {
   background-color: #7646ef !important; 
-}
+} */
 
 .nav-item button {
   color: black !important;

@@ -1,18 +1,25 @@
+import Button from "@mui/joy/Button";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import Select from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
+import FormControl from "@mui/joy/FormControl";
+// import FormLabel from "@mui/joy/FormLabel";
+import Input from "@mui/joy/Input";
+import Typography from "@mui/joy/Typography";
+
 import styles from "./DropdownList.module.css";
-import { optionsCar } from "../../helpers/helpers";
-import { optionsBike } from "../../helpers/helpers";
 
 const DropdownList = (props) => {
-  const typeDropDownHandler = (event) => {
-    props.onTypeHandler(event.target.value);
-  };
-
-  const preferencesDropDownHandler = (event) => {
-    props.onPreferencesHandler(event.target.value);
+  const typeDropDownHandler = (event, value) => {
+    props.onTypeHandler(value);
   };
 
   const dateDropDownHandler = (event) => {
     props.onDateHandler(event.target.value);
+  };
+
+  const timeDropDownHandler = (event) => {
+    props.onTimeHandler(event.target.value);
   };
 
   const submitHandler = (event) => {
@@ -22,62 +29,41 @@ const DropdownList = (props) => {
 
   return (
     <div className={styles["new-trip-control"]}>
+      <Typography level="h6" sx={{ mb: 2 }}>Design new trip</Typography>
       <form onSubmit={submitHandler}>
         <div className={styles["form-container"]}>
-          <div className={styles["label-box"]}>
-            <label htmlFor="tripDate">Trip date</label>
-            <input
-              type="date"
-              id="tripDate"
-              min={new Date().toISOString().split("T")[0]}
-              max="2023-12-31"
-              onChange={dateDropDownHandler}
-              data-testid="date"
-            />
-          </div>
+          <FormControl>
+            {/* <FormLabel sx={{ alignSelf: "center" }}>Trip date</FormLabel> */}
+            <Input type="date" onChange={dateDropDownHandler} />
+          </FormControl>
 
-          <div className={styles["label-box"]}>
-            <label htmlFor="type">Type</label>
-            <select id="type" onChange={typeDropDownHandler} data-testid="type">
-              <option value="" hidden>
-                Choose
-              </option>
-              <option value="car">Car trip</option>
-              <option value="bike">Bike ride</option>
-            </select>
-          </div>
+          <FormControl sx={{ ml: 2 }}>
+            {/* <FormLabel sx={{ alignSelf: "center" }}>Trip date</FormLabel> */}
+            <Input type="time" onChange={timeDropDownHandler} />
+          </FormControl>
 
-          <div className={styles["label-box"]}>
-            <label htmlFor="preferences">Preferences</label>
-            <select
-              id="preferences"
-              onChange={preferencesDropDownHandler}
-              disabled={!props.enteredType}
-              data-testid="preferences"
+          <FormControl>
+            {/* <FormLabel sx={{ alignSelf: "center" }}>Trip type</FormLabel> */}
+            <Select
+              placeholder="Choose type"
+              onChange={typeDropDownHandler}
+              data-testid="type"
+              sx={{ mx: 2 }}
             >
-              <option value="" hidden>
-                Choose
-              </option>
-              {props.enteredType &&
-                props.enteredType === "car" &&
-                optionsCar.map((option) => (
-                  <option key={option.label} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              {props.enteredType &&
-                props.enteredType === "bike" &&
-                optionsBike.map((option) => (
-                  <option key={option.label} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-            </select>
-          </div>
+              <Option value="car">Car trip</Option>
+              <Option value="bike">Bike ride</Option>
+              <Option value="foot">Hiking trip</Option>
+            </Select>
+          </FormControl>
 
-          <button type="submit" disabled={!props.enableCreateButtonFlag}>
+          <Button
+            color="primary"
+            type="submit"
+            disabled={!props.enableCreateButtonFlag}
+            endDecorator={<KeyboardArrowRight />}
+          >
             Create
-          </button>
+          </Button>
         </div>
       </form>
     </div>

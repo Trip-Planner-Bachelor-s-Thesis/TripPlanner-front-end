@@ -9,18 +9,22 @@ import styles from "./Map.module.css";
 const Map = (props) => {
   let onWaypointsHandler = props.onWaypointsHandler;
   let userWaypointsInput = props.userWaypointsInput;
+  let calculatedTripDataHandler = props.onCalculatedTripDataHandler;
   let isMapStatic = props.staticMap;
+  let typeOfTransport = props.typeOfTransport ? props.typeOfTransport : "car";
+  console.log(typeOfTransport);
   if (userWaypointsInput.length === 0) {
     userWaypointsInput = false;
   }
 
   useEffect(() => {
-    // var container = L.DomUtil.get("map");
-    // if (container != null) {
-    //   container._leaflet_id = null;
-    // }
+    var container = L.DomUtil.get("map");
+    // container.remove(routingControl);
+    if (container != null) {
+      container._leaflet_id = null;
+    }
 
-    var map = L.map("map").setView([52.2297, 21.0122], 6);
+    let map = L.map("map").setView([52.2297, 21.0122], 6);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution:
@@ -38,19 +42,32 @@ const Map = (props) => {
       });
     }
 
-    var control = L.Routing.control({
+    let control = L.Routing.control({
       waypoints: userWaypointsInputTransformed,
       routeWhileDragging: true,
       router: L.Routing.graphHopper("44c78c7e-16d3-4fd5-80a9-fa1b12807da7", {
         urlParameters: {
-          vehicle: "bike",
+          vehicle: typeOfTransport,
         },
       }),
       geocoder: L.Control.Geocoder.nominatim(),
     })
+      .on("routesfound", function (e) {
+        let routes = e.routes;
+        let summary = routes[0].summary;
+        let hours = Math.floor(summary.totalTime / 3600);
+        let minutes = Math.round((summary.totalTime - hours * 3600) / 60);
+        let tripData = {
+          distance: Math.round(summary.totalDistance / 1000),
+          totalTime: summary.totalTime,
+          timeHours: hours,
+          timeMinutes: minutes,
+        };
+        calculatedTripDataHandler(tripData);
+      })
       .on("routeselected", function (e) {
         if (!userWaypointsInput) {
-          var route = e.route;
+          let route = e.route;
           let userWaypointsReturn = [];
           route.inputWaypoints.forEach((element) => {
             let waypoint = {
@@ -66,7 +83,7 @@ const Map = (props) => {
       .addTo(map);
 
     map.on("click", function (e) {
-      var container = L.DomUtil.create("div"),
+      let container = L.DomUtil.create("div"),
         startBtn = createButton("Start from this location", container),
         destBtn = createButton("Go to this location", container);
 
@@ -84,22 +101,32 @@ const Map = (props) => {
     });
 
     if (isMapStatic) {
-      let waypoints = document.getElementsByClassName("leaflet-routing-geocoder");
+      let waypoints = document.getElementsByClassName(
+        "leaflet-routing-geocoder"
+      );
       for (let waypoint of waypoints) {
-        waypoint.style.pointerEvents = "none"; 
+        waypoint.style.pointerEvents = "none";
       }
-      let buttonAdd = document.getElementsByClassName("leaflet-routing-add-waypoint")
+      let buttonAdd = document.getElementsByClassName(
+        "leaflet-routing-add-waypoint"
+      );
       for (let button of buttonAdd) {
-        button.style.visibility = "hidden" ;
+        button.style.visibility = "hidden";
       }
     }
-  }, [onWaypointsHandler, userWaypointsInput, isMapStatic]);
+  }, [
+    onWaypointsHandler,
+    userWaypointsInput,
+    isMapStatic,
+    calculatedTripDataHandler,
+    typeOfTransport,
+  ]);
 
   return <div id="map" className={styles.map} />;
 };
 
 function createButton(label, container) {
-  var btn = L.DomUtil.create("button", "", container);
+  let btn = L.DomUtil.create("button", "", container);
   btn.setAttribute("type", "button");
   btn.innerHTML = label;
   return btn;

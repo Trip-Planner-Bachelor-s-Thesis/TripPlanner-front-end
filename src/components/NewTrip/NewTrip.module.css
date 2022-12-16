@@ -8,3 +8,10 @@
   align-items: center;
   height: 100%;
 }
+
+.map-details-container {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  width: 100%;
+}

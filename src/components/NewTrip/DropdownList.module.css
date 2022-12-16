@@ -1,10 +1,11 @@
 .new-trip-control {
   margin-bottom: 2rem;
-  padding: 1.5rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
+  /* padding: 1.5rem 1.5rem; */
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 6px; */
   background-color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -14,32 +15,32 @@
   align-items: flex-end;
 }
 
-.form-container button {
+/* .form-container button {
   padding: 0.5rem 1.5rem;
   margin-left: 1.5rem;
   cursor: pointer;
   font: inherit;
   color: white;
-  /* background-color: #aa65d8;
-  border: 1px solid #aa65d8; */
+  background-color: #aa65d8;
+  border: 1px solid #aa65d8;
   background-color: #0275d8;
   border: 1px solid #0275d8;
   border-radius: 4px;
-}
+} */
 
-.form-container button:hover {
-  /* background-color: #9418e7;
-  border: 1px solid #9418e7; */
+/* .form-container button:hover {
+  background-color: #9418e7;
+  border: 1px solid #9418e7;
   background-color: #138af1;
   border: 1px solid #138af1;
-}
+} */
 
-.form-container button:disabled {
+/* .form-container button:disabled {
   cursor: not-allowed;
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
-}
+} */
 
 .form-container select {
   font: inherit;
@@ -70,3 +71,13 @@
   justify-content: center;
   margin-right: 1rem;
 }
+
+.form-container input[type="date"]:before {
+  content: "Date:";
+}
+
+.form-container input[type="time"]:before {
+  content: "Start time:";
+  margin-right: 0.85rem;
+}
+

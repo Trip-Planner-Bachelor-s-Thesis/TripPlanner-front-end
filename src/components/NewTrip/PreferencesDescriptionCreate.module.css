@@ -1,6 +1,7 @@
-.map {
-    width: 70%;
+.content-container {
+    width: 28%;
     height: 100%;
+    padding: 1rem;
     /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     border-radius: 12px; */
-  }
+}
