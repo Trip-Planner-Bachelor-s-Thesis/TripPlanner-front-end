@@ -1,32 +1,31 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import TerrainIcon from "@mui/icons-material/Terrain";
 import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
-import Checkbox from "@mui/joy/Checkbox";
 import List from "@mui/joy/List";
-import ListDivider from "@mui/joy/ListDivider";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Avatar from "@mui/joy/Avatar";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Tabs from "@mui/joy/Tabs";
-import TabList from "@mui/joy/TabList";
-import Tab from "@mui/joy/Tab";
-import Textarea from "@mui/joy/Textarea";
 
-import styles from "./PreferencesDescriptionJoin.module.css";
+import styles from "./PreferencesDescriptionChat.module.css";
 
-const PreferencesDescriptionJoin = (props) => {
+const PreferencesDescriptionChat = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   let hours = Math.floor(props.tripData.totalTime / 3600);
   let minutes = Math.round((props.tripData.totalTime - hours * 3600) / 60);
 
   const showParticipantsHandler = () => {
     setIsOpen(true);
   };
+
+  const chatHandler = () => {
+    navigate("chat");
+  }
 
   return (
     <div className={styles["content-container"]}>
@@ -74,11 +73,8 @@ const PreferencesDescriptionJoin = (props) => {
       >
         Show participants
       </Button>
-      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }}>
-        Add to favorites
-      </Button>
-      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }}>
-        Join trip
+      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }} onClick={chatHandler}>
+        Open chat
       </Button>
 
       <Modal
@@ -182,4 +178,4 @@ const PreferencesDescriptionJoin = (props) => {
   );
 };
 
-export default PreferencesDescriptionJoin;
+export default PreferencesDescriptionChat;

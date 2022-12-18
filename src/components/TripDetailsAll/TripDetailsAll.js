@@ -9,9 +9,8 @@ import ListItem from "@mui/joy/ListItem";
 import Chip from '@mui/joy/Chip';
 
 import styles from "./TripDetailsAll.module.css";
-import TripInformation from "./TripInformationSingle";
+import TripInformationJoin from "./TripInformationJoin";
 import PreferencesDescriptionJoin from "./PreferencesDescriptionJoin";
-import TripParticipants from "./TripParticipants";
 import Map from "../Map/Map";
 
 const TripDetailsAll = () => {
@@ -32,7 +31,7 @@ const TripDetailsAll = () => {
   return (
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
-        {trip && <TripInformation tripData={trip} />}
+        {trip && <TripInformationJoin tripData={trip} />}
         {trip && (
           <div className={styles["map-details-container"]}>
             <PreferencesDescriptionJoin tripData={trip} />

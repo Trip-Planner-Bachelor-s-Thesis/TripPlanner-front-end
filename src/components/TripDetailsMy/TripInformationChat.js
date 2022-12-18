@@ -6,10 +6,10 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 
-import styles from "./TripInformationSingle.module.css";
+import styles from "./TripInformationChat.module.css";
 import { options } from "../../helpers/helpers";
 
-const TripInformationSingle = (props) => {
+const TripInformationChat = (props) => {
   const date = new Date(props.tripData.date);
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -73,4 +73,4 @@ const TripInformationSingle = (props) => {
   );
 };
 
-export default TripInformationSingle;
+export default TripInformationChat;
