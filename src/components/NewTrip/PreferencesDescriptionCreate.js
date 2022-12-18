@@ -5,6 +5,7 @@ import ListItem from "@mui/joy/ListItem";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Done from "@mui/icons-material/Done";
+import Button from "@mui/joy/Button";
 
 import styles from "./PreferencesDescriptionCreate.module.css";
 
@@ -13,7 +14,8 @@ const PreferencesDescriptionCreate = (props) => {
     <div className={styles["content-container"]}>
       <Textarea
         minRows={6}
-        placeholder="Tell us more about the planned trip so that other users will know what to expect... "
+        maxRows={7}
+        placeholder="Tell us more about the planned trip so that other users will know what to expect ... "
         sx={{ mb: 2 }}
         onBlur={(event) => props.onDescriptionHandler(event.target.value)}
       />
@@ -23,6 +25,8 @@ const PreferencesDescriptionCreate = (props) => {
           p: 2,
           borderRadius: "sm",
           mb: 2,
+          overflow: "auto",
+          height: "40%",
         }}
       >
         <Typography sx={{ mb: 1.5 }} level="body1">
@@ -93,10 +97,15 @@ const PreferencesDescriptionCreate = (props) => {
             Trip distance: {props.calculatedTripData.distance} km
           </Typography>
           <Typography level="body1">
-            Estimated time: {props.calculatedTripData.timeHours} h {props.calculatedTripData.timeMinutes} min
+            Estimated time: {props.calculatedTripData.timeHours} h{" "}
+            {props.calculatedTripData.timeMinutes} min
           </Typography>
         </Sheet>
       )}
+
+      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }}>
+        Check weather
+      </Button>
     </div>
   );
 };

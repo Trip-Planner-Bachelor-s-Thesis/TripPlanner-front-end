@@ -63,9 +63,10 @@ const NewTrip = () => {
       preferences: enteredPreferences,
       description: enteredDescription,
       date: enteredDate,
+      startTime: enteredTime,
       waypoints: enteredWaypoints,
       distance: calculatedTripData.distance,
-      time: calculatedTripData.totalTime
+      totalTime: calculatedTripData.totalTime,
     };
     console.log(tripData);
     const response = await fetch(
@@ -104,12 +105,14 @@ const NewTrip = () => {
             enteredPreferences={enteredPreferences}
             calculatedTripData={calculatedTripData}
           />
+          <div className={styles["map-only-container"]}>
           <Map
             onWaypointsHandler={waypointsHandler}
             onCalculatedTripDataHandler={calculatedTripDataHandler}
             typeOfTransport={enteredType}
-            userWaypointsInput={enteredWaypoints}
+            userWaypointsInput={[]}
           />
+          </div>
         </div>
       </div>
     </section>

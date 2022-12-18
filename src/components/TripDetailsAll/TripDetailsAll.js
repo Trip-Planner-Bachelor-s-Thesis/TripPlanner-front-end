@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Tabs from "@mui/joy/Tabs";
-import TabList from "@mui/joy/TabList";
-import Tab from "@mui/joy/Tab";
+import Typography from "@mui/joy/Typography";
+import Sheet from "@mui/joy/Sheet";
+import TerrainIcon from "@mui/icons-material/Terrain";
+import Checkbox from "@mui/joy/Checkbox";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import Chip from '@mui/joy/Chip';
 
 import styles from "./TripDetailsAll.module.css";
-import TripInformation from "../Utils/TripInformationSingle";
+import TripInformation from "./TripInformationSingle";
+import PreferencesDescriptionJoin from "./PreferencesDescriptionJoin";
 import TripParticipants from "./TripParticipants";
 import Map from "../Map/Map";
 
 const TripDetailsAll = () => {
   const [trip, setTrip] = useState(null);
-  const [index, setIndex] = useState(0);
   const { tripId } = useParams();
 
   useEffect(() => {
@@ -30,34 +34,47 @@ const TripDetailsAll = () => {
       <div className={styles["new-trip"]}>
         {trip && <TripInformation tripData={trip} />}
         {trip && (
-          <div className={styles["tabs-container"]}>
-            <Tabs
-              aria-label="Outlined tabs"
-              value={index}
-              onChange={(event, value) => setIndex(value)}
-              sx={{ borderRadius: "lg" }}
-            >
-              <TabList variant="outlined">
-                <Tab
-                  variant={index === 0 ? "soft" : "plain"}
-                  color={index === 0 ? "primary" : "neutral"}
+          <div className={styles["map-details-container"]}>
+            <PreferencesDescriptionJoin tripData={trip} />
+            <div className={styles["map-only-container"]}>
+              <Sheet
+                variant="outlined"
+                sx={{
+                  p: 2,
+                  borderRadius: "sm",
+                  mb: 2,
+                }}
+              >
+                <Typography sx={{ mb: 1.5 }} level="body1">
+                  Tags associated with the trip
+                </Typography>
+
+                <List
+                  row
+                  wrap
+                  sx={{
+                    "--List-gap": "16px",
+                    "--List-item-radius": "20px",
+                  }}
                 >
-                  Show Route
-                </Tab>
-                <Tab
-                  variant={index === 1 ? "soft" : "plain"}
-                  color={index === 1 ? "primary" : "neutral"}
-                >
-                  Show Participants
-                </Tab>
-              </TabList>
-            </Tabs>
+                  {trip.preferences.map((item) => (
+                    <ListItem key={item}>
+                    <Chip variant="soft">{item}</Chip>
+                    </ListItem>
+                  ))}
+                </List>
+              </Sheet>
+
+              <Map
+                userWaypointsInput={trip.waypoints}
+                staticMap={true}
+                onWaypointsHandler={null}
+                onCalculatedTripDataHandler={null}
+                typeOfTransport={trip.type}
+              />
+            </div>
           </div>
         )}
-        {trip && index === 0 && (
-          <Map userWaypointsInput={trip.waypoints} staticMap={true} />
-        )}
-        {trip && index === 1 && <TripParticipants />}
       </div>
     </section>
   );

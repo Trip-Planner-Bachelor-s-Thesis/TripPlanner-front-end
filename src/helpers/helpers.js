@@ -1,6 +1,7 @@
 export const options = {
   car: "Car trip",
   bike: "Bike ride",
+  foot: "Hiking trip",
   entertainment: "Entertainment",
   sightseeing: "Sightseeing",
   freeride: "Free ride",

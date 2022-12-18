@@ -12,7 +12,6 @@ const Map = (props) => {
   let calculatedTripDataHandler = props.onCalculatedTripDataHandler;
   let isMapStatic = props.staticMap;
   let typeOfTransport = props.typeOfTransport ? props.typeOfTransport : "car";
-  console.log(typeOfTransport);
   if (userWaypointsInput.length === 0) {
     userWaypointsInput = false;
   }
@@ -53,20 +52,23 @@ const Map = (props) => {
       geocoder: L.Control.Geocoder.nominatim(),
     })
       .on("routesfound", function (e) {
-        let routes = e.routes;
-        let summary = routes[0].summary;
-        let hours = Math.floor(summary.totalTime / 3600);
-        let minutes = Math.round((summary.totalTime - hours * 3600) / 60);
-        let tripData = {
-          distance: Math.round(summary.totalDistance / 1000),
-          totalTime: summary.totalTime,
-          timeHours: hours,
-          timeMinutes: minutes,
-        };
-        calculatedTripDataHandler(tripData);
+        if (!userWaypointsInput && !isMapStatic) {
+          console.log("distance");
+          let routes = e.routes;
+          let summary = routes[0].summary;
+          let hours = Math.floor(summary.totalTime / 3600);
+          let minutes = Math.round((summary.totalTime - hours * 3600) / 60);
+          let tripData = {
+            distance: Math.round(summary.totalDistance / 1000),
+            totalTime: summary.totalTime,
+            timeHours: hours,
+            timeMinutes: minutes,
+          };
+          calculatedTripDataHandler(tripData);
+        }
       })
       .on("routeselected", function (e) {
-        if (!userWaypointsInput) {
+        if (!userWaypointsInput && !isMapStatic) {
           let route = e.route;
           let userWaypointsReturn = [];
           route.inputWaypoints.forEach((element) => {
@@ -77,7 +79,9 @@ const Map = (props) => {
             };
             userWaypointsReturn.push(waypoint);
           });
-          onWaypointsHandler(userWaypointsReturn);
+          if (onWaypointsHandler) {
+            onWaypointsHandler(userWaypointsReturn);
+          }
         }
       })
       .addTo(map);

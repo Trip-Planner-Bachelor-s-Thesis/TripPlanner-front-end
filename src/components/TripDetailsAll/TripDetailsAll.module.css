@@ -30,3 +30,17 @@
   margin: 2rem auto;
   margin-top: 0rem;
 }
+
+.map-details-container {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.map-only-container {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
