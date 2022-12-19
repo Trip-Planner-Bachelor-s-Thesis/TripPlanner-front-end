@@ -19,20 +19,15 @@ const AllPosts = (props) => {
       .then((response) => response.json())
       .then((data) => {
         let posts = [];
-        console.log(data);
-        // for (const key in data) {
-        //   const post = {
-        //     id: key,
-        //     ...data[key],
-        //   };
-        //   posts.push(post);
-        // }
+        for (let post of data.posts) {
+          posts.push(post)
+        }
         setAllFetchedPosts(posts);
+        setTimeout(handleScroll, 500);
       })
       .catch((error) => {
         console.log(error);
       });
-    setTimeout(handleScroll, 500);
   }, [postNumber, tripId, token]);
 
   const handleScroll = () => {
@@ -53,14 +48,14 @@ const AllPosts = (props) => {
             <ul className={styles["list-of-posts"]}>
               {allFetchedPosts.map((post) => (
                 <SinglePost
-                  key={post.id}
-                  author={post.author}
+                  key={post.postId}
+                  author={post.creatorUsername}
                   content={post.content}
-                  day={new Date(post.publishDate).getDate()}
-                  month={new Date(post.publishDate).toLocaleString("default", {
+                  day={new Date(post.creationDateTime).getDate()}
+                  month={new Date(post.creationDateTime).toLocaleString("default", {
                     month: "long",
                   })}
-                  year={new Date(post.publishDate).getFullYear()}
+                  year={new Date(post.creationDateTime).getFullYear()}
                 ></SinglePost>
               ))}
             </ul>
