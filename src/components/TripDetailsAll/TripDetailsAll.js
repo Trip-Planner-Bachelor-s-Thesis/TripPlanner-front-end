@@ -1,32 +1,56 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
-import TerrainIcon from "@mui/icons-material/Terrain";
-import Checkbox from "@mui/joy/Checkbox";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
-import Chip from '@mui/joy/Chip';
+import Chip from "@mui/joy/Chip";
 
 import styles from "./TripDetailsAll.module.css";
 import TripInformationJoin from "./TripInformationJoin";
 import PreferencesDescriptionJoin from "./PreferencesDescriptionJoin";
 import Map from "../Map/Map";
+import LogRegisterContext from "../../contexts/log-register-context";
+import fetchUrls from "../../helpers/fetch_urls";
 
 const TripDetailsAll = () => {
+  const { token } = useContext(LogRegisterContext);
   const [trip, setTrip] = useState(null);
   const { tripId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(
-      `https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips/${tripId}.json`
-    )
+    fetch(`${fetchUrls["get-all-trips"]}/${tripId}`, {
+      headers: { Authorization: "Bearer " + token },
+    })
       .then((response) => response.json())
       .then((data) => {
         setTrip(data);
         console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-  }, [tripId]);
+  }, [tripId, token]);
+
+  const joinHandler = async () => {
+    fetch(`${fetchUrls["get-all-trips"]}/${tripId}/join`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    await new Promise((r) => setTimeout(r, 1000));
+    navigate("/my-trips", { replace: true });
+  };
 
   return (
     <section className={styles["new-trip-section"]}>
@@ -34,7 +58,10 @@ const TripDetailsAll = () => {
         {trip && <TripInformationJoin tripData={trip} />}
         {trip && (
           <div className={styles["map-details-container"]}>
-            <PreferencesDescriptionJoin tripData={trip} />
+            <PreferencesDescriptionJoin
+              tripData={trip}
+              onJoinHandler={joinHandler}
+            />
             <div className={styles["map-only-container"]}>
               <Sheet
                 variant="outlined"
@@ -57,8 +84,8 @@ const TripDetailsAll = () => {
                   }}
                 >
                   {trip.preferences.map((item) => (
-                    <ListItem key={item}>
-                    <Chip variant="soft">{item}</Chip>
+                    <ListItem key={item.id}>
+                      <Chip variant="soft">{item.preferenceStr}</Chip>
                     </ListItem>
                   ))}
                 </List>

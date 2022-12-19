@@ -1,13 +1,16 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
+import fetchUrls from "../../helpers/fetch_urls";
 import styles from "./NewTrip.module.css";
 import PreferencesDescriptionCreate from "./PreferencesDescriptionCreate";
 import DropdownList from "./DropdownList";
 import Map from "../Map/Map";
+import LogRegisterContext from "../../contexts/log-register-context";
 
 const NewTrip = () => {
   const navigate = useNavigate();
+  const { token } = useContext(LogRegisterContext);
 
   const [enteredType, setEnteredType] = useState("");
   const [enteredPreferences, setEnteredPreferences] = useState([]);
@@ -44,7 +47,6 @@ const NewTrip = () => {
   };
 
   const timeHandler = (value) => {
-    console.log(value);
     setEnteredTime(value);
   };
 
@@ -53,7 +55,6 @@ const NewTrip = () => {
   }, []);
 
   const calculatedTripDataHandler = useCallback((value) => {
-    console.log(value);
     setCalculatedTripData(value);
   }, []);
 
@@ -69,16 +70,14 @@ const NewTrip = () => {
       totalTime: calculatedTripData.totalTime,
     };
     console.log(tripData);
-    const response = await fetch(
-      "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json",
-      {
-        method: "POST",
-        body: JSON.stringify(tripData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(fetchUrls["create-trip"], {
+      method: "POST",
+      body: JSON.stringify(tripData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
     const data = await response.json();
     if (!response.ok) {
       alert(data.message || "Could not create trip.");
@@ -106,12 +105,12 @@ const NewTrip = () => {
             calculatedTripData={calculatedTripData}
           />
           <div className={styles["map-only-container"]}>
-          <Map
-            onWaypointsHandler={waypointsHandler}
-            onCalculatedTripDataHandler={calculatedTripDataHandler}
-            typeOfTransport={enteredType}
-            userWaypointsInput={[]}
-          />
+            <Map
+              onWaypointsHandler={waypointsHandler}
+              onCalculatedTripDataHandler={calculatedTripDataHandler}
+              typeOfTransport={enteredType}
+              userWaypointsInput={[]}
+            />
           </div>
         </div>
       </div>

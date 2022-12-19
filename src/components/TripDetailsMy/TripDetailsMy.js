@@ -1,30 +1,36 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
-import Chip from '@mui/joy/Chip';
+import Chip from "@mui/joy/Chip";
 
 import styles from "./TripDetailsMy.module.css";
 import TripInformationChat from "./TripInformationChat";
 import PreferencesDescriptionChat from "./PreferencesDescriptionChat";
 import Map from "../Map/Map";
+import LogRegisterContext from "../../contexts/log-register-context";
+import fetchUrls from "../../helpers/fetch_urls";
 
 const TripDetailsMy = () => {
+  const { token } = useContext(LogRegisterContext);
   const [trip, setTrip] = useState(null);
   const { tripId } = useParams();
 
   useEffect(() => {
-    fetch(
-      `https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips/${tripId}.json`
-    )
+    fetch(`${fetchUrls["get-all-trips"]}/${tripId}`, {
+      headers: { Authorization: "Bearer " + token },
+    })
       .then((response) => response.json())
       .then((data) => {
         setTrip(data);
         console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-  }, [tripId]);
+  }, [tripId, token]);
 
   return (
     <section className={styles["new-trip-section"]}>
@@ -55,8 +61,8 @@ const TripDetailsMy = () => {
                   }}
                 >
                   {trip.preferences.map((item) => (
-                    <ListItem key={item}>
-                    <Chip variant="soft">{item}</Chip>
+                    <ListItem key={item.id}>
+                      <Chip variant="soft">{item.preferenceStr}</Chip>
                     </ListItem>
                   ))}
                 </List>

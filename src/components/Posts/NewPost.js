@@ -1,35 +1,37 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { useParams } from "react-router-dom";
 
 import styles from "./NewPost.module.css";
+import LogRegisterContext from "../../contexts/log-register-context";
+import fetchUrls from "../../helpers/fetch_urls";
 
 const NewPost = (props) => {
+  const { token } = useContext(LogRegisterContext);
+  const { tripId } = useParams();
   const postRef = useRef();
 
   const submitHandler = async (event) => {
     event.preventDefault();
     let postData = {
-      author: "johnsmith96",
       content: postRef.current.value,
-      publishDate: new Date().toJSON()
     };
 
-    const response = await fetch(
-      "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/posts.json",
-      {
-        method: "POST",
-        body: JSON.stringify(postData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    if (!response.ok) {
-      alert(data.message || "Could not create post.");
-    } else {
-      postRef.current.value = "";
-      props.onNewPostHandler();
-    }
+    fetch(`${fetchUrls.posts}/${tripId}`, {
+      method: "POST",
+      body: JSON.stringify(postData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        postRef.current.value = "";
+        props.onNewPostHandler();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

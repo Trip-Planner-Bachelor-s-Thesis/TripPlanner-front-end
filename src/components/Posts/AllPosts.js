@@ -1,31 +1,39 @@
-import { useState, useEffect, useRef, Fragment } from "react";
-
+import { useState, useEffect, useRef, Fragment, useContext } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./AllPosts.module.css";
 import SinglePost from "./SinglePost";
+import LogRegisterContext from "../../contexts/log-register-context";
+import fetchUrls from "../../helpers/fetch_urls";
 
 const AllPosts = (props) => {
+  const { token } = useContext(LogRegisterContext);
   const [allFetchedPosts, setAllFetchedPosts] = useState(null);
   const postsContainerRef = useRef();
+  const { tripId } = useParams();
   let postNumber = props.isNewPost;
 
   useEffect(() => {
-    fetch(
-      "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/posts.json"
-    )
+    fetch(`${fetchUrls.posts}/${tripId}`, {
+      headers: { Authorization: "Bearer " + token },
+    })
       .then((response) => response.json())
       .then((data) => {
         let posts = [];
-        for (const key in data) {
-          const post = {
-            id: key,
-            ...data[key],
-          };
-          posts.push(post);
-        }
+        console.log(data);
+        // for (const key in data) {
+        //   const post = {
+        //     id: key,
+        //     ...data[key],
+        //   };
+        //   posts.push(post);
+        // }
         setAllFetchedPosts(posts);
+      })
+      .catch((error) => {
+        console.log(error);
       });
     setTimeout(handleScroll, 500);
-  }, [postNumber]);
+  }, [postNumber, tripId, token]);
 
   const handleScroll = () => {
     postsContainerRef.current?.scrollIntoView({
@@ -49,7 +57,9 @@ const AllPosts = (props) => {
                   author={post.author}
                   content={post.content}
                   day={new Date(post.publishDate).getDate()}
-                  month={new Date(post.publishDate).toLocaleString('default', { month: 'long' })}
+                  month={new Date(post.publishDate).toLocaleString("default", {
+                    month: "long",
+                  })}
                   year={new Date(post.publishDate).getFullYear()}
                 ></SinglePost>
               ))}

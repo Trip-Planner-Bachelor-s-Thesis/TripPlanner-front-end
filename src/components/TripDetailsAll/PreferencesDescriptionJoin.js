@@ -5,17 +5,11 @@ import TerrainIcon from "@mui/icons-material/Terrain";
 import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
-import Checkbox from "@mui/joy/Checkbox";
 import List from "@mui/joy/List";
-import ListDivider from "@mui/joy/ListDivider";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Avatar from "@mui/joy/Avatar";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Tabs from "@mui/joy/Tabs";
-import TabList from "@mui/joy/TabList";
-import Tab from "@mui/joy/Tab";
-import Textarea from "@mui/joy/Textarea";
+import StarIcon from "@mui/icons-material/Star";
 
 import styles from "./PreferencesDescriptionJoin.module.css";
 
@@ -26,6 +20,10 @@ const PreferencesDescriptionJoin = (props) => {
 
   const showParticipantsHandler = () => {
     setIsOpen(true);
+  };
+
+  const joinHandler = () => {
+    props.onJoinHandler();
   };
 
   return (
@@ -77,7 +75,7 @@ const PreferencesDescriptionJoin = (props) => {
       <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }}>
         Add to favorites
       </Button>
-      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }}>
+      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }} onClick={joinHandler}>
         Join trip
       </Button>
 
@@ -111,7 +109,7 @@ const PreferencesDescriptionJoin = (props) => {
           </Typography>
           <Sheet>
             <List
-              column
+              column="true"
               wrap
               sx={{
                 "--List-gap": "8px",
@@ -121,11 +119,14 @@ const PreferencesDescriptionJoin = (props) => {
                 justifyContent: "center",
               }}
             >
-              <ListItem>
-                <ListItemDecorator sx={{ mr: 1 }}>
+              <ListItem key={props.tripData.creator.id}>
+                <ListItemDecorator sx={{ mr: 0 }}>
                   <Avatar size="sm" />
                 </ListItemDecorator>
-                Kevin Ross
+                {props.tripData.creator.userName}
+                &#160; &#160;
+                {props.tripData.creator.userRating.toFixed(2)}
+                <StarIcon sx={{ ml: 0.25 }} />
               </ListItem>
             </List>
           </Sheet>
@@ -134,7 +135,7 @@ const PreferencesDescriptionJoin = (props) => {
           </Typography>
           <Sheet sx={{ maxHeight: 400, overflow: "auto" }}>
             <List
-              column
+              column="true"
               wrap
               sx={{
                 "--List-gap": "8px",
@@ -144,36 +145,17 @@ const PreferencesDescriptionJoin = (props) => {
                 justifyContent: "center",
               }}
             >
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                Kevin Ross
-              </ListItem>
-              {/* <ListDivider inset="gutter" sx={{my: 0}}  /> */}
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                John Smith
-  
-              </ListItem>
-              {/* <ListDivider inset="gutter" sx={{my: 0}} /> */}
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                Kevin Ross
-              </ListItem>
-              {/* <ListDivider inset="gutter" sx={{my: 0}}  /> */}
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                John Smith
-              </ListItem>
-              {/* <ListDivider inset="gutter" sx={{my: 0}}  /> */}
-              
+              {props.tripData.members.map((item) => (
+                <ListItem key={item.id}>
+                  <ListItemDecorator sx={{ mr: 0 }}>
+                    <Avatar size="sm" />
+                  </ListItemDecorator>
+                  {item.userName}
+                  &#160; &#160;
+                  {item.userRating.toFixed(2)}
+                  <StarIcon sx={{ ml: 0.25 }} />
+                </ListItem>
+              ))}
             </List>
           </Sheet>
         </Sheet>

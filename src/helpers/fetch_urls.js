@@ -1,11 +1,18 @@
-import LogRegisterContext from "../contexts/log-register-context";
+const fetchUrls = {
+  login:
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Account/login",
+  register:
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Account/register",
+  "current-user":
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Account/current_user",
+  "create-trip":
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/new",
+  "get-all-trips":
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/all",
+  "get-my-trips":
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips",
+  posts:
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Post/trip",
+};
 
-export const fetchUrls = {
-    login: 1,
-    register: 1,
-    "create-trip": 1,
-    "get-all-trips": 1,
-    "get-my-trips": 1,
-    "create-post": 1,
-    "get-posts": 1
-}
+export default fetchUrls;

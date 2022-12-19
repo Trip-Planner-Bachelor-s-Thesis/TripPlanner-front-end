@@ -5,6 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
+import StarIcon from "@mui/icons-material/Star";
 
 import styles from "./TripInformationChat.module.css";
 import { options } from "../../helpers/helpers";
@@ -65,8 +66,13 @@ const TripInformationChat = (props) => {
             Trip type: {options[props.tripData.type]}
           </Typography>
         )}
-        <Typography level="body1" startDecorator={<PersonIcon />}>
-          Created by: johnsmith96
+        <Typography
+          level="body1"
+          startDecorator={<PersonIcon />}
+          endDecorator={<StarIcon sx={{ mx: -0.5 }} />}
+        >
+          Created by: {props.tripData.creator.userName} &#160;
+          {props.tripData.creator.userRating.toFixed(2)}
         </Typography>
       </div>
     </div>

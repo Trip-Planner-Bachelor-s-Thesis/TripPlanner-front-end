@@ -1,13 +1,14 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import Tab from "@mui/joy/Tab";
 
 import styles from "./MyTrips.module.css";
 import SingleTrip from "./SingleTrip";
-// import FilterTrips from "./FilterTrips";
 import PaginationList from "../Utils/PaginationList";
 import SpinnerBox from "../Utils/SpinnerBox";
+import LogRegisterContext from "../../contexts/log-register-context";
+import fetchUrls from "../../helpers/fetch_urls";
 
 const initialState = {
   tripsPerPage: 4,
@@ -41,41 +42,91 @@ const reducer = (state, action) => {
         firstIndex: (Number(action.page) - 1) * Number(state.tripsPerPage),
         lastIndex: Number(action.page) * Number(state.tripsPerPage),
       };
+    case "reset":
+      return {
+        ...state,
+        currentPage: 1,
+        firstIndex: 0,
+        lastIndex: 4,
+      };
     default:
       throw new Error();
   }
 };
 
 const MyTrips = () => {
-  //const [allFetchedTrips, setAllFetchedTrips] = useState(null);
+  const { token } = useContext(LogRegisterContext);
   const [index, setIndex] = useState(0);
   const [allTrips, setAllTrips] = useState(null);
-  const [isSendingRequest, setisSendingRequest] = useState(true);
+  const [createdFutureTrips, setCreatedFutureTrips] = useState(null);
+  const [joinedFutureTrips, setJoinedFutureTrips] = useState(null);
+  const [createdPastTrips, setCreatedPastTrips] = useState(null);
+  const [joinedPastTrips, setJoinedPastTrips] = useState(null);
   const [paginationState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch(
-      "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json"
-    )
+    fetch(fetchUrls["get-my-trips"] + "/joined-future", {
+      headers: { Authorization: "Bearer " + token },
+    })
       .then((response) => response.json())
       .then((data) => {
         let trips = [];
-        for (const key in data) {
-          const trip = {
-            id: key,
-            ...data[key],
-          };
+        for (const trip of data.trips) {
           trips.push(trip);
         }
-        setisSendingRequest(false);
-        //setAllFetchedTrips(trips);
-        setAllTrips(trips);
+        setJoinedFutureTrips(trips);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-  }, []);
 
-  //   const filterHandler = (filteredTrips) => {
-  //     setAllTrips(filteredTrips);
-  //   };
+    fetch(fetchUrls["get-my-trips"] + "/created-past", {
+      headers: { Authorization: "Bearer " + token },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let trips = [];
+        for (const trip of data.trips) {
+          trips.push(trip);
+        }
+        setCreatedPastTrips(trips);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    fetch(fetchUrls["get-my-trips"] + "/joined-past", {
+      headers: { Authorization: "Bearer " + token },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let trips = [];
+        for (const trip of data.trips) {
+          trips.push(trip);
+        }
+        setJoinedPastTrips(trips);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    fetch(fetchUrls["get-my-trips"] + "/created-future", {
+      headers: { Authorization: "Bearer " + token },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let trips = [];
+        for (const trip of data.trips) {
+          trips.push(trip);
+        }
+        setAllTrips(trips);
+        setCreatedFutureTrips(trips);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [token]);
+
   const nextClickHandler = () => {
     dispatch({ type: "increment" });
   };
@@ -85,23 +136,40 @@ const MyTrips = () => {
   const pageNumberClickHandler = (pageNumber) => {
     dispatch({ type: "change", page: pageNumber });
   };
+  const resetPage = () => {
+    dispatch({ type: "reset" });
+  };
 
   return (
     <section>
-      {isSendingRequest && <SpinnerBox />}
+      {!allTrips && <SpinnerBox />}
       {allTrips && (
         <div className={styles["tabs-container"]}>
           <Tabs
             aria-label="Outlined tabs"
             value={index}
-            onChange={(event, value) => setIndex(value)}
+            onChange={(event, value) => {
+              setIndex(value);
+              if (value === 0) {
+                setAllTrips(createdFutureTrips);
+              }
+              if (value === 1) {
+                setAllTrips(joinedFutureTrips);
+              }
+              if (value === 2) {
+                setAllTrips(createdPastTrips);
+              }
+              if (value === 3) {
+                setAllTrips(joinedPastTrips);
+              }
+              resetPage();
+            }}
             sx={{ borderRadius: "lg" }}
           >
             <TabList variant="outlined">
               <Tab
                 variant={index === 0 ? "soft" : "plain"}
                 color={index === 0 ? "primary" : "neutral"}
-
               >
                 Created future trips
               </Tab>
@@ -135,15 +203,7 @@ const MyTrips = () => {
             {allTrips
               .slice(paginationState.firstIndex, paginationState.lastIndex)
               .map((trip) => (
-                <SingleTrip
-                  key={trip.id}
-                  id={trip.id}
-                  date={trip.date}
-                  type={trip.type}
-                  preferences={trip.preferences}
-                  start={trip.waypoints[0].name}
-                  end={trip.waypoints[trip.waypoints.length - 1].name}
-                ></SingleTrip>
+                <SingleTrip key={trip.tripId} tripData={trip}></SingleTrip>
               ))}
           </ul>
         ))}

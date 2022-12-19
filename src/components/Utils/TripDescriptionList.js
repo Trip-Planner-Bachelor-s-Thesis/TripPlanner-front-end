@@ -8,7 +8,7 @@ const TripDescriptionList = (props) => {
     <Fragment>
       <div className={styles["trip-description"]}>
         <div className={styles.type} data-testid="type">{options[props.type]}</div>
-        <div className={styles.preferences} data-testid="preferences">{options[props.preferences]}</div>
+        {/* <div className={styles.preferences} data-testid="preferences">{options[props.preferences]}</div> */}
       </div>
       <div className={styles.destinations}>
         <div data-testid="start">{props.start.split(",")[0]}</div>

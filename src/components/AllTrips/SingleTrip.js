@@ -7,14 +7,14 @@ import TripDescription from "../Utils/TripDescriptionList";
 const SingleTrip = (props) => {
   return (
     <li className={styles["single-trip"]}>
-      <DateBox date={props.date}></DateBox>
+      <DateBox date={props.tripData.date}></DateBox>
       <TripDescription
-        type={props.type}
-        preferences={props.preferences}
-        start={props.start}
-        end={props.end}
+        type={props.tripData.type}
+        preferences={props.tripData.preferences}
+        start={props.tripData.waypoints[0].name}
+        end={props.tripData.waypoints[props.tripData.waypoints.length - 1].name}
       ></TripDescription>
-      <Link className={styles["link-button"]} to={`${props.id}`}>
+      <Link className={styles["link-button"]} to={`${props.tripData.tripId}`}>
         Show details
       </Link>
     </li>

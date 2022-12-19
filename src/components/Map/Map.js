@@ -53,7 +53,6 @@ const Map = (props) => {
     })
       .on("routesfound", function (e) {
         if (!userWaypointsInput && !isMapStatic) {
-          console.log("distance");
           let routes = e.routes;
           let summary = routes[0].summary;
           let hours = Math.floor(summary.totalTime / 3600);

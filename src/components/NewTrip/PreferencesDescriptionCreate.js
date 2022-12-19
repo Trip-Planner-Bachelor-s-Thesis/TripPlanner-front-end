@@ -91,6 +91,7 @@ const PreferencesDescriptionCreate = (props) => {
           sx={{
             p: 2,
             borderRadius: "sm",
+            mb: 2
           }}
         >
           <Typography level="body1">
@@ -103,7 +104,7 @@ const PreferencesDescriptionCreate = (props) => {
         </Sheet>
       )}
 
-      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }}>
+      <Button color="primary" variant="soft" sx={{ width: "100%" }}>
         Check weather
       </Button>
     </div>

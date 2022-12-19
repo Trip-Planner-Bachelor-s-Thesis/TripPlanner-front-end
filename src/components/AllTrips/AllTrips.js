@@ -1,10 +1,12 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 
 import styles from "./AllTrips.module.css";
 import SingleTrip from "./SingleTrip";
 import FilterTrips from "./FilterTrips";
 import PaginationList from "../Utils/PaginationList";
 import SpinnerBox from "../Utils/SpinnerBox";
+import LogRegisterContext from "../../contexts/log-register-context";
+import fetchUrls from "../../helpers/fetch_urls";
 
 const initialState = {
   tripsPerPage: 4,
@@ -55,30 +57,30 @@ const reducer = (state, action) => {
 };
 
 const AllTrips = () => {
+  const { token } = useContext(LogRegisterContext);
   const [allFetchedTrips, setAllFetchedTrips] = useState(null);
   const [allTrips, setAllTrips] = useState(null);
   const [isSendingRequest, setisSendingRequest] = useState(true);
   const [paginationState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch(
-      "https://react-http-4d0e4-default-rtdb.europe-west1.firebasedatabase.app/trips.json"
-    )
+    fetch(fetchUrls["get-all-trips"], {
+      headers: { Authorization: "Bearer " + token },
+    })
       .then((response) => response.json())
       .then((data) => {
         let trips = [];
-        for (const key in data) {
-          const trip = {
-            id: key,
-            ...data[key],
-          };
+        for (const trip of data.trips) {
           trips.push(trip);
         }
         setisSendingRequest(false);
         setAllFetchedTrips(trips);
         setAllTrips(trips);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-  }, []);
+  }, [token]);
 
   const filterHandler = (filteredTrips) => {
     setAllTrips(filteredTrips);
@@ -114,15 +116,7 @@ const AllTrips = () => {
             {allTrips
               .slice(paginationState.firstIndex, paginationState.lastIndex)
               .map((trip) => (
-                <SingleTrip
-                  key={trip.id}
-                  id={trip.id}
-                  date={trip.date}
-                  type={trip.type}
-                  preferences={trip.preferences}
-                  start={trip.waypoints[0].name}
-                  end={trip.waypoints[trip.waypoints.length - 1].name}
-                ></SingleTrip>
+                <SingleTrip key={trip.tripId} tripData={trip}></SingleTrip>
               ))}
           </ul>
         ))}

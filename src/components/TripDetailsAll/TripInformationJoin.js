@@ -66,7 +66,7 @@ const TripInformationJoin = (props) => {
           </Typography>
         )}
         <Typography level="body1" startDecorator={<PersonIcon />}>
-          Created by: johnsmith96
+          Created by: {props.tripData.creator.userName}
         </Typography>
       </div>
     </div>

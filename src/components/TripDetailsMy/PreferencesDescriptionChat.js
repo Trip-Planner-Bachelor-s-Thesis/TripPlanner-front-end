@@ -10,6 +10,7 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Avatar from "@mui/joy/Avatar";
+import StarIcon from "@mui/icons-material/Star";
 
 import styles from "./PreferencesDescriptionChat.module.css";
 
@@ -25,7 +26,7 @@ const PreferencesDescriptionChat = (props) => {
 
   const chatHandler = () => {
     navigate("chat");
-  }
+  };
 
   return (
     <div className={styles["content-container"]}>
@@ -73,7 +74,12 @@ const PreferencesDescriptionChat = (props) => {
       >
         Show participants
       </Button>
-      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }} onClick={chatHandler}>
+      <Button
+        color="primary"
+        variant="soft"
+        sx={{ mb: 1, width: "100%" }}
+        onClick={chatHandler}
+      >
         Open chat
       </Button>
 
@@ -107,7 +113,7 @@ const PreferencesDescriptionChat = (props) => {
           </Typography>
           <Sheet>
             <List
-              column
+              column="true"
               wrap
               sx={{
                 "--List-gap": "8px",
@@ -117,11 +123,20 @@ const PreferencesDescriptionChat = (props) => {
                 justifyContent: "center",
               }}
             >
-              <ListItem>
+              {/* <ListItem>
                 <ListItemDecorator sx={{ mr: 1 }}>
                   <Avatar size="sm" />
                 </ListItemDecorator>
                 Kevin Ross
+              </ListItem> */}
+              <ListItem key={props.tripData.creator.id}>
+                <ListItemDecorator sx={{ mr: 0 }}>
+                  <Avatar size="sm" />
+                </ListItemDecorator>
+                {props.tripData.creator.userName}
+                &#160; &#160;
+                {props.tripData.creator.userRating.toFixed(2)}
+                <StarIcon sx={{ ml: 0.25 }} />
               </ListItem>
             </List>
           </Sheet>
@@ -130,7 +145,7 @@ const PreferencesDescriptionChat = (props) => {
           </Typography>
           <Sheet sx={{ maxHeight: 400, overflow: "auto" }}>
             <List
-              column
+              column="true"
               wrap
               sx={{
                 "--List-gap": "8px",
@@ -140,36 +155,41 @@ const PreferencesDescriptionChat = (props) => {
                 justifyContent: "center",
               }}
             >
-              <ListItem sx={{ m: 0 }}>
+              {/* <ListItem sx={{ m: 0 }}>
                 <ListItemDecorator sx={{ mr: 1 }}>
                   <Avatar size="sm" />
                 </ListItemDecorator>
                 Kevin Ross
               </ListItem>
-              {/* <ListDivider inset="gutter" sx={{my: 0}}  /> */}
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                John Smith
-  
-              </ListItem>
-              {/* <ListDivider inset="gutter" sx={{my: 0}} /> */}
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                Kevin Ross
-              </ListItem>
-              {/* <ListDivider inset="gutter" sx={{my: 0}}  /> */}
               <ListItem sx={{ m: 0 }}>
                 <ListItemDecorator sx={{ mr: 1 }}>
                   <Avatar size="sm" />
                 </ListItemDecorator>
                 John Smith
               </ListItem>
-              {/* <ListDivider inset="gutter" sx={{my: 0}}  /> */}
-              
+              <ListItem sx={{ m: 0 }}>
+                <ListItemDecorator sx={{ mr: 1 }}>
+                  <Avatar size="sm" />
+                </ListItemDecorator>
+                Kevin Ross
+              </ListItem>
+              <ListItem sx={{ m: 0 }}>
+                <ListItemDecorator sx={{ mr: 1 }}>
+                  <Avatar size="sm" />
+                </ListItemDecorator>
+                John Smith
+              </ListItem> */}
+              {props.tripData.members.map((item) => (
+                <ListItem key={item.id}>
+                  <ListItemDecorator sx={{ mr: 0 }}>
+                    <Avatar size="sm" />
+                  </ListItemDecorator>
+                  {item.userName}
+                  &#160; &#160;
+                  {item.userRating.toFixed(2)}
+                  <StarIcon sx={{ ml: 0.25 }} />
+                </ListItem>
+              ))}
             </List>
           </Sheet>
         </Sheet>
