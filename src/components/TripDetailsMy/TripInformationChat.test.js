@@ -1,16 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import TripInformationJoin from "./TripInformationJoin";
+import TripInformationChat from "./TripInformationChat";
 
-describe("TripInformationJoin component", () => {
+describe("TripInformationChat component", () => {
   test("renders its content correctly", () => {
     // Arrange
     const trip = {
       date: "2022-11-30T00:00:00.000Z",
-      preferences: "entertainment",
+      preferences: ["Entertainment"],
       creator: { userName: "admin", userRating: 3.5 },
       type: "car",
     };
-    render(<TripInformationJoin tripData={trip} />);
+    render(<TripInformationChat tripData={trip} />);
 
     // Act
     // ... nothing

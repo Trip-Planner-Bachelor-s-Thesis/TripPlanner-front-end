@@ -6,20 +6,26 @@ describe("SingleTrip component", () => {
   test("renders its content correctly", () => {
     // Arrange
     const trip = {
+      tripId: 1,
       date: "2022-11-30T00:00:00.000Z",
-      preferences: "entertainment",
+      preferences: ["Entertainment"],
       type: "car",
+      waypoints: [
+        {
+          lat: 52.231956,
+          lng: 21.006725,
+          name: "Olsztyn, powiat olsztyński, województwo warmińsko-mazurskie, Polska",
+        },
+        {
+          lat: 52.231956,
+          lng: 21.006725,
+          name: "Warszawa, województwo mazowieckie, Polska",
+        },
+      ],
     };
     render(
       <BrowserRouter>
-        <SingleTrip
-          id="-NGTvWu_IyGeBtOr8bXX"
-          date="2022-11-30T00:00:00.000Z"
-          type="car"
-          preferences="entertainment" 
-          start="Olsztyn, powiat olsztyński, województwo warmińsko-mazurskie, Polska"
-          end="Warszawa, województwo mazowieckie, Polska"
-        />
+        <SingleTrip tripData={trip} />
       </BrowserRouter>
     );
 
@@ -31,7 +37,6 @@ describe("SingleTrip component", () => {
     expect(screen.getByTestId("year")).toHaveTextContent("2022");
     expect(screen.getByTestId("day")).toHaveTextContent("30");
     expect(screen.getByTestId("type")).toHaveTextContent("Car trip");
-    expect(screen.getByTestId("preferences")).toHaveTextContent("Entertainment");
     expect(screen.getByTestId("start")).toHaveTextContent("Olsztyn");
     expect(screen.getByTestId("end")).toHaveTextContent("Warszawa");
   });

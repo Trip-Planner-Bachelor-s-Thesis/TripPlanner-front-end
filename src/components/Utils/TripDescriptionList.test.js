@@ -23,7 +23,6 @@ describe("TripDescriptionList component", () => {
 
     // Assert
     expect(screen.getByTestId("type")).toHaveTextContent("Car trip");
-    expect(screen.getByTestId("preferences")).toHaveTextContent("Entertainment");
     expect(screen.getByTestId("start")).toHaveTextContent("Olsztyn");
     expect(screen.getByTestId("end")).toHaveTextContent("Warszawa");
   });

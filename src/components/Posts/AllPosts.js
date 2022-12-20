@@ -9,7 +9,8 @@ const AllPosts = (props) => {
   const { token } = useContext(LogRegisterContext);
   const [allFetchedPosts, setAllFetchedPosts] = useState(null);
   const postsContainerRef = useRef();
-  const { tripId } = useParams();
+  let { tripId } = useParams();
+  !tripId && (tripId = 1)
   let postNumber = props.isNewPost;
 
   useEffect(() => {
@@ -22,6 +23,8 @@ const AllPosts = (props) => {
         for (let post of data.posts) {
           posts.push(post)
         }
+        console.log(data);
+        console.log(posts);
         setAllFetchedPosts(posts);
         setTimeout(handleScroll, 500);
       })

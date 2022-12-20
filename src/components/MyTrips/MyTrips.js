@@ -2,6 +2,7 @@ import { useState, useEffect, useReducer, useContext } from "react";
 import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import Tab from "@mui/joy/Tab";
+import Typography from "@mui/joy/Typography";
 
 import styles from "./MyTrips.module.css";
 import SingleTrip from "./SingleTrip";
@@ -70,6 +71,7 @@ const MyTrips = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         let trips = [];
         for (const trip of data.trips) {
           trips.push(trip);
@@ -145,6 +147,9 @@ const MyTrips = () => {
       {!allTrips && <SpinnerBox />}
       {allTrips && (
         <div className={styles["tabs-container"]}>
+          <Typography level="h6" sx={{ mb: 2, textAlign: "center" }}>
+            Browse through my trips
+          </Typography>
           <Tabs
             aria-label="Outlined tabs"
             value={index}

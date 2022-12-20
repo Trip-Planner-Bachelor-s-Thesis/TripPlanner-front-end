@@ -29,7 +29,7 @@ describe("Posts component", () => {
     const authorInformation = await screen.findByTestId("author");
     expect(dateInformation).toHaveTextContent("4 December 2022");
     expect(contentInformation).toHaveTextContent(
-      `There are many variations of passages of Lorem Ipsum available`
+      `There are many variations of passages of Lorem Ipsum available` 
     );
     expect(authorInformation).toHaveTextContent("johnsmith96");
 
