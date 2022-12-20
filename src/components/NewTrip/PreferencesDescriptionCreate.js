@@ -1,15 +1,28 @@
 import Textarea from "@mui/joy/Textarea";
 import Checkbox from "@mui/joy/Checkbox";
+import { useState } from "react";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Done from "@mui/icons-material/Done";
 import Button from "@mui/joy/Button";
+import Weather from "./Weather";
 
 import styles from "./PreferencesDescriptionCreate.module.css";
 
 const PreferencesDescriptionCreate = (props) => {
+  const [weatherIsClicked, setWeatherIsClicked] = useState(false);
+
+  function weatherClickHandler() {
+    if (props.wayPoints.length > 1) {
+      setWeatherIsClicked(true);
+      console.log(props.wayPoints[props.wayPoints.length - 1]);
+    }
+  }
+
+  let isDestinationAvailable = props.wayPoints.length > 1;
+
   return (
     <div className={styles["content-container"]}>
       <Textarea
@@ -91,7 +104,7 @@ const PreferencesDescriptionCreate = (props) => {
           sx={{
             p: 2,
             borderRadius: "sm",
-            mb: 2
+            mb: 2,
           }}
         >
           <Typography level="body1">
@@ -104,9 +117,7 @@ const PreferencesDescriptionCreate = (props) => {
         </Sheet>
       )}
 
-      <Button color="primary" variant="soft" sx={{ width: "100%" }}>
-        Check weather
-      </Button>
+      <Weather enteredWayPoints={props.wayPoints[props.wayPoints.length - 1]} isDestinantion={isDestinationAvailable}  />
     </div>
   );
 };

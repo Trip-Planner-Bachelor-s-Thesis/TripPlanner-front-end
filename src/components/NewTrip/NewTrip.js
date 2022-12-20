@@ -58,6 +58,10 @@ const NewTrip = () => {
     setCalculatedTripData(value);
   }, []);
 
+  function clickHandler(){
+    console.log(enteredWaypoints);
+  }
+
   const submitFormHandler = async () => {
     let tripData = {
       type: enteredType,
@@ -103,6 +107,7 @@ const NewTrip = () => {
             onPreferencesHandler={preferencesHandler}
             enteredPreferences={enteredPreferences}
             calculatedTripData={calculatedTripData}
+            wayPoints={enteredWaypoints}
           />
           <div className={styles["map-only-container"]}>
             <Map
