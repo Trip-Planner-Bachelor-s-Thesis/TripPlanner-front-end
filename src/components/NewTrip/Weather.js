@@ -1,5 +1,4 @@
 import { useState, useEffect, Fragment } from "react";
-import styles from "./Weather.module.css";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Modal from "@mui/joy/Modal";
@@ -13,7 +12,6 @@ const api = {
 
 function Weather(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState({});
 
   let lat = 1;
@@ -30,13 +28,11 @@ function Weather(props) {
   }
 
   useEffect(() => {
-    setIsLoading(true);
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${api.key}`
     )
       .then((res) => res.json())
       .then((result) => {
-        setIsLoading(false);
         setWeather(result);
         console.log(result);
       });

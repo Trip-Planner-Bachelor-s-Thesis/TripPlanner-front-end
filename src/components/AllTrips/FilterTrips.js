@@ -1,6 +1,5 @@
 import { useState } from "react";
 import FormControl from "@mui/joy/FormControl";
-import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
@@ -8,8 +7,6 @@ import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 
 import styles from "./FilterTrips.module.css";
-import { optionsCar } from "../../helpers/helpers";
-import { optionsBike } from "../../helpers/helpers";
 
 const DropdownList = (props) => {
   const [enteredType, setEnteredType] = useState("");

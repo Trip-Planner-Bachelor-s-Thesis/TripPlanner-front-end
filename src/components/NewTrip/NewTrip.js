@@ -58,10 +58,6 @@ const NewTrip = () => {
     setCalculatedTripData(value);
   }, []);
 
-  function clickHandler(){
-    console.log(enteredWaypoints);
-  }
-
   const submitFormHandler = async () => {
     let tripData = {
       type: enteredType,
