@@ -27,7 +27,7 @@ describe("AllPosts component", () => {
     const dateInformation = await screen.findByTestId("date");
     const contentInformation = await screen.findByTestId("content");
     const authorInformation = await screen.findByTestId("author");
-    expect(dateInformation).toHaveTextContent("4 December 2022");
+    expect(dateInformation).toHaveTextContent("4 December 2022"); 
     expect(contentInformation).toHaveTextContent(
       `There are many variations of passages of Lorem Ipsum available`
     );

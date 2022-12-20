@@ -34,7 +34,7 @@ const DropdownList = (props) => {
         <div className={styles["form-container"]}>
           <FormControl>
             {/* <FormLabel sx={{ alignSelf: "center" }}>Trip date</FormLabel> */}
-            <Input type="date" onChange={dateDropDownHandler} />
+            <Input type="date" data-testid="date" onChange={dateDropDownHandler} />
           </FormControl>
 
           <FormControl sx={{ ml: 2 }}>
@@ -47,7 +47,6 @@ const DropdownList = (props) => {
             <Select
               placeholder="Choose type"
               onChange={typeDropDownHandler}
-              data-testid="type"
               sx={{ mx: 2 }}
             >
               <Option value="car">Car trip</Option>

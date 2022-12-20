@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FormControl from "@mui/joy/FormControl";
-// import FormLabel from "@mui/joy/FormLabel";
+import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
@@ -76,19 +76,8 @@ const DropdownList = (props) => {
         Browse through trips
       </Typography>
       <div className={styles["form-container"]}>
-        {/* <div className={styles["label-box"]}>
-          <label htmlFor="startDate">Start date</label>
-          <input
-            type="date"
-            min={new Date().toISOString().split("T")[0]}
-            max="2023-12-31"
-            onChange={startDateDropDownHandler}
-            value={enteredStartDate}
-            id="startDate"
-          />
-        </div> */}
         <FormControl  sx={{ mx: 1 }}>
-          {/* <FormLabel sx={{ alignSelf: "center" }}>Trip date</FormLabel> */}
+          {/* <FormLabel sx={{ alignSelf: "center", visibility: "hidden" }}>Start date</FormLabel> */}
           <Input
             type="date"
             onChange={startDateDropDownHandler}
@@ -96,17 +85,7 @@ const DropdownList = (props) => {
             className={styles["start-date"]}
           />
         </FormControl>
-        {/* <div className={styles["label-box"]}>
-          <label htmlFor="endDate">End date</label>
-          <input
-            type="date"
-            min={new Date().toISOString().split("T")[0]}
-            max="2023-12-31"
-            onChange={endDateDropDownHandler}
-            value={enteredEndDate}
-            id="endDate"
-          />
-        </div> */}
+
         <FormControl  sx={{ mx: 1 }}>
           {/* <FormLabel sx={{ alignSelf: "center" }}>Trip date</FormLabel> */}
           <Input
@@ -117,24 +96,13 @@ const DropdownList = (props) => {
           />
         </FormControl>
 
-        {/* <div className={styles["label-box"]}>
-          <label htmlFor="type">Trip type</label>
-          <select id="type" onChange={typeDropDownHandler} value={enteredType}>
-            <option value="" hidden>
-                Choose
-            </option>
-            <option value="car">Car trip</option>
-            <option value="bike">Bike ride</option>
-          </select>
-        </div> */}
-
         <FormControl  sx={{ mx: 1 }}>
           {/* <FormLabel sx={{ alignSelf: "center" }}>Trip type</FormLabel> */}
           <Select
             placeholder="Choose type"
             onChange={typeDropDownHandler}
             value={enteredType}
-            data-testid="type"
+            data-testid="type-option"
           >
             <Option value="car">Car trip</Option>
             <Option value="bike">Bike ride</Option>
@@ -142,49 +110,19 @@ const DropdownList = (props) => {
           </Select>
         </FormControl>
 
-        {/* <div className={styles["label-box"]}>
-          <label htmlFor="preferences">Trip preferences</label>
-          <select id="preferences" onChange={preferencesDropDownHandler} disabled={!enteredType} value={enteredPreferences}>
-            <option value="" hidden>
-              Choose
-            </option>
-            {enteredType &&
-              enteredType === "car" &&
-              optionsCar.map((option) => (
-                <option key={option.label} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            {enteredType &&
-              enteredType === "bike" &&
-              optionsBike.map((option) => (
-                <option key={option.label} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-          </select>
-        </div> */}
-
         <FormControl sx={{ mx: 1 }}>
           {/* <FormLabel sx={{ alignSelf: "center" }}>Trip type</FormLabel> */}
           <Select
             placeholder="Choose tags"
             onChange={preferencesDropDownHandler}
             value={enteredPreferences}
-            data-testid="type"
+            data-testid="preferences-option"
           >
             <Option value="Entertainment">Entertainment</Option>
             <Option value="Sightseeing">Sightseeing</Option>
             <Option value="Training">Training</Option>
           </Select>
         </FormControl>
-        {/* 
-        <button type="button" onClick={filterHandler}>
-          Filter
-        </button>
-        <button type="button" onClick={resetHandler}>
-          Reset
-        </button> */}
 
         <Button
           color="primary"

@@ -29,7 +29,7 @@ const TripInformationChat = (props) => {
         Find out more about the trip
       </Typography>
       <div className={styles["form-container"]}>
-        <Typography level="body1" startDecorator={<CalendarMonthIcon />}>
+        <Typography level="body1" startDecorator={<CalendarMonthIcon />} data-testid="trip-date">
           Trip date: {day}.{month}.{year}
         </Typography>
         <Typography
@@ -44,6 +44,7 @@ const TripInformationChat = (props) => {
             level="body1"
             sx={{ ml: 4, mr: 8 }}
             startDecorator={<DirectionsCarIcon />}
+            data-testid="trip-type"
           >
             Trip type: {options[props.tripData.type]}
           </Typography>
@@ -53,6 +54,7 @@ const TripInformationChat = (props) => {
             level="body1"
             sx={{ ml: 4, mr: 8 }}
             startDecorator={<DirectionsBikeIcon />}
+            data-testid="trip-type"
           >
             Trip type: {options[props.tripData.type]}
           </Typography>
@@ -62,6 +64,7 @@ const TripInformationChat = (props) => {
             level="body1"
             sx={{ ml: 4, mr: 8 }}
             startDecorator={<DirectionsWalkIcon />}
+            data-testid="trip-type"
           >
             Trip type: {options[props.tripData.type]}
           </Typography>

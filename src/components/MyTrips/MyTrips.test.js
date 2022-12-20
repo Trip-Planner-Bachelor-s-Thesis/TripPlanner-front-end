@@ -44,7 +44,6 @@ describe("MyTrips component", () => {
     expect(screen.getByTestId("year")).toHaveTextContent("2022");
     expect(screen.getByTestId("day")).toHaveTextContent("30");
     expect(screen.getByTestId("type")).toHaveTextContent("Car trip");
-    expect(screen.getByTestId("preferences")).toHaveTextContent("Entertainment");
     expect(screen.getByTestId("start")).toHaveTextContent("Olsztyn");
     expect(screen.getByTestId("end")).toHaveTextContent("Warszawa");
     expect(screen.getByRole("link", {name: "Show details"})).toBeInTheDocument();
