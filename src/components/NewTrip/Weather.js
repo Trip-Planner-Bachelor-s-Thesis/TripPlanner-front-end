@@ -17,7 +17,7 @@ function Weather(props) {
   let lat = 1;
   let lon = 1;
 
-  console.log(props.enteredWayPoints);
+  //console.log(props.enteredWayPoints);
   function weatherClickHandler() {
     setIsOpen(true);
   }
@@ -34,11 +34,11 @@ function Weather(props) {
       .then((res) => res.json())
       .then((result) => {
         setWeather(result);
-        console.log(result);
+        //console.log(result);
       });
   }, [lat, lon]);
 
-  console.log(weather);
+  //console.log(weather);
 
   return (
     <Fragment>

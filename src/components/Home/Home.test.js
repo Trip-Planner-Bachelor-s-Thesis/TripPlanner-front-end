@@ -26,8 +26,8 @@ describe("Home component", () => {
     renderHomePage(contextValue);
     expect(screen.getByRole("heading", {name: /^Welcome on Board!$/})).toBeInTheDocument();
     expect(screen.getByRole("contentinfo")).toBeInTheDocument();
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument(); 
-    expect(screen.queryByTestId("close")).not.toBeInTheDocument();
+    expect(screen.queryByRole("presentation")).not.toBeInTheDocument(); 
+    expect(screen.queryByRole("button", {name: /^Close$/})).not.toBeInTheDocument();
     expect(screen.queryByRole("button", {name: /^Go to$/})).not.toBeInTheDocument();
   });
 
@@ -41,10 +41,9 @@ describe("Home component", () => {
       updateFirstLogin: () => {},
     };
     renderHomePage(contextValue);
-    expect(screen.getByRole("dialog")).toBeInTheDocument(); 
-    expect(screen.getByTestId("close")).toBeInTheDocument();
+    expect(screen.getByRole("presentation")).toBeInTheDocument(); 
+    expect(screen.getByRole("button", {name: /^Close$/})).toBeInTheDocument();
     expect(screen.getByRole("button", {name: /^Go to$/})).toBeInTheDocument();
-    expect(screen.getByRole("heading", {name: /^Welcome on Board!$/})).toBeInTheDocument();
-    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+    expect(screen.getByRole("heading", {name: "First time on our page?"})).toBeInTheDocument();
   });
 });

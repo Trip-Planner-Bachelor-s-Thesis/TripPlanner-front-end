@@ -23,8 +23,8 @@ const AllPosts = (props) => {
         for (let post of data.posts) {
           posts.push(post)
         }
-        console.log(data);
-        console.log(posts);
+        //console.log(data);
+        //console.log(posts);
         setAllFetchedPosts(posts);
         setTimeout(handleScroll, 500);
       })

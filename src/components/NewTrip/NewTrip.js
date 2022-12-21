@@ -69,7 +69,7 @@ const NewTrip = () => {
       distance: calculatedTripData.distance,
       totalTime: calculatedTripData.totalTime,
     };
-    console.log(tripData);
+    //console.log(tripData);
     const response = await fetch(fetchUrls["create-trip"], {
       method: "POST",
       body: JSON.stringify(tripData),

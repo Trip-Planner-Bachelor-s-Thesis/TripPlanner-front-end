@@ -17,7 +17,7 @@ const PaginationList = (props) => {
   };
 
   let active = Number(props.paginationState.currentPage);
-  let totalNumPages = Math.ceil(props.sumOfTrips / 4);
+  let totalNumPages = Math.ceil(props.sumOfTrips / props.paginationState.tripsPerPage);
   let items = [];
   active > 1 &&
     items.push(

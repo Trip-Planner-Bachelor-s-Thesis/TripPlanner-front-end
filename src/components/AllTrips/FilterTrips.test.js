@@ -10,13 +10,6 @@ describe("FilterTrips component", () => {
     // ... nothing
 
     // Assert
-
-    // expect(screen.getByRole("option", { name: /^Car trip$/ }).selected).toBe(
-    //   false
-    // );
-    // expect(screen.getByRole("option", { name: /^Bike ride$/ }).selected).toBe(
-    //   false
-    // );
     expect(screen.getByRole("button", { name: /^Filter$/ })).toBeEnabled();
     expect(screen.getByRole("button", { name: /^Reset$/ })).toBeEnabled();
   });

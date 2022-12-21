@@ -71,7 +71,7 @@ const MyTrips = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        //console.log(data)
         let trips = [];
         for (const trip of data.trips) {
           trips.push(trip);

@@ -1,6 +1,7 @@
 import { useState, useEffect, useReducer, useContext } from "react";
 
 import styles from "./AllTrips.module.css";
+import List from "@mui/joy/List";
 import SingleTrip from "./SingleTrip";
 import FilterTrips from "./FilterTrips";
 import PaginationList from "../Utils/PaginationList";
@@ -8,11 +9,13 @@ import SpinnerBox from "../Utils/SpinnerBox";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";
 
+const numberTripsPerPage = 4
+
 const initialState = {
-  tripsPerPage: 4,
+  tripsPerPage: numberTripsPerPage,
   currentPage: 1,
   firstIndex: 0,
-  lastIndex: 4,
+  lastIndex: numberTripsPerPage,
 };
 
 const reducer = (state, action) => {
@@ -22,7 +25,7 @@ const reducer = (state, action) => {
         ...state,
         currentPage: Number(state.currentPage) + 1,
         firstIndex: Number(state.currentPage) * Number(state.tripsPerPage),
-        lastIndex: Number(state.currentPage) * Number(state.tripsPerPage) + 4,
+        lastIndex: Number(state.currentPage) * Number(state.tripsPerPage) + state.tripsPerPage,
       };
     case "decrement":
       return {
@@ -31,7 +34,7 @@ const reducer = (state, action) => {
         firstIndex:
           (Number(state.currentPage) - 2) * Number(state.tripsPerPage),
         lastIndex:
-          (Number(state.currentPage) - 2) * Number(state.tripsPerPage) + 4,
+          (Number(state.currentPage) - 2) * Number(state.tripsPerPage) + state.tripsPerPage,
       };
     case "change":
       if (action.page === undefined) {
@@ -49,7 +52,7 @@ const reducer = (state, action) => {
         ...state,
         currentPage: 1,
         firstIndex: 0,
-        lastIndex: 4,
+        lastIndex: state.tripsPerPage,
       };
     default:
       throw new Error();
@@ -112,13 +115,20 @@ const AllTrips = () => {
         (allTrips.length === 0 ? (
           <p className={styles["no-trips-found"]}>No trips found</p>
         ) : (
-          <ul className={styles["list-of-trips"]}>
+          <List sx={{width: "40%", p: 0, m: "0 auto", mb: 2}}>
             {allTrips
               .slice(paginationState.firstIndex, paginationState.lastIndex)
               .map((trip) => (
                 <SingleTrip key={trip.tripId} tripData={trip}></SingleTrip>
               ))}
-          </ul>
+          </List>
+          // <ul className={styles["list-of-trips"]}>
+          //   {allTrips
+          //     .slice(paginationState.firstIndex, paginationState.lastIndex)
+          //     .map((trip) => (
+          //       <SingleTrip key={trip.tripId} tripData={trip}></SingleTrip>
+          //     ))}
+          // </ul>
         ))}
       {allTrips && allTrips.length > 4 && (
         <PaginationList

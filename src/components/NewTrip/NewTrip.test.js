@@ -40,9 +40,6 @@ describe("NewTrip component", () => {
   
 
     // Assert
-    // expect(screen.getByTestId("date")).toHaveTextContent(
-    //   new Date().toJSON().split("T")[0]
-    // );
     expect(screen.getByPlaceholderText(/^start$/i)).toHaveDisplayValue(
       "Warszawa"
     );
