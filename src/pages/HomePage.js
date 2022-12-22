@@ -1,7 +1,12 @@
-import Home from '../components/Home/Home';
+import styles from "./Pages.module.css";
+import Home from "../components/Home/Home";
 
 const HomePage = () => {
-  return <Home />;
+  return (
+    <main className={styles["home-container"]}>
+      <Home />
+    </main>
+  );
 };
 
 export default HomePage;
