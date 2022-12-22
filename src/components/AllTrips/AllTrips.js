@@ -122,13 +122,6 @@ const AllTrips = () => {
                 <SingleTrip key={trip.tripId} tripData={trip}></SingleTrip>
               ))}
           </List>
-          // <ul className={styles["list-of-trips"]}>
-          //   {allTrips
-          //     .slice(paginationState.firstIndex, paginationState.lastIndex)
-          //     .map((trip) => (
-          //       <SingleTrip key={trip.tripId} tripData={trip}></SingleTrip>
-          //     ))}
-          // </ul>
         ))}
       {allTrips && allTrips.length > 4 && (
         <PaginationList

@@ -70,7 +70,7 @@ const LogRegisterForm = () => {
         console.log(data);
         data.token && isLoginForm && logRegisterContext.login(data.token, false);
         data.token && !isLoginForm && logRegisterContext.login(data.token, true);
-        data.token && navigate("/", { replace: true });
+        data.token && navigate("/trips", { replace: true });
       })
       .catch((error) => {
         console.log(error);

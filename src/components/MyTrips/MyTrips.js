@@ -3,6 +3,7 @@ import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import Tab from "@mui/joy/Tab";
 import Typography from "@mui/joy/Typography";
+import List from "@mui/joy/List";
 
 import styles from "./MyTrips.module.css";
 import SingleTrip from "./SingleTrip";
@@ -204,13 +205,13 @@ const MyTrips = () => {
         (allTrips.length === 0 ? (
           <p className={styles["no-trips-found"]}>No trips found</p>
         ) : (
-          <ul className={styles["list-of-trips"]}>
+          <List sx={{width: "40%", p: 0, m: "0 auto", mb: 2}}>
             {allTrips
               .slice(paginationState.firstIndex, paginationState.lastIndex)
               .map((trip) => (
                 <SingleTrip key={trip.tripId} tripData={trip}></SingleTrip>
               ))}
-          </ul>
+          </List>
         ))}
       {allTrips && allTrips.length > 4 && (
         <PaginationList

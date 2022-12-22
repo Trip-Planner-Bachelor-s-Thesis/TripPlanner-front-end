@@ -33,11 +33,8 @@ describe("SingleTrip component", () => {
     // ... nothing
 
     // Assert
-    expect(screen.getByTestId("month")).toHaveTextContent("November");
-    expect(screen.getByTestId("year")).toHaveTextContent("2022");
-    expect(screen.getByTestId("day")).toHaveTextContent("30");
-    expect(screen.getByTestId("type")).toHaveTextContent("Car trip");
-    expect(screen.getByTestId("start")).toHaveTextContent("Olsztyn");
-    expect(screen.getByTestId("end")).toHaveTextContent("Warszawa");
+    expect(screen.getByTestId("date-type")).toHaveTextContent("30.11.2022 Car trip");
+    expect(screen.getByTestId("waypoints")).toHaveTextContent("OlsztynWarszawa");
+    expect(screen.getByRole("link", {name: "Show details"})).toBeInTheDocument();
   });
 });
