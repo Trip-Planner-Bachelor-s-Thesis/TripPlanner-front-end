@@ -15,7 +15,7 @@ function renderNavigationBar(context) {
   );
 }
 
-describe("NavigationBarBootstrap component", () => {
+describe("App component", () => {
   test("renders navigation bar correctly in case token is provided", () => {
     // Arrange
     const contextValue = {
@@ -47,10 +47,6 @@ describe("NavigationBarBootstrap component", () => {
     expect(
       screen.queryByRole("link", { name: /^login$/i })
     ).not.toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /^Welcome on Board!$/ })
-    ).toBeInTheDocument();
-    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByTestId("close")).not.toBeInTheDocument();
     expect(
@@ -85,10 +81,6 @@ describe("NavigationBarBootstrap component", () => {
     expect(
       screen.queryByRole("link", { name: /^create trip$/i })
     ).not.toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: /^Welcome on Board!$/ })
-    ).toBeInTheDocument();
-    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByTestId("close")).not.toBeInTheDocument();
     expect(

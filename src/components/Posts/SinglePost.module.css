@@ -8,14 +8,14 @@
 }
 
 .post-content {
-  color: white;
+  color: black;
   text-align: left;
   font-size: 0.9rem;
 }
 
 .post-author {
   margin-top: 0.25rem;
-  color: white;
+  color: black;
   text-align: right;
   font-style: italic;
   font-size: 0.8rem;

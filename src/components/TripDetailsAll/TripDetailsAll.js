@@ -52,6 +52,25 @@ const TripDetailsAll = () => {
     navigate("/my-trips", { replace: true });
   };
 
+  const addFavoritesHandler = async () => {
+    fetch(`${fetchUrls["add-favorite-trips"]}/${tripId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    await new Promise((r) => setTimeout(r, 1000));
+    navigate("/favorite-trips", { replace: true });
+  };
+
   return (
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
@@ -61,6 +80,7 @@ const TripDetailsAll = () => {
             <PreferencesDescriptionJoin
               tripData={trip}
               onJoinHandler={joinHandler}
+              onAddFavoritesHandler={addFavoritesHandler}
             />
             <div className={styles["map-only-container"]}>
               <Sheet

@@ -19,32 +19,49 @@ const NavigationBarBootstrap = () => {
     <header>
       <Navbar bg="light" expand="lg" className="navigation-bar-bootstrap">
         <Container fluid style={{ margin: "0 10rem" }}>
-          <Navbar.Brand as={NavLink} to="/">
+          <Navbar.Brand as={NavLink} to="/" style={{ color: "#b2b1b1" }}>
             Trip Planner
           </Navbar.Brand>
           <Nav className="d-flex justify-content-end">
             {!logRegisterContext.token && (
-              <Nav.Link style={{ margin: "0 0.5rem" }} as={NavLink} to="/auth">
+              <Nav.Link
+                style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                as={NavLink}
+                to="/auth"
+              >
                 Login
               </Nav.Link>
             )}
             {logRegisterContext.token && (
-              <Nav.Link style={{ margin: "0 0.5rem" }} as={NavLink} to="/trips">
+              <Nav.Link
+                style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                as={NavLink}
+                to="/trips"
+              >
                 All trips
               </Nav.Link>
             )}
             {logRegisterContext.token && (
               <Nav.Link
-                style={{ margin: "0 0.5rem" }}
+                style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
                 as={NavLink}
                 to="/my-trips"
               >
                 My trips
               </Nav.Link>
             )}
+              {logRegisterContext.token && (
+              <Nav.Link
+                style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                as={NavLink}
+                to="/favorite-trips"
+              >
+                Favorite trips
+              </Nav.Link>
+            )}
             {logRegisterContext.token && (
               <Nav.Link
-                style={{ margin: "0 0.5rem" }}
+                style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
                 as={NavLink}
                 to="/new-trip"
               >
@@ -52,7 +69,9 @@ const NavigationBarBootstrap = () => {
               </Nav.Link>
             )}
             {logRegisterContext.token && (
-              <Avatar style={{ marginLeft: "0.5rem" }}></Avatar>
+              <Avatar
+                style={{ marginLeft: "0.5rem", color: "#b2b1b1" }}
+              ></Avatar>
             )}
             {logRegisterContext.token && (
               <NavDropdown>

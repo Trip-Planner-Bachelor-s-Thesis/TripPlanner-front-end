@@ -12,6 +12,6 @@ describe("NewPost component", () => {
     // Assert
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
-    expect(screen.getByRole("button", {name: /^Create post$/})).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeInTheDocument();
   });
 });

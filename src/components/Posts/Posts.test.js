@@ -35,7 +35,7 @@ describe("Posts component", () => {
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /^Create post$/ })
+      screen.getByRole("button")
     ).toBeInTheDocument();
   });
 });

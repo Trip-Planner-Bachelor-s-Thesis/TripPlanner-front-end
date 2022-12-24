@@ -26,7 +26,7 @@ describe("AllTrips component", () => {
     // Assert
     const filterButton = await screen.findByRole("button", { name: /^Filter$/ });
     expect(filterButton).toBeEnabled();
-    expect(screen.getByRole("heading")).toHaveTextContent("Browse through trips");
+    expect(screen.getByRole("heading")).toHaveTextContent("Browse through available trips");
     expect(screen.getByRole("button", { name: /^Reset$/ })).toBeEnabled();
     expect(screen.getByTestId("date-type")).toHaveTextContent("30.11.2022 Car trip");
     expect(screen.getByTestId("waypoints")).toHaveTextContent("OlsztynWarszawa");

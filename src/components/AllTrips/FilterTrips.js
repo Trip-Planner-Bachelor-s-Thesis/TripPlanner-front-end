@@ -70,7 +70,7 @@ const DropdownList = (props) => {
   return (
     <div className={styles["new-trip__control"]}>
       <Typography level="h6" sx={{ mb: 2 }}>
-        Browse through trips
+        Browse through available trips
       </Typography>
       <div className={styles["form-container"]}>
         <FormControl  sx={{ mx: 1 }}>
@@ -147,7 +147,13 @@ function checkType(type, trip) {
 }
 
 function checkPreferences(preference, trip) {
-  return trip.preferences === preference;
+  let existFlag = false;
+  for (let item of trip.preferences) {
+    if(item.preferenceStr === preference) {
+      existFlag = true;
+    }
+  }
+  return existFlag;
 }
 
 function checkStartDate(startDate, trip) {

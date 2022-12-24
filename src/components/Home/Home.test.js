@@ -24,8 +24,6 @@ describe("Home component", () => {
       updateFirstLogin: () => {},
     };
     renderHomePage(contextValue);
-    expect(screen.getByRole("heading", {name: /^Welcome on Board!$/})).toBeInTheDocument();
-    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
     expect(screen.queryByRole("presentation")).not.toBeInTheDocument(); 
     expect(screen.queryByRole("button", {name: /^Close$/})).not.toBeInTheDocument();
     expect(screen.queryByRole("button", {name: /^Go to$/})).not.toBeInTheDocument();

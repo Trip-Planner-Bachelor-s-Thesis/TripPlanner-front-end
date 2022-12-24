@@ -16,6 +16,7 @@ import ProfilePage from "../../pages/ProfilePage";
 import HelpPage from "../../pages/HelpPage";
 import PostsPage from "../../pages/PostsPage";
 import LogRegisterAdminPage from "../../pages/LogRegisterAdminPage";
+import FavoriteTripsPage from "../../pages/FavoriteTripsPage";
 
 const MainContent = () => {
   const logRegisterContext = useContext(LogRegisterContext);
@@ -81,6 +82,22 @@ const MainContent = () => {
         path="/my-trips/:tripId/chat"
         element={
           logRegisterContext.token ? <PostsPage /> : <Navigate to="/auth" />
+        }
+      />
+      <Route
+        path="/favorite-trips"
+        element={
+          logRegisterContext.token ? <FavoriteTripsPage /> : <Navigate to="/auth" />
+        }
+      />
+           <Route
+        path="/favorite-trips/:tripId"
+        element={
+          logRegisterContext.token ? (
+            <TripDetailsAllPage />
+          ) : (
+            <Navigate to="/auth" />
+          )
         }
       />
       <Route path="*" element={<NotFoundPage />} />

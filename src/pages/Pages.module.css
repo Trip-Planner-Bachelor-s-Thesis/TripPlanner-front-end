@@ -6,4 +6,6 @@
 
 .home-container {
   height: calc(100vh - 56px);
+  /* background-color: #42455a; */
+  background-color: white;
 }

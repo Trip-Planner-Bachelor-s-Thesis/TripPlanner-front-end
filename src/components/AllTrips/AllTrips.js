@@ -79,6 +79,7 @@ const AllTrips = () => {
         setisSendingRequest(false);
         setAllFetchedTrips(trips);
         setAllTrips(trips);
+        console.log(trips);
       })
       .catch((error) => {
         console.log(error);

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, Fragment, useContext } from "react";
 import { useParams } from "react-router-dom";
+import List from "@mui/joy/List";
 import styles from "./AllPosts.module.css";
 import SinglePost from "./SinglePost";
 import LogRegisterContext from "../../contexts/log-register-context";
@@ -48,7 +49,7 @@ const AllPosts = (props) => {
           (allFetchedPosts.length === 0 ? (
             <p className={styles["no-posts-found"]}>No posts published yet</p>
           ) : (
-            <ul className={styles["list-of-posts"]}>
+            <List sx={{width: "85%", m: "0 auto", p: 0}}>
               {allFetchedPosts.map((post) => (
                 <SinglePost
                   key={post.postId}
@@ -61,7 +62,7 @@ const AllPosts = (props) => {
                   year={new Date(post.creationDateTime).getFullYear()}
                 ></SinglePost>
               ))}
-            </ul>
+            </List>
           ))}
         <div ref={postsContainerRef}></div>
       </div>

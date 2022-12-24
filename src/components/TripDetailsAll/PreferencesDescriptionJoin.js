@@ -26,6 +26,10 @@ const PreferencesDescriptionJoin = (props) => {
     props.onJoinHandler();
   };
 
+  const addFavoritesHandler = async () => {
+    props.onAddFavoritesHandler();
+  };
+
   return (
     <div className={styles["content-container"]}>
       <Sheet
@@ -72,10 +76,20 @@ const PreferencesDescriptionJoin = (props) => {
       >
         Show participants
       </Button>
-      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }}>
+      <Button
+        color="primary"
+        variant="soft"
+        sx={{ mb: 1, width: "100%" }}
+        onClick={addFavoritesHandler}
+      >
         Add to favorites
       </Button>
-      <Button color="primary" variant="soft" sx={{ mb: 1, width: "100%" }} onClick={joinHandler}>
+      <Button
+        color="primary"
+        variant="soft"
+        sx={{ mb: 1, width: "100%" }}
+        onClick={joinHandler}
+      >
         Join trip
       </Button>
 

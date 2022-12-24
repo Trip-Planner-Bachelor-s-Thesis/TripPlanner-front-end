@@ -11,8 +11,11 @@ const fetchUrls = {
     "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/all",
   "get-my-trips":
     "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips",
-  posts:
-    "https://tripplannerapi20221213230613.azurewebsites.net/api/Post/trip",
+  "get-favorite-trips":
+    "https://tripplannerapi20221213230613.azurewebsites.net/my-favorites/all",
+  "add-favorite-trips":
+    "https://tripplannerapi20221213230613.azurewebsites.net/my-favorites/add",
+  posts: "https://tripplannerapi20221213230613.azurewebsites.net/api/Post/trip",
 };
 
 export default fetchUrls;

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // import Modal from "react-bootstrap/Modal";
 // import Button from "react-bootstrap/Button";
-import Sheet from "@mui/joy/Sheet"
+import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
@@ -25,19 +25,6 @@ const Home = () => {
 
   return (
     <section className={styles["home-page-container"]}>
-      {/* <Modal show={logRegisterContext.firstLogin} onHide={closeModal} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>First time on our page?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Click Go to button to get to know more about the functionalities</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={closeModalRedirect}>Go to</Button>
-          <Button variant="secondary" onClick={closeModal} data-testid="close">
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
-
       <Modal
         open={logRegisterContext.firstLogin}
         onClose={closeModal}
@@ -63,20 +50,45 @@ const Home = () => {
               bgcolor: "white",
             }}
           />
-          <Typography level="h6" sx ={{textAlign: "center", mb: 1}}>First time on our page?</Typography>
-          <Typography level="body1" sx ={{textAlign: "center", mb: 2}}>Click Go to button to get to know more about the functionalities</Typography>
-          <Sheet sx={{display: "flex", justifyContent: "center"}}>
-          <Button color="primary" variant="soft" onClick={closeModalRedirect} sx={{mr: 1}}>Go to</Button>
-          <Button color="primary" variant="soft" onClick={closeModal} sx={{ml: 1}}>Close</Button>
+          <Typography level="h6" sx={{ textAlign: "center", mb: 1 }}>
+            First time on our page?
+          </Typography>
+          <Typography level="body1" sx={{ textAlign: "center", mb: 2 }}>
+            Click Go to button to get to know more about the functionalities
+          </Typography>
+          <Sheet sx={{ display: "flex", justifyContent: "center" }}>
+            <Button
+              color="primary"
+              variant="soft"
+              onClick={closeModalRedirect}
+              sx={{ mr: 1 }}
+            >
+              Go to
+            </Button>
+            <Button
+              color="primary"
+              variant="soft"
+              onClick={closeModal}
+              sx={{ ml: 1 }}
+            >
+              Close
+            </Button>
           </Sheet>
         </Sheet>
       </Modal>
-      <h1 className={styles["greeting-text"]}>Welcome on Board!</h1>
-      <div className={styles["images-container"]}>
-        <div className={styles["car-background"]}></div>
-        <div className={styles["bike-background"]}></div>
+      <div className={styles["home-page-description"]}>
+        <h3 className={styles["title"]}>Welcome to the Trip Planner</h3>
+        <p className={styles["description"]}>
+          Our goal is to foster the communities in which like minded people can go on trips
+          together while trying our best to help with the planning of such a
+          grand endeavour
+        </p>
       </div>
-      <footer className={styles["authors-footer"]}>{`Noman Noor \u00A0\u00A0 Marcin Świerkot \u00A0\u00A0 Nader Tavana`}</footer>
+      <div className={styles["home-page-images"]}>
+        {/* <img src={require("../../assets/test5.png")} alt=""></img> */}
+        <img src="https://www.pngall.com/wp-content/uploads/5/Silhouette-Mountain-Bike-Transparent.png"alt=""></img>
+      </div>
+      {/* <footer className={styles["authors-footer"]}>{`Noman Noor \u00A0\u00A0 Marcin Świerkot \u00A0\u00A0 Nader Tavana`}</footer> */}
     </section>
   );
 };
