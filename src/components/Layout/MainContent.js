@@ -17,6 +17,8 @@ import HelpPage from "../../pages/HelpPage";
 import PostsPage from "../../pages/PostsPage";
 import LogRegisterAdminPage from "../../pages/LogRegisterAdminPage";
 import FavoriteTripsPage from "../../pages/FavoriteTripsPage";
+import TripDetailsFavoritePage from "../../pages/TripDetailsFavoritePage"
+
 
 const MainContent = () => {
   const logRegisterContext = useContext(LogRegisterContext);
@@ -94,7 +96,7 @@ const MainContent = () => {
         path="/favorite-trips/:tripId"
         element={
           logRegisterContext.token ? (
-            <TripDetailsAllPage />
+            <TripDetailsFavoritePage />
           ) : (
             <Navigate to="/auth" />
           )

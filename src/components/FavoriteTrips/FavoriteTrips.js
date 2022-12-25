@@ -3,7 +3,7 @@ import { useState, useEffect, useReducer, useContext } from "react";
 import styles from "./FavoriteTrips.module.css";
 import List from "@mui/joy/List";
 import SingleTrip from "./SingleTrip";
-import FilterTrips from "./FilterTrips";
+import FilterTrips from "../Utils/FilterTrips";
 import PaginationList from "../Utils/PaginationList";
 import SpinnerBox from "../Utils/SpinnerBox";
 import LogRegisterContext from "../../contexts/log-register-context";

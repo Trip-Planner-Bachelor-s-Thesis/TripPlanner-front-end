@@ -6,7 +6,7 @@ import Typography from "@mui/joy/Typography";
 import List from "@mui/joy/List";
 
 import styles from "./MyTrips.module.css";
-import SingleTrip from "./SingleTrip";
+import SingleTrip from "../Utils/SingleTrip";
 import PaginationList from "../Utils/PaginationList";
 import SpinnerBox from "../Utils/SpinnerBox";
 import LogRegisterContext from "../../contexts/log-register-context";

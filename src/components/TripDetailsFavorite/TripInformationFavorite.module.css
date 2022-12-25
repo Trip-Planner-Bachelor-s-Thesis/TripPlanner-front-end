@@ -1,4 +1,4 @@
-.new-trip__control {
+.new-trip-control {
   margin-bottom: 2rem;
   /* padding: 1.5rem 1.5rem; */
   /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -15,7 +15,16 @@
   align-items: flex-end;
 }
 
-/* .form-container button {
+/* .form-container input {
+  width: 10rem;
+  font: inherit;
+  padding: 0.5rem 0;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.form-container button {
   padding: 0.5rem 1.5rem;
   margin-left: 1.5rem;
   cursor: pointer;
@@ -26,60 +35,25 @@
   background-color: #0275d8;
   border: 1px solid #0275d8;
   border-radius: 4px;
-}
+} */
 
-.form-container button:hover {
+/* .form-container button:hover {
   background-color: #9418e7;
   border: 1px solid #9418e7;
   background-color: #138af1;
   border: 1px solid #138af1;
-}
-
-.form-container button:disabled {
-  cursor: not-allowed;
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
 } */
 
-.form-container select {
-  font: inherit;
-  padding: 0.5rem;
-  /* font-weight: bold; */
-  border-radius: 6px;
-  text-align: center;
-}
+/* .form-container label {
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+  font-style: italic;
+} */
 
-.form-container input {
-  font: inherit;
-  padding: 0.5rem;
-  /* font-weight: bold; */
-  border-radius: 6px;
-  text-align: center;
-}
-
-.form-container label {
-    margin-bottom: 0.3rem;
-    /* font-weight: bold; */
-    font-style: italic;
-}
-
-
-.label-box {
+/* .label-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-right: 1rem;
-}
-
-.start-date input[type="date"]:before {
-  content: "Start date:";
-}
-
-.end-date input[type="date"]:before {
-  content: "End date:";
-}
-
-
-
+} */
