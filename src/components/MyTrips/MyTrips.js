@@ -57,7 +57,7 @@ const reducer = (state, action) => {
 };
 
 const MyTrips = () => {
-  const { token } = useContext(LogRegisterContext);
+  const { token, joinedTrip } = useContext(LogRegisterContext);
   const [index, setIndex] = useState(0);
   const [allTrips, setAllTrips] = useState(null);
   const [createdFutureTrips, setCreatedFutureTrips] = useState(null);
@@ -67,22 +67,6 @@ const MyTrips = () => {
   const [paginationState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch(fetchUrls["get-my-trips"] + "/joined-future", {
-      headers: { Authorization: "Bearer " + token },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        //console.log(data)
-        let trips = [];
-        for (const trip of data.trips) {
-          trips.push(trip);
-        }
-        setJoinedFutureTrips(trips);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
     fetch(fetchUrls["get-my-trips"] + "/created-past", {
       headers: { Authorization: "Bearer " + token },
     })
@@ -113,6 +97,25 @@ const MyTrips = () => {
         console.log(error);
       });
 
+    fetch(fetchUrls["get-my-trips"] + "/joined-future", {
+      headers: { Authorization: "Bearer " + token },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let trips = [];
+        for (const trip of data.trips) {
+          trips.push(trip);
+        }
+        setJoinedFutureTrips(trips);
+        if (joinedTrip === true) {
+          setAllTrips(trips);
+          setIndex(1);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     fetch(fetchUrls["get-my-trips"] + "/created-future", {
       headers: { Authorization: "Bearer " + token },
     })
@@ -122,13 +125,16 @@ const MyTrips = () => {
         for (const trip of data.trips) {
           trips.push(trip);
         }
-        setAllTrips(trips);
         setCreatedFutureTrips(trips);
+        if (joinedTrip === false) {
+          setAllTrips(trips);
+          setIndex(0);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [token]);
+  }, [token, joinedTrip]);
 
   const nextClickHandler = () => {
     dispatch({ type: "increment" });
@@ -205,7 +211,7 @@ const MyTrips = () => {
         (allTrips.length === 0 ? (
           <p className={styles["no-trips-found"]}>No trips found</p>
         ) : (
-          <List sx={{width: "40%", p: 0, m: "0 auto", mb: 2}}>
+          <List sx={{ width: "40%", p: 0, m: "0 auto", mb: 2 }}>
             {allTrips
               .slice(paginationState.firstIndex, paginationState.lastIndex)
               .map((trip) => (

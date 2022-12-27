@@ -7,8 +7,8 @@ import ListItem from "@mui/joy/ListItem";
 import Chip from "@mui/joy/Chip";
 
 import styles from "./TripDetailsMy.module.css";
-import TripInformationChat from "./TripInformationChat";
-import PreferencesDescriptionChat from "./PreferencesDescriptionChat";
+import TripInformation from "../Utils/TripInformation";
+import PreferencesDescription from "../Utils/PreferencesDescription";
 import Map from "../Map/Map";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";
@@ -35,10 +35,14 @@ const TripDetailsMy = () => {
   return (
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
-        {trip && <TripInformationChat tripData={trip} />}
+        {trip && <TripInformation tripData={trip} />}
         {trip && (
           <div className={styles["map-details-container"]}>
-            <PreferencesDescriptionChat tripData={trip} />
+            <PreferencesDescription
+              tripData={trip}
+              isJoined={true}
+              isFavorite={true}
+            />
             <div className={styles["map-only-container"]}>
               <Sheet
                 variant="outlined"

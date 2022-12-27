@@ -10,7 +10,7 @@ import LogRegisterContext from "../../contexts/log-register-context";
 
 const NewTrip = () => {
   const navigate = useNavigate();
-  const { token } = useContext(LogRegisterContext);
+  const { token, updateJoinedTrip } = useContext(LogRegisterContext);
 
   const [enteredType, setEnteredType] = useState("");
   const [enteredPreferences, setEnteredPreferences] = useState([]);
@@ -82,6 +82,7 @@ const NewTrip = () => {
     if (!response.ok) {
       alert(data.message || "Could not create trip.");
     } else {
+      updateJoinedTrip(false);
       navigate("/my-trips", { replace: true });
     }
   };

@@ -7,14 +7,14 @@ import ListItem from "@mui/joy/ListItem";
 import Chip from "@mui/joy/Chip";
 
 import styles from "./TripDetailsAll.module.css";
-import TripInformationJoin from "./TripInformationJoin";
-import PreferencesDescriptionJoin from "./PreferencesDescriptionJoin";
+import TripInformation from "../Utils/TripInformation";
+import PreferencesDescription from "../Utils/PreferencesDescription";
 import Map from "../Map/Map";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";
 
 const TripDetailsAll = () => {
-  const { token } = useContext(LogRegisterContext);
+  const { token, updateJoinedTrip } = useContext(LogRegisterContext);
   const [trip, setTrip] = useState(null);
   const { tripId } = useParams();
   const navigate = useNavigate();
@@ -44,12 +44,13 @@ const TripDetailsAll = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        updateJoinedTrip(true);
+        navigate("/my-trips", { replace: true });
       })
       .catch((error) => {
         console.log(error);
       });
-    await new Promise((r) => setTimeout(r, 1000));
-    navigate("/my-trips", { replace: true });
+    // await new Promise((r) => setTimeout(r, 1000)); 
   };
 
   const addFavoritesHandler = async () => {
@@ -63,24 +64,25 @@ const TripDetailsAll = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        navigate("/favorite-trips", { replace: true });
       })
       .catch((error) => {
         console.log(error);
       });
-    await new Promise((r) => setTimeout(r, 1000));
-    navigate("/favorite-trips", { replace: true });
   };
 
   return (
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
-        {trip && <TripInformationJoin tripData={trip} />}
+        {trip && <TripInformation tripData={trip} />}
         {trip && (
           <div className={styles["map-details-container"]}>
-            <PreferencesDescriptionJoin
+            <PreferencesDescription
               tripData={trip}
               onJoinHandler={joinHandler}
               onAddFavoritesHandler={addFavoritesHandler}
+              isJoined={false}
+              isFavorite={false}
             />
             <div className={styles["map-only-container"]}>
               <Sheet

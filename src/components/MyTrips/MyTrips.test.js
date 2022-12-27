@@ -1,7 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import mockFetch from "../../mocks/mockFetch";
+import LogRegisterContext from "../../contexts/log-register-context";
 import MyTrips from "./MyTrips";
+
+function renderMyTrips(context) {
+  return render(
+    <BrowserRouter>
+      <LogRegisterContext.Provider value={context}>
+        <MyTrips />
+      </LogRegisterContext.Provider>
+    </BrowserRouter>
+  );
+}
 
 describe("MyTrips component", () => {
   beforeEach(() => {
@@ -14,11 +25,15 @@ describe("MyTrips component", () => {
 
   test("renders my trips page correctly", async () => {
     // Arrange
-    render(
-      <BrowserRouter>
-        <MyTrips />
-      </BrowserRouter>
-    );
+    const contextValue = {
+      token: "",
+      firstLogin: false,
+      login: (token) => {},
+      logout: () => {},
+      updateFirstLogin: () => {},
+      joinedTrip: true,
+    };
+    renderMyTrips(contextValue);
 
     // Act
     // ... nothing
@@ -40,9 +55,17 @@ describe("MyTrips component", () => {
     expect(joinedFutureButton).toBeInTheDocument();
     expect(createdPastButton).toBeInTheDocument();
     expect(joinedPastButton).toBeInTheDocument();
-    expect(screen.getByRole("heading")).toHaveTextContent("Browse through my trips");
-    expect(screen.getByTestId("date-type")).toHaveTextContent("30.11.2022 Car trip");
-    expect(screen.getByTestId("waypoints")).toHaveTextContent("OlsztynWarszawa");
-    expect(screen.getByRole("link", {name: "Show details"})).toBeInTheDocument();
+    expect(screen.getByRole("heading")).toHaveTextContent(
+      "Browse through my trips"
+    );
+    expect(screen.getByTestId("date-type")).toHaveTextContent(
+      "30.11.2022 Car trip"
+    );
+    expect(screen.getByTestId("waypoints")).toHaveTextContent(
+      "OlsztynWarszawa"
+    );
+    expect(
+      screen.getByRole("link", { name: "Show details" })
+    ).toBeInTheDocument();
   });
 });

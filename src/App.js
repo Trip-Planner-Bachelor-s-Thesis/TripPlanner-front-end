@@ -7,11 +7,11 @@ import LogRegisterContext from "./contexts/log-register-context";
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [firstLogin, setFirstLogin] = useState(false);
-  console.log(localStorage.getItem("token"));
+  const [joinedTrip, setJoinedTrip] = useState(false);
 
   const loginHandler = (token, isFirstLogin) => {
     localStorage.setItem("token", token);
-    setFirstLogin(isFirstLogin); 
+    setFirstLogin(isFirstLogin);
     setToken(token);
   };
 
@@ -24,12 +24,18 @@ function App() {
     setFirstLogin(false);
   };
 
+  const updateJoinedTripHandler = (flag) => {
+    setJoinedTrip(flag);
+  };
+
   const initialContext = {
     token: token,
     firstLogin: firstLogin,
+    joinedTrip: joinedTrip,
     login: loginHandler,
     logout: logoutHandler,
     updateFirstLogin: updateFirstLoginHandler,
+    updateJoinedTrip: updateJoinedTripHandler
   };
 
   return (

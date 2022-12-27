@@ -62,6 +62,7 @@ describe("App component", () => {
       login: (token) => {},
       logout: () => {},
       updateFirstLogin: () => {},
+      joinedTrip: true,
     };
     renderNavigationBar(contextValue);
     // Act

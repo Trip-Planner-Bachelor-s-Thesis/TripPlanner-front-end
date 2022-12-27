@@ -12,9 +12,9 @@ import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Avatar from "@mui/joy/Avatar";
 import StarIcon from "@mui/icons-material/Star";
 
-import styles from "./PreferencesDescriptionChat.module.css";
+import styles from "./PreferencesDescription.module.css";
 
-const PreferencesDescriptionChat = (props) => {
+const PreferencesDescription = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   let hours = Math.floor(props.tripData.totalTime / 3600);
@@ -26,6 +26,14 @@ const PreferencesDescriptionChat = (props) => {
 
   const chatHandler = () => {
     navigate("chat");
+  };
+
+  const joinHandler = () => {
+    props.onJoinHandler();
+  };
+
+  const addFavoritesHandler = async () => {
+    props.onAddFavoritesHandler();
   };
 
   return (
@@ -74,14 +82,30 @@ const PreferencesDescriptionChat = (props) => {
       >
         Show participants
       </Button>
-      <Button
+      {props.isJoined && <Button
         color="primary"
         variant="soft"
         sx={{ mb: 1, width: "100%" }}
         onClick={chatHandler}
       >
         Open chat
-      </Button>
+      </Button>}
+      {!props.isJoined && <Button
+        color="primary"
+        variant="soft"
+        sx={{ mb: 1, width: "100%" }}
+        onClick={joinHandler}
+      >
+        Join trip
+      </Button>}
+      {!props.isFavorite && <Button
+        color="primary"
+        variant="soft"
+        sx={{ mb: 1, width: "100%" }}
+        onClick={addFavoritesHandler}
+      >
+        Add to favorites
+      </Button>}
 
       <Modal
         open={isOpen}
@@ -123,12 +147,6 @@ const PreferencesDescriptionChat = (props) => {
                 justifyContent: "center",
               }}
             >
-              {/* <ListItem>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                Kevin Ross
-              </ListItem> */}
               <ListItem key={props.tripData.creator.id}>
                 <ListItemDecorator sx={{ mr: 0 }}>
                   <Avatar size="sm" />
@@ -155,30 +173,6 @@ const PreferencesDescriptionChat = (props) => {
                 justifyContent: "center",
               }}
             >
-              {/* <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                Kevin Ross
-              </ListItem>
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                John Smith
-              </ListItem>
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                Kevin Ross
-              </ListItem>
-              <ListItem sx={{ m: 0 }}>
-                <ListItemDecorator sx={{ mr: 1 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                John Smith
-              </ListItem> */}
               {props.tripData.members.map((item) => (
                 <ListItem key={item.id}>
                   <ListItemDecorator sx={{ mr: 0 }}>
@@ -194,8 +188,8 @@ const PreferencesDescriptionChat = (props) => {
           </Sheet>
         </Sheet>
       </Modal>
-    </div> 
+    </div>
   );
 };
 
-export default PreferencesDescriptionChat;
+export default PreferencesDescription;

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
 import styles from "./TripDescriptionList.module.css";
-import { options } from "../../helpers/helpers";
+import { options } from "../../../helpers/helpers";
 
 const TripDescriptionList = (props) => {
   return (
@@ -13,7 +13,7 @@ const TripDescriptionList = (props) => {
       <div className={styles.destinations}>
         <div data-testid="start">{props.start.split(",")[0]}</div>
         <div className={styles.arrow}>{String.fromCodePoint(0x2192)}</div>
-        <div data-testid="end">{props.end.split(",")[0]}</div>
+        <div data-testid="end">{props.end.split(",")[0]}</div> 
       </div>
     </Fragment>
   );

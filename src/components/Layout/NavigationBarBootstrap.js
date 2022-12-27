@@ -46,6 +46,7 @@ const NavigationBarBootstrap = () => {
                 style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
                 as={NavLink}
                 to="/my-trips"
+                onClick={() => logRegisterContext.updateJoinedTrip(false)}
               >
                 My trips
               </Nav.Link>

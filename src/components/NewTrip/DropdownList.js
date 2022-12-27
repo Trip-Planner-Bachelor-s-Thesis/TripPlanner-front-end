@@ -29,7 +29,7 @@ const DropdownList = (props) => {
 
   return (
     <div className={styles["new-trip-control"]}>
-      <Typography level="h6" sx={{ mb: 2 }}>Design new  etsss trip</Typography>
+      <Typography level="h6" sx={{ mb: 2 }}>Design new trip</Typography>
       <form onSubmit={submitHandler}>
         <div className={styles["form-container"]}>
           <FormControl>
