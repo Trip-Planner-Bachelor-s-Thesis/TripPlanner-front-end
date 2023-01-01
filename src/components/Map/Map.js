@@ -68,9 +68,11 @@ const Map = (props) => {
       })
       .on("routeselected", function (e) {
         if (!userWaypointsInput && !isMapStatic) {
+          console.log(e.route);
           let route = e.route;
           let userWaypointsReturn = [];
           route.inputWaypoints.forEach((element) => {
+            console.log(element.name);
             let waypoint = {
               lat: element.latLng.lat,
               lng: element.latLng.lng,
@@ -85,23 +87,23 @@ const Map = (props) => {
       })
       .addTo(map);
 
-    map.on("click", function (e) {
-      let container = L.DomUtil.create("div"),
-        startBtn = createButton("Start from this location", container),
-        destBtn = createButton("Go to this location", container);
+    // map.on("click", function (e) {
+    //   let container = L.DomUtil.create("div"),
+    //     startBtn = createButton("Start from this location", container),
+    //     destBtn = createButton("Go to this location", container);
 
-      L.popup().setContent(container).setLatLng(e.latlng).openOn(map);
+    //   L.popup().setContent(container).setLatLng(e.latlng).openOn(map);
 
-      L.DomEvent.on(startBtn, "click", function () {
-        control.spliceWaypoints(0, 1, e.latlng);
-        map.closePopup();
-      });
+    //   L.DomEvent.on(startBtn, "click", function () {
+    //     control.spliceWaypoints(0, 1, e.latlng);
+    //     map.closePopup();
+    //   });
 
-      L.DomEvent.on(destBtn, "click", function () {
-        control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
-        map.closePopup();
-      });
-    });
+    //   L.DomEvent.on(destBtn, "click", function () {
+    //     control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+    //     map.closePopup();
+    //   });
+    // });
 
     if (isMapStatic) {
       let waypoints = document.getElementsByClassName(

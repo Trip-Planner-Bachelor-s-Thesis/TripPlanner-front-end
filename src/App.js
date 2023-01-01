@@ -8,15 +8,19 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [firstLogin, setFirstLogin] = useState(false);
   const [joinedTrip, setJoinedTrip] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem("admin"));
 
-  const loginHandler = (token, isFirstLogin) => {
+  const loginHandler = (token, isFirstLogin, isAdmin) => {
     localStorage.setItem("token", token);
+    localStorage.setItem("admin", false);
     setFirstLogin(isFirstLogin);
     setToken(token);
+    setIsAdmin(isAdmin);
   };
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("admin");
     setToken(null);
   };
 
@@ -28,14 +32,23 @@ function App() {
     setJoinedTrip(flag);
   };
 
+  const adminHandler = (token, isAdmin) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("admin", true);
+    setToken(token);
+    setIsAdmin(isAdmin);
+  };
+
   const initialContext = {
     token: token,
     firstLogin: firstLogin,
     joinedTrip: joinedTrip,
+    isAdmin: isAdmin,
     login: loginHandler,
     logout: logoutHandler,
     updateFirstLogin: updateFirstLoginHandler,
-    updateJoinedTrip: updateJoinedTripHandler
+    updateJoinedTrip: updateJoinedTripHandler,
+    setAdmin: adminHandler,
   };
 
   return (

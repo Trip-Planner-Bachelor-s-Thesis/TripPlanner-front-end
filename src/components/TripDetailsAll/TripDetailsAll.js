@@ -15,6 +15,8 @@ import fetchUrls from "../../helpers/fetch_urls";
 
 const TripDetailsAll = () => {
   const { token, updateJoinedTrip } = useContext(LogRegisterContext);
+  const [isLoadingJoin, setIsLoadingJoin] = useState(false);
+  const [isLoadingFavorites, setIsLoadingFavorites] = useState(false);
   const [trip, setTrip] = useState(null);
   const { tripId } = useParams();
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ const TripDetailsAll = () => {
   }, [tripId, token]);
 
   const joinHandler = async () => {
+    setIsLoadingJoin(true);
     fetch(`${fetchUrls["get-all-trips"]}/${tripId}/join`, {
       method: "POST",
       headers: {
@@ -45,6 +48,7 @@ const TripDetailsAll = () => {
       .then((data) => {
         console.log(data);
         updateJoinedTrip(true);
+        setIsLoadingJoin(false);
         navigate("/my-trips", { replace: true });
       })
       .catch((error) => {
@@ -54,6 +58,7 @@ const TripDetailsAll = () => {
   };
 
   const addFavoritesHandler = async () => {
+    setIsLoadingFavorites(true);
     fetch(`${fetchUrls["add-favorite-trips"]}/${tripId}`, {
       method: "PUT",
       headers: {
@@ -64,6 +69,7 @@ const TripDetailsAll = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setIsLoadingFavorites(false);
         navigate("/favorite-trips", { replace: true });
       })
       .catch((error) => {
@@ -81,8 +87,11 @@ const TripDetailsAll = () => {
               tripData={trip}
               onJoinHandler={joinHandler}
               onAddFavoritesHandler={addFavoritesHandler}
-              isJoined={false}
-              isFavorite={false}
+              isJoined={trip.isJoinedByCurrentUser}
+              isFavorite={trip.isFavoriteForCurrentUser}
+              isCreated={trip.isCreatedByCurrentUser}
+              isLoadingJoin={isLoadingJoin}
+              isLoadingFavorites={isLoadingFavorites}
             />
             <div className={styles["map-only-container"]}>
               <Sheet

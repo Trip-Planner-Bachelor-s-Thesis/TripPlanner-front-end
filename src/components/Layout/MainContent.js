@@ -17,8 +17,8 @@ import HelpPage from "../../pages/HelpPage";
 import PostsPage from "../../pages/PostsPage";
 import LogRegisterAdminPage from "../../pages/LogRegisterAdminPage";
 import FavoriteTripsPage from "../../pages/FavoriteTripsPage";
-import TripDetailsFavoritePage from "../../pages/TripDetailsFavoritePage"
-
+import TripDetailsFavoritePage from "../../pages/TripDetailsFavoritePage";
+import AdminPanelPage from "../../pages/AdminPanelPage";
 
 const MainContent = () => {
   const logRegisterContext = useContext(LogRegisterContext);
@@ -27,6 +27,16 @@ const MainContent = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/admin" element={<LogRegisterAdminPage />} />
+      <Route
+        path="/admin-panel"
+        element={
+          logRegisterContext.token ? (
+            <AdminPanelPage />
+          ) : (
+            <Navigate to="/admin" />
+          )
+        }
+      />
       {!logRegisterContext.token && (
         <Route path="/auth" element={<LogRegisterPage />} />
       )}
@@ -89,10 +99,14 @@ const MainContent = () => {
       <Route
         path="/favorite-trips"
         element={
-          logRegisterContext.token ? <FavoriteTripsPage /> : <Navigate to="/auth" />
+          logRegisterContext.token ? (
+            <FavoriteTripsPage />
+          ) : (
+            <Navigate to="/auth" />
+          )
         }
       />
-           <Route
+      <Route
         path="/favorite-trips/:tripId"
         element={
           logRegisterContext.token ? (

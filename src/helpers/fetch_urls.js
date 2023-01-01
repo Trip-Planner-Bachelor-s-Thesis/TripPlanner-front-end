@@ -5,6 +5,10 @@ const fetchUrls = {
     "https://tripplannerapi20221213230613.azurewebsites.net/api/Account/register",
   "current-user":
     "https://tripplannerapi20221213230613.azurewebsites.net/api/Account/current_user",
+  "get-all-users":
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Account/all-users",
+  "delete-user":
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/Account/user",
   "create-trip":
     "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/new",
   "get-all-trips":

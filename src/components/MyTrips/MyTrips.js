@@ -74,7 +74,7 @@ const MyTrips = () => {
       .then((data) => {
         let trips = [];
         for (const trip of data.trips) {
-          trips.push(trip);
+          trips.unshift(trip);
         }
         setCreatedPastTrips(trips);
       })
@@ -89,7 +89,7 @@ const MyTrips = () => {
       .then((data) => {
         let trips = [];
         for (const trip of data.trips) {
-          trips.push(trip);
+          trips.unshift(trip);
         }
         setJoinedPastTrips(trips);
       })
@@ -104,8 +104,9 @@ const MyTrips = () => {
       .then((data) => {
         let trips = [];
         for (const trip of data.trips) {
-          trips.push(trip);
+          trips.unshift(trip);
         }
+        console.log(trips)
         setJoinedFutureTrips(trips);
         if (joinedTrip === true) {
           setAllTrips(trips);
@@ -123,7 +124,7 @@ const MyTrips = () => {
       .then((data) => {
         let trips = [];
         for (const trip of data.trips) {
-          trips.push(trip);
+          trips.unshift(trip);
         }
         setCreatedFutureTrips(trips);
         if (joinedTrip === false) {

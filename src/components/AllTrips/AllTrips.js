@@ -9,7 +9,7 @@ import SpinnerBox from "../Utils/SpinnerBox";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";
 
-const numberTripsPerPage = 4
+const numberTripsPerPage = 4;
 
 const initialState = {
   tripsPerPage: numberTripsPerPage,
@@ -25,7 +25,9 @@ const reducer = (state, action) => {
         ...state,
         currentPage: Number(state.currentPage) + 1,
         firstIndex: Number(state.currentPage) * Number(state.tripsPerPage),
-        lastIndex: Number(state.currentPage) * Number(state.tripsPerPage) + state.tripsPerPage,
+        lastIndex:
+          Number(state.currentPage) * Number(state.tripsPerPage) +
+          state.tripsPerPage,
       };
     case "decrement":
       return {
@@ -34,7 +36,8 @@ const reducer = (state, action) => {
         firstIndex:
           (Number(state.currentPage) - 2) * Number(state.tripsPerPage),
         lastIndex:
-          (Number(state.currentPage) - 2) * Number(state.tripsPerPage) + state.tripsPerPage,
+          (Number(state.currentPage) - 2) * Number(state.tripsPerPage) +
+          state.tripsPerPage,
       };
     case "change":
       if (action.page === undefined) {
@@ -76,10 +79,11 @@ const AllTrips = () => {
         for (const trip of data.trips) {
           trips.push(trip);
         }
+        let sortedTrips = trips.sort((a, b) => new Date(a.date) - new Date(b.date));
         setisSendingRequest(false);
-        setAllFetchedTrips(trips);
-        setAllTrips(trips);
-        console.log(trips);
+        setAllFetchedTrips(sortedTrips);
+        setAllTrips(sortedTrips);
+        console.log(sortedTrips);
       })
       .catch((error) => {
         console.log(error);
@@ -116,7 +120,7 @@ const AllTrips = () => {
         (allTrips.length === 0 ? (
           <p className={styles["no-trips-found"]}>No trips found</p>
         ) : (
-          <List sx={{width: "40%", p: 0, m: "0 auto", mb: 2}}>
+          <List sx={{ width: "40%", p: 0, m: "0 auto", mb: 2 }}>
             {allTrips
               .slice(paginationState.firstIndex, paginationState.lastIndex)
               .map((trip) => (

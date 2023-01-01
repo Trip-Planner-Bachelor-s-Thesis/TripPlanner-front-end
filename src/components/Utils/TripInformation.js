@@ -74,7 +74,7 @@ const TripInformation = (props) => {
           startDecorator={<PersonIcon />}
           endDecorator={<StarIcon sx={{ mx: -0.5 }} />}
         >
-          Created by: {props.tripData.creator.userName} &#160;
+          Created by: {props.tripData.creator.username} &#160;
           {props.tripData.creator.userRating.toFixed(2)}
         </Typography>
       </div>

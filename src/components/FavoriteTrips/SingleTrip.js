@@ -6,7 +6,7 @@ import ListItem from "@mui/joy/ListItem";
 import Typography from "@mui/joy/Typography";
 import { options } from "../../helpers/helpers";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-// import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
@@ -49,7 +49,7 @@ const SingleTrip = (props) => {
           {props.tripData.type === "foot" && <DirectionsWalkIcon sx={{mr: 0.5}} />}
           {options[props.tripData.type]}
         </Typography>
-        {/* <Typography
+        <Typography
           level="body1"
           sx={{ my: 0.5, textAlign: "center" }}
           data-testid="waypoints"
@@ -61,7 +61,7 @@ const SingleTrip = (props) => {
               props.tripData.waypoints.length - 1
             ].name.split(",")[0]
           }
-        </Typography> */}
+        </Typography>
         <Link
           component={LinkRouter}
           to={`${props.tripData.tripId}`}

@@ -90,11 +90,12 @@ const PreferencesDescription = (props) => {
       >
         Open chat
       </Button>}
-      {!props.isJoined && <Button
+      {!props.isJoined && !props.isCreated && <Button
         color="primary"
         variant="soft"
         sx={{ mb: 1, width: "100%" }}
         onClick={joinHandler}
+        loading={props.isLoadingJoin}
       >
         Join trip
       </Button>}
@@ -103,6 +104,7 @@ const PreferencesDescription = (props) => {
         variant="soft"
         sx={{ mb: 1, width: "100%" }}
         onClick={addFavoritesHandler}
+        loading={props.isLoadingFavorites}
       >
         Add to favorites
       </Button>}
@@ -147,13 +149,13 @@ const PreferencesDescription = (props) => {
                 justifyContent: "center",
               }}
             >
-              <ListItem key={props.tripData.creator.id}>
+              <ListItem key={props.tripData.creator.email}>
                 <ListItemDecorator sx={{ mr: 0 }}>
                   <Avatar size="sm" />
                 </ListItemDecorator>
-                {props.tripData.creator.userName}
+                {props.tripData.creator.username}
                 &#160; &#160;
-                {props.tripData.creator.userRating.toFixed(2)}
+                {props.tripData.creator.organizerRating.toFixed(2)}
                 <StarIcon sx={{ ml: 0.25 }} />
               </ListItem>
             </List>
@@ -174,11 +176,12 @@ const PreferencesDescription = (props) => {
               }}
             >
               {props.tripData.members.map((item) => (
-                <ListItem key={item.id}>
+                item.username !== props.tripData.creator.username &&
+                <ListItem key={item.email}>
                   <ListItemDecorator sx={{ mr: 0 }}>
                     <Avatar size="sm" />
                   </ListItemDecorator>
-                  {item.userName}
+                  {item.username}
                   &#160; &#160;
                   {item.userRating.toFixed(2)}
                   <StarIcon sx={{ ml: 0.25 }} />
