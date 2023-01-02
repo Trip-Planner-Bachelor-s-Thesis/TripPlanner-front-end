@@ -19,11 +19,19 @@ const NavigationBarBootstrap = () => {
   return (
     <header>
       <Navbar bg="light" expand="lg" className="navigation-bar-bootstrap">
-        <Container fluid style={{ margin: "0 10rem" }}>
-          {!logRegisterContext.isAdmin && (
-            <Navbar.Brand as={NavLink} to="/" style={{ color: "#b2b1b1" }}>
-              {/* <img style={{width: "150px", height: "30px"}} src={require("../../assets/logo.png")} alt="Trip planner"></img> */}
-              Trip planner
+        <Container fluid style={{ margin: "0 10rem", padding: 0 }}>
+          {(!logRegisterContext.isAdmin ||
+            logRegisterContext.isAdmin === "false") && (
+            <Navbar.Brand
+              as={NavLink}
+              to="/"
+              style={{ color: "#b2b1b1", padding: 0 }}
+            >
+              <img
+                style={{ width: "210px", height: "30px", padding: 0 }}
+                src={require("../../assets/logo-small.png")}
+                alt="Trip planner"
+              ></img>
             </Navbar.Brand>
           )}
           {logRegisterContext.isAdmin && (
@@ -37,31 +45,46 @@ const NavigationBarBootstrap = () => {
             {!logRegisterContext.token && (
               <Nav.Link
                 style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                className="login-button-style"
                 as={NavLink}
                 to="/auth"
               >
                 Login
               </Nav.Link>
             )}
-            {logRegisterContext.token && !logRegisterContext.isAdmin && (
+            {logRegisterContext.token && logRegisterContext.isAdmin && (
               <Nav.Link
                 style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                className="login-button-style"
                 as={NavLink}
-                to="/trips"
+                onClick={logoutHandler}
               >
-                All trips
+                Logout
               </Nav.Link>
             )}
-            {logRegisterContext.token && !logRegisterContext.isAdmin && (
-              <Nav.Link
-                style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
-                as={NavLink}
-                to="/my-trips"
-                onClick={() => logRegisterContext.updateJoinedTrip(false)}
-              >
-                My trips
-              </Nav.Link>
-            )}
+            {logRegisterContext.token &&
+              (!logRegisterContext.isAdmin ||
+                logRegisterContext.isAdmin === "false") && (
+                <Nav.Link
+                  style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                  as={NavLink}
+                  to="/trips"
+                >
+                  All trips
+                </Nav.Link>
+              )}
+            {logRegisterContext.token &&
+              (!logRegisterContext.isAdmin ||
+                logRegisterContext.isAdmin === "false") && (
+                <Nav.Link
+                  style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                  as={NavLink}
+                  to="/my-trips"
+                  onClick={() => logRegisterContext.updateJoinedTrip(false)}
+                >
+                  My trips
+                </Nav.Link>
+              )}
             {/* {logRegisterContext.token && !logRegisterContext.isAdmin && (
               <Nav.Link
                 style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
@@ -71,43 +94,58 @@ const NavigationBarBootstrap = () => {
                 Favorite trips
               </Nav.Link>
             )} */}
-            {logRegisterContext.token && !logRegisterContext.isAdmin && (
-              <Nav.Link
-                style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
-                as={NavLink}
-                to="/new-trip"
-              >
-                Create trip
-              </Nav.Link>
-            )}
-            {logRegisterContext.token && (
-              <Avatar
-                style={{ marginLeft: "0.5rem", color: "#b2b1b1" }}
-              ></Avatar>
-            )}
-            {logRegisterContext.token && (
-              <NavDropdown>
-                {!logRegisterContext.isAdmin && (
-                  <NavDropdown.Item as={NavLink} to="/favorite-trips">
-                    Favorite trips
-                  </NavDropdown.Item>
-                )}
-                {!logRegisterContext.isAdmin && (
-                  <NavDropdown.Item as={NavLink} to="/profile">
-                    Profile
-                  </NavDropdown.Item>
-                )}
-                {!logRegisterContext.isAdmin && (
-                  <NavDropdown.Item as={NavLink} to="/help">
-                    Help
-                  </NavDropdown.Item>
-                )}
-                {!logRegisterContext.isAdmin && <NavDropdown.Divider />}
-                <NavDropdown.Item as={Button} onClick={logoutHandler}>
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-            )}
+            {logRegisterContext.token &&
+              (!logRegisterContext.isAdmin ||
+                logRegisterContext.isAdmin === "false") && (
+                <Nav.Link
+                  style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                  as={NavLink}
+                  to="/new-trip"
+                >
+                  Create trip
+                </Nav.Link>
+              )}
+            {logRegisterContext.token &&
+              (!logRegisterContext.isAdmin ||
+                logRegisterContext.isAdmin === "false") && (
+                <Avatar
+                  style={{ marginLeft: "0.5rem", color: "#b2b1b1" }}
+                ></Avatar>
+              )}
+            {logRegisterContext.token &&
+              (!logRegisterContext.isAdmin ||
+                logRegisterContext.isAdmin === "false") && (
+                <NavDropdown>
+                  {(!logRegisterContext.isAdmin ||
+                    logRegisterContext.isAdmin === "false") && (
+                    <NavDropdown.Item as={NavLink} to="/favorite-trips">
+                      Favorite trips
+                    </NavDropdown.Item>
+                  )}
+                  {(!logRegisterContext.isAdmin ||
+                    logRegisterContext.isAdmin === "false") && (
+                    <NavDropdown.Item as={NavLink} to="/profile">
+                      Profile
+                    </NavDropdown.Item>
+                  )}
+                  {(!logRegisterContext.isAdmin ||
+                    logRegisterContext.isAdmin === "false") && (
+                    <NavDropdown.Item as={NavLink} to="/help">
+                      Help
+                    </NavDropdown.Item>
+                  )}
+                  {(!logRegisterContext.isAdmin ||
+                    logRegisterContext.isAdmin === "false") && (
+                    <NavDropdown.Divider />
+                  )}
+                  {(!logRegisterContext.isAdmin ||
+                    logRegisterContext.isAdmin === "false") && (
+                    <NavDropdown.Item as={Button} onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
+                  )}
+                </NavDropdown>
+              )}
           </Nav>
         </Container>
       </Navbar>

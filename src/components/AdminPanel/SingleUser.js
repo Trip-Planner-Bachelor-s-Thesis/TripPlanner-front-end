@@ -17,7 +17,7 @@ const SingleUser = (props) => {
   return (
     <Fragment>
       <ListItem>
-        <Sheet
+        {/* <Sheet
           color="primary"
           variant="soft"
           sx={{
@@ -29,7 +29,7 @@ const SingleUser = (props) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-        >
+        > */}
           <div className={styles["post-content"]} data-testid="content">
             {<EmailIcon />} {props.email}&#160;&#160;&#160;{<PersonIcon />}{" "}
             {props.username}
@@ -53,7 +53,7 @@ const SingleUser = (props) => {
               </IconButton>
             </Tooltip>
           </div>
-        </Sheet>
+        {/* </Sheet> */}
       </ListItem>
     </Fragment>
   );
