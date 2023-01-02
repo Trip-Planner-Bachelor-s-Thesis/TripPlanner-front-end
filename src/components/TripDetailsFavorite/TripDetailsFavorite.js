@@ -15,6 +15,7 @@ import fetchUrls from "../../helpers/fetch_urls";
 
 const TripDetailsFavorite = () => {
   const { token, updateJoinedTrip } = useContext(LogRegisterContext);
+  const [isLoadingJoin, setIsLoadingJoin] = useState(false);
   const [trip, setTrip] = useState(null);
   const { tripId } = useParams();
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const TripDetailsFavorite = () => {
   }, [tripId, token]);
 
   const joinHandler = async () => {
+    setIsLoadingJoin(true);
     fetch(`${fetchUrls["get-all-trips"]}/${tripId}/join`, {
       method: "POST",
       headers: {
@@ -45,6 +47,7 @@ const TripDetailsFavorite = () => {
       .then((data) => {
         console.log(data);
         updateJoinedTrip(true);
+        setIsLoadingJoin(false);
         navigate("/my-trips", { replace: true });
       })
       .catch((error) => {
@@ -61,8 +64,11 @@ const TripDetailsFavorite = () => {
             <PreferencesDescription
               tripData={trip}
               onJoinHandler={joinHandler}
-              isJoined={false}
-              isFavorite={true}
+              isJoined={trip.isJoinedByCurrentUser}
+              isFavorite={trip.isFavoriteForCurrentUser}
+              isCreated={trip.isCreatedByCurrentUser}
+              isLoadingJoin={isLoadingJoin}
+              isLoadingFavorites={false}
             />
             <div className={styles["map-only-container"]}>
               <Sheet

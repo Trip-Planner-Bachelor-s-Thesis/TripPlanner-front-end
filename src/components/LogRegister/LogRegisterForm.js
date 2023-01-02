@@ -1,23 +1,59 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import fetchUrls from "../../helpers/fetch_urls";
 import styles from "./LogRegisterForm.module.css";
 import LogRegisterContext from "../../contexts/log-register-context";
-import SpinnerBox from "../Utils/SpinnerBox";
+import TextField from "@mui/joy/TextField";
+import Button from "@mui/joy/Button";
+import Link from "@mui/joy/Link";
+import Sheet from "@mui/joy/Sheet";
+import Typography from "@mui/joy/Typography";
+import LockRoundedIcon from "@mui/icons-material/LockRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 
 const LogRegisterForm = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [isSendingRequest, setisSendingRequest] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const logRegisterContext = useContext(LogRegisterContext);
 
-  const usernameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
   const navigate = useNavigate();
 
   const toggleHandler = () => {
     setIsLoginForm((previousState) => !previousState);
+    setErrorMessage("");
+  };
+
+  const usernameHandler = (event) => {
+    setUsername(event.target.value);
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+  };
+
+  const passwordHandler = (event) => {
+    setPassword(event.target.value);
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+  };
+
+  const emailHandler = (event) => {
+    setEmail(event.target.value);
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+  };
+
+  const toggleErrorMessage = () => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
   };
 
   const submitHandler = async (event) => {
@@ -26,34 +62,13 @@ const LogRegisterForm = () => {
 
     let url;
     let payload = {
-      userName: usernameRef.current.value,
-      password: passwordRef.current.value,
+      userName: username,
+      password: password,
     };
-    !isLoginForm && (payload.email = emailRef.current.value);
+    !isLoginForm && (payload.email = email);
     console.log(payload);
     isLoginForm ? (url = fetchUrls.login) : (url = fetchUrls.register);
-    // try {
-    //   const response = await fetch(url, {
-    //     method: "POST",
-    //     body: JSON.stringify(payload),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   setisSendingRequest(false);
-    //   const data = await response.json();
 
-    //   if (!response.ok) {
-    //     console.log(response.status);
-    //     let errorMessage = "Authentication failed!";
-    //     throw new Error(errorMessage);
-    //   }
-    //   isLoginForm && logRegisterContext.login(data.idToken, false);
-    //   !isLoginForm && logRegisterContext.login(data.idToken, true);
-    //   navigate("/", { replace: true });
-    // } catch (err) {
-    //   alert(err.message);
-    // }
     fetch(url, {
       method: "POST",
       body: JSON.stringify(payload),
@@ -62,14 +77,28 @@ const LogRegisterForm = () => {
       },
     })
       .then((response) => {
-        console.log(response.status);
+        if (!isLoginForm && response.status === 409) {
+          setErrorMessage("Username is already taken");
+        }
+        if (!isLoginForm && response.status === 400) {
+          setErrorMessage(
+            "Password has to contain at least one digit, one capital ltter and one special character"
+          );
+        }
+        if (isLoginForm && response.status === 401) {
+          setErrorMessage("Incorrect login or password");
+        }
         setisSendingRequest(false);
         return response.json();
       })
       .then((data) => {
         console.log(data);
-        data.token && isLoginForm && logRegisterContext.login(data.token, false);
-        data.token && !isLoginForm && logRegisterContext.login(data.token, true);
+        data.token &&
+          isLoginForm &&
+          logRegisterContext.login(data.token, false, false);
+        data.token &&
+          !isLoginForm &&
+          logRegisterContext.login(data.token, true, false);
         data.token && navigate("/", { replace: true });
       })
       .catch((error) => {
@@ -79,60 +108,94 @@ const LogRegisterForm = () => {
 
   return (
     <section className={styles.forms}>
-      <div className={styles["form-container"]}>
-        <h1 className={styles["form-title"]}>
+      <Sheet
+        variant="outlined"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "20%",
+          m: "0 auto",
+          p: 2,
+          borderRadius: "sm",
+          boxShadow: "sm",
+        }}
+      >
+        <Typography level="h6" sx={{ mb: 3 }}>
           {isLoginForm ? "Login" : "Sign up"}
-        </h1>
+        </Typography>
         <form className={styles["form-element"]} onSubmit={submitHandler}>
           {!isLoginForm && (
-            <input
-              type="email"
-              id="email"
+            <TextField
+              sx={{ mb: 1.5 }}
+              startDecorator={<EmailRoundedIcon />}
               placeholder="Email"
-              ref={emailRef}
+              type="email"
+              variant="soft"
               required
-            ></input>
+              onChange={emailHandler}
+            />
           )}
-          <input
-            type="text"
-            id="username"
+          <TextField
+            sx={{ mb: 1.5 }}
+            startDecorator={<PersonRoundedIcon />}
             placeholder="Username"
-            ref={usernameRef}
+            type="text"
+            variant="soft"
             required
-          ></input>
-          <input
-            type="password"
-            id="password"
+            onChange={usernameHandler}
+            error={
+              errorMessage === "Username is already taken" ||
+              errorMessage === "Incorrect login or password"
+                ? true
+                : false
+            }
+            helperText={
+              errorMessage === "Username is already taken"
+                ? errorMessage
+                : ""
+            }
+            onFocus={toggleErrorMessage}
+          />
+          <TextField
+            sx={{ mb: 3 }}
+            startDecorator={<LockRoundedIcon />}
             placeholder="Password"
-            ref={passwordRef}
+            type="password"
+            variant="soft"
             required
-          ></input>
-          {isSendingRequest && <SpinnerBox />}
-          {!isSendingRequest && (
-            <button className={styles["submit-button"]} type="submit">
-              {isLoginForm ? "Login" : "Create"}
-            </button>
-          )}
+            onChange={passwordHandler}
+            error={
+              errorMessage ===
+                "Password has to contain at least one digit, one capital ltter and one special character" ||
+              errorMessage === "Incorrect login or password"
+                ? true
+                : false
+            }
+            helperText={
+              errorMessage ===
+                "Password has to contain at least one digit, one capital ltter and one special character" ||
+              errorMessage === "Incorrect login or password"
+                ? errorMessage
+                : ""
+            }
+            onFocus={toggleErrorMessage}
+          />
+          <Button
+            sx={{ mb: 1.5, width: "100%" }}
+            type="submit"
+            loading={isSendingRequest}
+          >
+            {isLoginForm ? "Login" : "Create"}
+          </Button>
           {isLoginForm && (
-            <button
-              className={styles["toggle-button"]}
-              type="button"
-              onClick={toggleHandler}
-            >
-              Don't have an account yet?
-            </button>
+            <Link data-testid="no-account" onClick={toggleHandler}>Don't have an account yet?</Link>
           )}
           {!isLoginForm && (
-            <button
-              className={styles["toggle-button"]}
-              type="button"
-              onClick={toggleHandler}
-            >
-              Login with existing account
-            </button>
+            <Link data-testid="existing-account" onClick={toggleHandler}>Login with existing account</Link>
           )}
         </form>
-      </div>
+      </Sheet>
     </section>
   );
 };

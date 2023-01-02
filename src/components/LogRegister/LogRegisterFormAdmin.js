@@ -1,83 +1,122 @@
-import { useState, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
+import fetchUrls from "../../helpers/fetch_urls";
 import styles from "./LogRegisterForm.module.css";
-//import LogRegisterContext from "../../contexts/log-register-context";
-import SpinnerBox from "../Utils/SpinnerBox";
+import LogRegisterContext from "../../contexts/log-register-context";
+import TextField from "@mui/joy/TextField";
+import Button from "@mui/joy/Button";
+import Sheet from "@mui/joy/Sheet";
+import Typography from "@mui/joy/Typography";
+import LockRoundedIcon from "@mui/icons-material/LockRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 
-const LogRegisterFormAdmin = () => {
+const LogRegisterForm = () => {
   const [isSendingRequest, setisSendingRequest] = useState(false);
-  //const logRegisterContext = useContext(LogRegisterContext);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const logRegisterContext = useContext(LogRegisterContext);
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const usernameHandler = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const passwordHandler = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const toggleErrorMessage = () => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+  }
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
-    // const enteredUsername = !isLoginForm && usernameRef.current.value;
-    // console.log(enteredUsername);
-
     setisSendingRequest(true);
-    // let url;
-    // isLoginForm ? (url = LOGIN_URL) : (url = REGISTER_URL);
-    // try {
-    //   const response = await fetch(url, {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       email: emailRef.current.value,
-    //       password: passwordRef.current.value,
-    //       returnSecureToken: true,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   setisSendingRequest(false);
-    //   const data = await response.json();
 
-    //   if (!response.ok) {
-    //     let errorMessage = "Authentication failed!";
-    //     throw new Error(errorMessage);
-    //   }
-    //   isLoginForm && logRegisterContext.login(data.idToken, false);
-    //   !isLoginForm && logRegisterContext.login(data.idToken, true);
-    //   navigate("/", { replace: true });
-    // } catch (err) {
-    //   alert(err.message);
-    // }
+    let url;
+    let payload = {
+      userName: username,
+      password: password,
+    };
+    console.log(payload);
+    url = fetchUrls.login;
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response.status);
+        setisSendingRequest(false);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        data.token && logRegisterContext.setAdmin(data.token, true);
+        data.token && navigate("/admin-panel", { replace: true });
+      })
+      .catch((error) => {
+        setErrorMessage("Incorrect login or password")
+        console.log(error);
+      });
   };
 
   return (
     <section className={styles.forms}>
-      <div className={styles["form-container"]}>
-        <h1 className={styles["form-title"]}>Admin Login</h1>
+      <Sheet
+        variant="outlined"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "20%",
+          m: "0 auto",
+          p: 2,
+          borderRadius: "sm",
+          boxShadow: "sm",
+        }}
+      >
+        <Typography level="h6" sx={{ mb: 3 }}>
+          Admin Login
+        </Typography>
         <form className={styles["form-element"]} onSubmit={submitHandler}>
-          <input
-            type="email"
-            id="email"
-            placeholder="Email"
-            ref={emailRef}
+          <TextField
+            sx={{ mb: 1.5 }}
+            startDecorator={<PersonRoundedIcon />}
+            placeholder="Username"
+            type="text"
+            variant="soft"
             required
-          ></input>
-          <input
-            type="password"
-            id="password"
+            onChange={usernameHandler}
+            error={!!(errorMessage)}
+            onFocus={toggleErrorMessage}
+          />
+          <TextField
+            sx={{ mb: 3 }}
+            startDecorator={<LockRoundedIcon />}
             placeholder="Password"
-            ref={passwordRef}
+            type="password"
+            variant="soft"
             required
-          ></input>
-          {isSendingRequest && <SpinnerBox />}
-          {!isSendingRequest && (
-            <button className={styles["submit-button"]} type="submit">
-              Login
-            </button>
-          )}
+            onChange={passwordHandler}
+            error={!!(errorMessage)}
+            helperText={errorMessage}
+            onFocus={toggleErrorMessage}
+          />
+          <Button sx={{ mb: 1, width: "100%" }} type="submit" loading={isSendingRequest}>
+            Login
+          </Button>
         </form>
-      </div>
+      </Sheet>
     </section>
   );
 };
 
-export default LogRegisterFormAdmin;
+export default LogRegisterForm;

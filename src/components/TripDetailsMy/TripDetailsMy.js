@@ -40,8 +40,11 @@ const TripDetailsMy = () => {
           <div className={styles["map-details-container"]}>
             <PreferencesDescription
               tripData={trip}
-              isJoined={true}
-              isFavorite={true}
+              isJoined={trip.isJoinedByCurrentUser}
+              isFavorite={trip.isFavoriteForCurrentUser}
+              isCreated={trip.isCreatedByCurrentUser}
+              isLoadingJoin={false}
+              isLoadingFavorites={false}
             />
             <div className={styles["map-only-container"]}>
               <Sheet

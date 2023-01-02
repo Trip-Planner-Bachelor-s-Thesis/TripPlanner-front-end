@@ -20,9 +20,9 @@ describe("LogRegisterForm component", () => {
     expect(screen.getByPlaceholderText(/^username$/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^password$/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /^Login$/ })).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /^Don't have an account yet\?$/ })
-    ).toBeInTheDocument();
+    // expect(
+    //   screen.getByRole("button", { name: /^Don't have an account yet\?$/ })
+    // ).toBeInTheDocument();
   });
 
   test("renders sing up form correctly", () => {
@@ -34,18 +34,16 @@ describe("LogRegisterForm component", () => {
     );
 
     // Act
-    userEvent.click(
-      screen.getByRole("button", { name: /^Don't have an account yet\?$/ })
-    );
+    userEvent.click(screen.getByTestId("no-account"));
 
     // Assert
     expect(screen.getByRole("heading")).toHaveTextContent(/^Sign up$/);
     expect(screen.getByPlaceholderText(/^username$/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^email$/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^password$/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /^Create$/ })).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /^Login with existing account$/ })
+      screen.getByRole("button", { name: /^Create$/ })
     ).toBeInTheDocument();
+    expect(screen.getByTestId("existing-account")).toBeInTheDocument();
   });
 });

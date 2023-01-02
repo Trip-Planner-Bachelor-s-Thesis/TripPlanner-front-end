@@ -2,7 +2,7 @@ import { useState, useEffect, useReducer, useContext } from "react";
 
 import styles from "./FavoriteTrips.module.css";
 import List from "@mui/joy/List";
-import SingleTrip from "./SingleTrip";
+import SingleTrip from "../Utils/SingleTrip";
 import FilterTrips from "../Utils/FilterTrips";
 import PaginationList from "../Utils/PaginationList";
 import SpinnerBox from "../Utils/SpinnerBox";
@@ -74,7 +74,7 @@ const AllTrips = () => {
       .then((data) => {
         let trips = [];
         for (const trip of data.trips) {
-          trips.push(trip);
+          trips.unshift(trip);
         }
         setisSendingRequest(false);
         setAllFetchedTrips(trips);
