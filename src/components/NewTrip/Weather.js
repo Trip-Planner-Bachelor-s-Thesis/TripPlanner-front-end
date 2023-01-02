@@ -1,9 +1,10 @@
 import { useState, useEffect, Fragment } from "react";
-import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Modal from "@mui/joy/Modal";
 import ModalClose from "@mui/joy/ModalClose";
 import Button from "@mui/joy/Button";
+
+import styles from "./Weather.module.css";
 
 const api = {
   key: "c23ad1b9d46f16263053c161aa3bf09e",
@@ -34,7 +35,7 @@ function Weather(props) {
       .then((res) => res.json())
       .then((result) => {
         setWeather(result);
-        //console.log(result);
+        console.log(result);
       });
   }, [lat, lon]);
 
@@ -57,14 +58,7 @@ function Weather(props) {
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Sheet
-          variant="outlined"
-          sx={{
-            maxHeight: "80%",
-            width: "25%",
-            borderRadius: "md",
-            p: 3,
-            boxShadow: "lg",
-          }}
+         
         >
           <ModalClose
             variant="outlined"
@@ -77,14 +71,45 @@ function Weather(props) {
             }}
           />
           {weather.main && (
-            <div>
-              <Typography level="body1">
-                Temp: {Math.round(weather.main.temp)} C
-              </Typography>
-              <Typography level="body1">
-                Weather Condition: {weather.weather[0].main}
-              </Typography>
+            <div className={styles["weather"]}>
+            <div className={styles["top"]}>
+              <div>
+                <p className={styles["city"]}>{weather.name}, {weather.sys.country}</p>
+                <p className={styles["weather-description"]}>{weather.weather[0].description}</p>
+              </div>
+              <img
+                alt="weather"
+                className="weather-icon"
+                src={`icons/${weather.weather[0].icon}.png`}
+              />
             </div>
+            <div className={styles["bottom"]}>
+              <p className={styles["temperature"]}>{Math.round(weather.main.temp)}°C</p>
+              <div className={styles["details"]}>
+                <div className={styles["parameter-row"]}>
+                  <span className={styles["parameter-label"]}>Details</span>
+                </div>
+                <div className={styles["parameter-row"]}>
+                  <span className={styles["parameter-label"]}>Feels like</span>
+                  <span className={styles["parameter-value"]}>
+                    {Math.round(weather.main.feels_like)}°C
+                  </span>
+                </div>
+                <div className={styles["parameter-row"]}>
+                  <span className={styles["parameter-label"]}>Wind</span>
+                  <span className={styles["parameter-value"]}>{weather.wind.speed} m/s</span>
+                </div>
+                <div className={styles["parameter-row"]}>
+                  <span className={styles["parameter-label"]}>Humidity</span>
+                  <span className={styles["parameter-value"]}>{weather.main.humidity}%</span>
+                </div>
+                <div className={styles["parameter-row"]}>
+                  <span className={styles["parameter-label"]}>Pressure</span>
+                  <span className={styles["parameter-value"]}>{weather.main.pressure} hPa</span>
+                </div>
+              </div>
+            </div>
+          </div>
           )}
         </Sheet>
       </Modal>}
