@@ -11,8 +11,10 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(localStorage.getItem("admin"));
 
   const loginHandler = (token, isFirstLogin, isAdmin) => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("admin");
     localStorage.setItem("token", token);
-    localStorage.setItem("admin", false);
+    localStorage.setItem("admin", isAdmin);
     setFirstLogin(isFirstLogin);
     setToken(token);
     setIsAdmin(isAdmin);
@@ -22,6 +24,7 @@ function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("admin");
     setToken(null);
+    setIsAdmin(null);
   };
 
   const updateFirstLoginHandler = () => {
@@ -34,7 +37,7 @@ function App() {
 
   const adminHandler = (token, isAdmin) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("admin", true);
+    localStorage.setItem("admin", isAdmin);
     setToken(token);
     setIsAdmin(isAdmin);
   };

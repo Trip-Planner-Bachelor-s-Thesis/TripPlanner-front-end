@@ -40,8 +40,14 @@ h6 {
 
 .nav-link.active {
   /* color: #aa65d8 !important; */
-  color: #0275d8 !important;
+  /* color: #0275d8 !important; */
+  text-decoration: underline !important;
   /* color: #19dafa !important; */
+}
+
+.login-button-style.active {
+  color: #b2b1b1 !important;
+  text-decoration: none !important;
 }
 
 .dropdown-toggle {

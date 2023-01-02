@@ -1,5 +1,6 @@
 import { useState, useEffect, Fragment, useContext } from "react";
 import List from "@mui/joy/List";
+import Sheet from "@mui/joy/Sheet";
 import styles from "./AllUsers.module.css";
 import SingleUser from "./SingleUser";
 import LogRegisterContext from "../../contexts/log-register-context";
@@ -71,13 +72,30 @@ const AllUsers = (props) => {
 
   return (
     <Fragment>
-      <div className={styles["all-posts-container"]}>
+      <Sheet
+        // variant="outlined"
+        sx={{
+          height: "85%",
+          width: "75%",
+          borderRadius: "md",
+          overflow: "scroll",
+          // boxShadow: "lg",
+          p: 2,
+        }}
+      >
         {isSendingRequest && <SpinnerBox />}
         {allFetchedUsers &&
           (allFetchedUsers.length === 0 ? (
             <p className={styles["no-posts-found"]}>No users created</p>
           ) : (
-            <List sx={{ width: "85%", m: "0 auto", p: 0 }}>
+            <List
+              sx={{
+                width: "85%",
+                m: "0 auto",
+                p: 0,
+                "--List-gap": "8px",
+              }}
+            >
               {allFetchedUsers.map((user) => (
                 <SingleUser
                   key={user.email}
@@ -91,7 +109,7 @@ const AllUsers = (props) => {
             </List>
           ))}
         {/* <div ref={postsContainerRef}></div> */}
-      </div>
+      </Sheet>
     </Fragment>
   );
 };
