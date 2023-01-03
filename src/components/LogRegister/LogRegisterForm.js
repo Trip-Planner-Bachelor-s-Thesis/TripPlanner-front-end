@@ -109,39 +109,40 @@ const LogRegisterForm = () => {
   return (
     <section className={styles.forms}>
       <Sheet
-        variant="outlined"
         sx={{
+          width: 280,
+          mx: "auto", // margin left & right
+          my: 4, // margin top & botom
+          py: 3, // padding top & bottom
+          px: 2, // padding left & right
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          width: "20%",
-          m: "0 auto",
-          p: 2,
+          gap: 2,
           borderRadius: "sm",
-          boxShadow: "sm",
+          boxShadow: "md",
         }}
+        variant="outlined"
       >
-        <Typography level="h6" sx={{ mb: 3 }}>
-          {isLoginForm ? "Login" : "Sign up"}
+        <Typography level="h5" textAlign="center">
+          {isLoginForm ? "Sign in" : "Sign up"}
         </Typography>
-        <form className={styles["form-element"]} onSubmit={submitHandler}>
+        <form
+          onSubmit={submitHandler}
+          style={{ display: "flex", flexDirection: "column", gap: "16px"}}
+        >
           {!isLoginForm && (
             <TextField
-              sx={{ mb: 1.5 }}
               startDecorator={<EmailRoundedIcon />}
               placeholder="Email"
               type="email"
-              variant="soft"
               required
               onChange={emailHandler}
             />
           )}
           <TextField
-            sx={{ mb: 1.5 }}
             startDecorator={<PersonRoundedIcon />}
             placeholder="Username"
             type="text"
-            variant="soft"
             required
             onChange={usernameHandler}
             error={
@@ -151,18 +152,14 @@ const LogRegisterForm = () => {
                 : false
             }
             helperText={
-              errorMessage === "Username is already taken"
-                ? errorMessage
-                : ""
+              errorMessage === "Username is already taken" ? errorMessage : ""
             }
             onFocus={toggleErrorMessage}
           />
           <TextField
-            sx={{ mb: 3 }}
             startDecorator={<LockRoundedIcon />}
             placeholder="Password"
             type="password"
-            variant="soft"
             required
             onChange={passwordHandler}
             error={
@@ -181,20 +178,21 @@ const LogRegisterForm = () => {
             }
             onFocus={toggleErrorMessage}
           />
-          <Button
-            sx={{ mb: 1.5, width: "100%" }}
-            type="submit"
-            loading={isSendingRequest}
-          >
-            {isLoginForm ? "Login" : "Create"}
+          <Button type="submit" loading={isSendingRequest} sx={{ mt: 1 }}>
+            {isLoginForm ? "Log in" : "Create"}
           </Button>
-          {isLoginForm && (
-            <Link data-testid="no-account" onClick={toggleHandler}>Don't have an account yet?</Link>
-          )}
-          {!isLoginForm && (
-            <Link data-testid="existing-account" onClick={toggleHandler}>Login with existing account</Link>
-          )}
         </form>
+        <Typography
+          endDecorator={
+            <Link onClick={toggleHandler}>
+              {isLoginForm ? "Sign up" : "Sign in"}
+            </Link>
+          }
+          fontSize="sm"
+          sx={{ alignSelf: "center" }}
+        >
+          {isLoginForm ? "Don't have an account?" : "Already have an account?"}
+        </Typography>
       </Sheet>
     </section>
   );

@@ -91,7 +91,7 @@ const Home = (props) => {
             alt=""
           ></img>
         ) : (
-          <img src={require("../../assets/bike.png")} alt=""></img>
+          <img src={require("../../assets/travel.png")} alt="" style={{borderRadius: "4px"}}></img>
         )}
       </div>
       {/* <footer className={styles["authors-footer"]}>{`Noman Noor \u00A0\u00A0 Marcin Świerkot \u00A0\u00A0 Nader Tavana`}</footer> */}

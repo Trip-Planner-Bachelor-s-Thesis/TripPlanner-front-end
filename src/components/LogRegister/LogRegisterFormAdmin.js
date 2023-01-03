@@ -32,7 +32,7 @@ const LogRegisterForm = () => {
     if (errorMessage) {
       setErrorMessage("");
     }
-  }
+  };
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -63,7 +63,7 @@ const LogRegisterForm = () => {
         data.token && navigate("/admin-panel", { replace: true });
       })
       .catch((error) => {
-        setErrorMessage("Incorrect login or password")
+        setErrorMessage("Incorrect login or password");
         console.log(error);
       });
   };
@@ -71,47 +71,68 @@ const LogRegisterForm = () => {
   return (
     <section className={styles.forms}>
       <Sheet
-        variant="outlined"
         sx={{
+          width: 280,
+          mx: "auto", // margin left & right
+          my: 4, // margin top & botom
+          py: 3, // padding top & bottom
+          px: 2, // padding left & right
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          width: "20%",
-          m: "0 auto",
-          p: 2,
+          gap: 2,
           borderRadius: "sm",
-          boxShadow: "sm",
+          boxShadow: "md",
         }}
+        variant="outlined"
       >
-        <Typography level="h6" sx={{ mb: 3 }}>
+        <Typography level="h5" textAlign="center">
           Admin Login
         </Typography>
-        <form className={styles["form-element"]} onSubmit={submitHandler}>
+        <form
+          onSubmit={submitHandler}
+          style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+        >
           <TextField
-            sx={{ mb: 1.5 }}
             startDecorator={<PersonRoundedIcon />}
             placeholder="Username"
             type="text"
-            variant="soft"
             required
             onChange={usernameHandler}
-            error={!!(errorMessage)}
+            error={
+              errorMessage === "Username is already taken" ||
+              errorMessage === "Incorrect login or password"
+                ? true
+                : false
+            }
+            helperText={
+              errorMessage === "Username is already taken" ? errorMessage : ""
+            }
             onFocus={toggleErrorMessage}
           />
           <TextField
-            sx={{ mb: 3 }}
             startDecorator={<LockRoundedIcon />}
             placeholder="Password"
             type="password"
-            variant="soft"
             required
             onChange={passwordHandler}
-            error={!!(errorMessage)}
-            helperText={errorMessage}
+            error={
+              errorMessage ===
+                "Password has to contain at least one digit, one capital ltter and one special character" ||
+              errorMessage === "Incorrect login or password"
+                ? true
+                : false
+            }
+            helperText={
+              errorMessage ===
+                "Password has to contain at least one digit, one capital ltter and one special character" ||
+              errorMessage === "Incorrect login or password"
+                ? errorMessage
+                : ""
+            }
             onFocus={toggleErrorMessage}
           />
-          <Button sx={{ mb: 1, width: "100%" }} type="submit" loading={isSendingRequest}>
-            Login
+          <Button type="submit" loading={isSendingRequest} sx={{ mt: 1 }}>
+            Log in
           </Button>
         </form>
       </Sheet>
