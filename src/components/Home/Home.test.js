@@ -7,7 +7,7 @@ function renderHomePage(context) {
   return render(
     <BrowserRouter>
       <LogRegisterContext.Provider value={context}>
-        <Home />
+        <Home isTest={true} />
       </LogRegisterContext.Provider>
     </BrowserRouter>
   );

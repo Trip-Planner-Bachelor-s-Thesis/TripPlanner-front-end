@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import styles from "./SingleUser.module.css";
-import Sheet from "@mui/joy/Sheet";
 import ListItem from "@mui/joy/ListItem";
 import Tooltip from "@mui/joy/Tooltip";
 import IconButton from "@mui/joy/IconButton";

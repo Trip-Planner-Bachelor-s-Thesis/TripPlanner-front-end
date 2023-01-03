@@ -7,7 +7,7 @@ function renderNavigationBar(context) {
   return render(
     <BrowserRouter>
       <LogRegisterContext.Provider value={context}>
-        <NavigationBarBootstrap />
+        <NavigationBarBootstrap isTest={true} />
       </LogRegisterContext.Provider>
     </BrowserRouter>
   );

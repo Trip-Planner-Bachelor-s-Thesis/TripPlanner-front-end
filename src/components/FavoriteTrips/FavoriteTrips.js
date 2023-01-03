@@ -59,7 +59,7 @@ const reducer = (state, action) => {
   }
 };
 
-const AllTrips = () => {
+const FavoriteTrips = () => {
   const { token } = useContext(LogRegisterContext);
   const [allFetchedTrips, setAllFetchedTrips] = useState(null);
   const [allTrips, setAllTrips] = useState(null);
@@ -110,6 +110,7 @@ const AllTrips = () => {
           onFilterHandler={filterHandler}
           onResetPage={resetPage}
           trips={allFetchedTrips}
+          isFavorite={true}
         ></FilterTrips>
       )}
       {allTrips &&
@@ -137,4 +138,4 @@ const AllTrips = () => {
   );
 };
 
-export default AllTrips;
+export default FavoriteTrips;

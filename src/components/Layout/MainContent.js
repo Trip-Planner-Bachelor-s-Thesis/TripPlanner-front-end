@@ -19,13 +19,14 @@ import LogRegisterAdminPage from "../../pages/LogRegisterAdminPage";
 import FavoriteTripsPage from "../../pages/FavoriteTripsPage";
 import TripDetailsFavoritePage from "../../pages/TripDetailsFavoritePage";
 import AdminPanelPage from "../../pages/AdminPanelPage";
+import LeaderboadPage from "../../pages/LeaderboardPage";
 
-const MainContent = () => {
+const MainContent = (props) => {
   const logRegisterContext = useContext(LogRegisterContext);
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<HomePage isTest={props.isTest} />} />
       <Route path="/admin" element={<LogRegisterAdminPage />} />
       <Route
         path="/admin-panel"
@@ -111,6 +112,16 @@ const MainContent = () => {
         element={
           logRegisterContext.token ? (
             <TripDetailsFavoritePage />
+          ) : (
+            <Navigate to="/auth" />
+          )
+        }
+      />
+            <Route
+        path="/leaderboard"
+        element={
+          logRegisterContext.token ? (
+            <LeaderboadPage />
           ) : (
             <Navigate to="/auth" />
           )

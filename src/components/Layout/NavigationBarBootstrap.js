@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 
 import LogRegisterContext from "../../contexts/log-register-context";
 
-const NavigationBarBootstrap = () => {
+const NavigationBarBootstrap = (props) => {
   const logRegisterContext = useContext(LogRegisterContext);
 
   const logoutHandler = () => {
@@ -27,11 +27,15 @@ const NavigationBarBootstrap = () => {
               to="/"
               style={{ color: "#b2b1b1", padding: 0 }}
             >
-              <img
-                style={{ width: "210px", height: "30px", padding: 0 }}
-                src={require("../../assets/logo-small.png")}
-                alt="Trip planner"
-              ></img>
+              {props.isTest ? (
+                "Trip planner"
+              ) : (
+                <img
+                  style={{ width: "210px", height: "30px", padding: 0 }}
+                  src={require("../../assets/logo.png")}
+                  alt="Trip planner"
+                ></img>
+              )}
             </Navbar.Brand>
           )}
           {logRegisterContext.isAdmin && (
@@ -52,16 +56,18 @@ const NavigationBarBootstrap = () => {
                 Login
               </Nav.Link>
             )}
-            {logRegisterContext.token && logRegisterContext.isAdmin && (
-              <Nav.Link
-                style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
-                className="login-button-style"
-                as={NavLink}
-                onClick={logoutHandler}
-              >
-                Logout
-              </Nav.Link>
-            )}
+            {logRegisterContext.token &&
+              logRegisterContext.isAdmin !== "false" &&
+              logRegisterContext.isAdmin && (
+                <Nav.Link
+                  style={{ margin: "0 0.5rem", color: "#b2b1b1" }}
+                  className="login-button-style"
+                  as={NavLink}
+                  onClick={logoutHandler}
+                >
+                  Logout
+                </Nav.Link>
+              )}
             {logRegisterContext.token &&
               (!logRegisterContext.isAdmin ||
                 logRegisterContext.isAdmin === "false") && (
@@ -115,11 +121,17 @@ const NavigationBarBootstrap = () => {
             {logRegisterContext.token &&
               (!logRegisterContext.isAdmin ||
                 logRegisterContext.isAdmin === "false") && (
-                <NavDropdown>
+                <NavDropdown style={{zIndex: 10000}}>
                   {(!logRegisterContext.isAdmin ||
                     logRegisterContext.isAdmin === "false") && (
                     <NavDropdown.Item as={NavLink} to="/favorite-trips">
                       Favorite trips
+                    </NavDropdown.Item>
+                  )}
+                  {(!logRegisterContext.isAdmin ||
+                    logRegisterContext.isAdmin === "false") && (
+                    <NavDropdown.Item as={NavLink} to="/leaderboard">
+                      Leaderboards
                     </NavDropdown.Item>
                   )}
                   {(!logRegisterContext.isAdmin ||

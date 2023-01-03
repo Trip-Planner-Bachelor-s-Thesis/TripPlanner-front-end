@@ -8,7 +8,7 @@ import Option from "@mui/joy/Option";
 
 import styles from "./FilterTrips.module.css";
 
-const DropdownList = (props) => {
+const FilterTrips = (props) => {
   const [enteredType, setEnteredType] = useState("");
   const [enteredPreferences, setEnteredPreferences] = useState("");
   const [enteredStartDate, setEnteredStartDate] = useState("");
@@ -70,7 +70,7 @@ const DropdownList = (props) => {
   return (
     <div className={styles["new-trip__control"]}>
       <Typography level="h6" sx={{ mb: 2 }}>
-        Browse through available trips
+        {props.isFavorite ? "Browse through favorite trips" : "Browse through available trips"}
       </Typography>
       <div className={styles["form-container"]}>
         <FormControl  sx={{ mx: 1 }}>
@@ -164,4 +164,4 @@ function checkEndDate(endDate, trip) {
   return new Date(trip.date) <= new Date(endDate);
 }
 
-export default DropdownList;
+export default FilterTrips;

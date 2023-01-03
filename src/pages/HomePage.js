@@ -1,10 +1,10 @@
 import styles from "./Pages.module.css";
 import Home from "../components/Home/Home";
 
-const HomePage = () => {
+const HomePage = (props) => {
   return (
     <main className={styles["home-container"]}>
-      <Home />
+      <Home isTest={props.isTest} />
     </main>
   );
 };

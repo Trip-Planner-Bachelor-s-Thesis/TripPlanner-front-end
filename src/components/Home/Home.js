@@ -11,7 +11,7 @@ import ModalClose from "@mui/joy/ModalClose";
 import styles from "./Home.module.css";
 import LogRegisterContext from "../../contexts/log-register-context";
 
-const Home = () => {
+const Home = (props) => {
   const logRegisterContext = useContext(LogRegisterContext);
   const navigate = useNavigate();
 
@@ -79,14 +79,20 @@ const Home = () => {
       <div className={styles["home-page-description"]}>
         <h3 className={styles["title"]}>Welcome to the Trip Planner</h3>
         <p className={styles["description"]}>
-          Our goal is to foster the communities in which like minded people can go on trips
-          together while trying our best to help with the planning of such a
-          grand endeavour
+          Our goal is to foster the communities in which like minded people can
+          go on trips together while trying our best to help with the planning
+          of such a grand endeavour
         </p>
       </div>
       <div className={styles["home-page-images"]}>
-        {/* <img src={require("../../assets/test5.png")} alt=""></img> */}
-        <img src="https://www.pngall.com/wp-content/uploads/5/Silhouette-Mountain-Bike-Transparent.png"alt=""></img>
+        {props.isTest ? (
+          <img
+            src="https://www.pngall.com/wp-content/uploads/5/Silhouette-Mountain-Bike-Transparent.png"
+            alt=""
+          ></img>
+        ) : (
+          <img src={require("../../assets/bike.png")} alt=""></img>
+        )}
       </div>
       {/* <footer className={styles["authors-footer"]}>{`Noman Noor \u00A0\u00A0 Marcin Świerkot \u00A0\u00A0 Nader Tavana`}</footer> */}
     </section>

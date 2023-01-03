@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import List from "@mui/joy/List";
@@ -15,8 +15,10 @@ import fetchUrls from "../../helpers/fetch_urls";
 
 const TripDetailsMy = () => {
   const { token } = useContext(LogRegisterContext);
+  const [isLoadingFavorites, setIsLoadingFavorites] = useState(false);
   const [trip, setTrip] = useState(null);
   const { tripId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${fetchUrls["get-all-trips"]}/${tripId}`, {
@@ -32,6 +34,26 @@ const TripDetailsMy = () => {
       });
   }, [tripId, token]);
 
+  const addFavoritesHandler = async () => {
+    setIsLoadingFavorites(true);
+    fetch(`${fetchUrls["add-favorite-trips"]}/${tripId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setIsLoadingFavorites(false);
+        navigate("/favorite-trips", { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
@@ -40,11 +62,12 @@ const TripDetailsMy = () => {
           <div className={styles["map-details-container"]}>
             <PreferencesDescription
               tripData={trip}
+              onAddFavoritesHandler={addFavoritesHandler}
               isJoined={trip.isJoinedByCurrentUser}
               isFavorite={trip.isFavoriteForCurrentUser}
               isCreated={trip.isCreatedByCurrentUser}
               isLoadingJoin={false}
-              isLoadingFavorites={false}
+              isLoadingFavorites={isLoadingFavorites}
             />
             <div className={styles["map-only-container"]}>
               <Sheet
