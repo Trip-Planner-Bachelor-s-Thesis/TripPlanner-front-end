@@ -117,7 +117,7 @@ const MainContent = (props) => {
           )
         }
       />
-            <Route
+      <Route
         path="/leaderboard"
         element={
           logRegisterContext.token ? (

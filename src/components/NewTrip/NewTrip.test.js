@@ -1,14 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
-import NewTrip from "./NewTrip";
+import NewTripTest from "../Utils/Test/NewTripTest";
 
 describe("NewTrip component", () => {
   test("renders create trip page correctly", () => {
     // Arrange
     render(
       <BrowserRouter>
-        <NewTrip />
+        <NewTripTest />
       </BrowserRouter>
     );
 
@@ -26,7 +26,7 @@ describe("NewTrip component", () => {
     // Arrange
     render(
       <BrowserRouter>
-        <NewTrip />
+        <NewTripTest />
       </BrowserRouter>
     );
 

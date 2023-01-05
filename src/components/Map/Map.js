@@ -6,8 +6,20 @@ import { useEffect } from "react";
 
 import styles from "./Map.module.css";
 
+let greenIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
 const Map = (props) => {
-  let onWaypointsHandler = props.onWaypointsHandler;
+  //let onPinsHadler = props.onPinsHadler;
+  let waypointsHandler = props.onWaypointsHandler;
   let userWaypointsInput = props.userWaypointsInput;
   let calculatedTripDataHandler = props.onCalculatedTripDataHandler;
   let isMapStatic = props.staticMap;
@@ -17,13 +29,16 @@ const Map = (props) => {
   }
 
   useEffect(() => {
+    console.log("test");
     var container = L.DomUtil.get("map");
-    // container.remove(routingControl);
     if (container != null) {
       container._leaflet_id = null;
     }
 
-    let map = L.map("map").setView([52.2297, 21.0122], 6);
+    let map = L.map("map", { drawControl: true }).setView(
+      [52.2297, 21.0122],
+      6
+    );
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution:
@@ -41,7 +56,7 @@ const Map = (props) => {
       });
     }
 
-    let control = L.Routing.control({
+    L.Routing.control({
       waypoints: userWaypointsInputTransformed,
       routeWhileDragging: true,
       router: L.Routing.graphHopper("44c78c7e-16d3-4fd5-80a9-fa1b12807da7", {
@@ -51,24 +66,8 @@ const Map = (props) => {
       }),
       geocoder: L.Control.Geocoder.nominatim(),
     })
-      .on("routesfound", function (e) {
-        if (!userWaypointsInput && !isMapStatic) {
-          let routes = e.routes;
-          let summary = routes[0].summary;
-          let hours = Math.floor(summary.totalTime / 3600);
-          let minutes = Math.round((summary.totalTime - hours * 3600) / 60);
-          let tripData = {
-            distance: Math.round(summary.totalDistance / 1000),
-            totalTime: summary.totalTime,
-            timeHours: hours,
-            timeMinutes: minutes,
-          };
-          calculatedTripDataHandler(tripData);
-        }
-      })
       .on("routeselected", function (e) {
         if (!userWaypointsInput && !isMapStatic) {
-          console.log(e.route);
           let route = e.route;
           let userWaypointsReturn = [];
           route.inputWaypoints.forEach((element) => {
@@ -80,30 +79,56 @@ const Map = (props) => {
             };
             userWaypointsReturn.push(waypoint);
           });
-          if (onWaypointsHandler) {
-            onWaypointsHandler(userWaypointsReturn);
+          if (waypointsHandler) {
+            waypointsHandler(userWaypointsReturn);
           }
+          let summary = route.summary;
+          let hours = Math.floor(summary.totalTime / 3600);
+          let minutes = Math.round((summary.totalTime - hours * 3600) / 60);
+          let tripData = {
+            distance: Math.round(summary.totalDistance / 1000),
+            totalTime: summary.totalTime,
+            timeHours: hours,
+            timeMinutes: minutes,
+          };
+          calculatedTripDataHandler(tripData);
         }
       })
       .addTo(map);
 
-    // map.on("click", function (e) {
-    //   let container = L.DomUtil.create("div"),
-    //     startBtn = createButton("Start from this location", container),
-    //     destBtn = createButton("Go to this location", container);
+    map.on("click", function (e) {
+      //console.log(e);
+      let container = L.DomUtil.create("div");
+      // let startBtn = createButton("Start from this location", container);
+      // let destBtn = createButton("Go to this location", container);
+      let inputField = createInput(container);
+      let saveBtn = createButton("Save", container);
+      // let image = createImage(container);
 
-    //   L.popup().setContent(container).setLatLng(e.latlng).openOn(map);
+      L.popup().setContent(container).setLatLng(e.latlng).openOn(map);
 
-    //   L.DomEvent.on(startBtn, "click", function () {
-    //     control.spliceWaypoints(0, 1, e.latlng);
-    //     map.closePopup();
-    //   });
+      L.DomEvent.on(saveBtn, "click", function () {
+        console.log(e.latlng);
+        L.marker(e.latlng, { icon: greenIcon })
+          .bindPopup(
+            inputField.value.startsWith("http")
+              ? `<img src=${inputField.value} alt='Image' height='200' width='200' />`
+              : inputField.value
+          )
+          .addTo(map);
+        map.closePopup();
+      });
 
-    //   L.DomEvent.on(destBtn, "click", function () {
-    //     control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
-    //     map.closePopup();
-    //   });
-    // });
+      // L.DomEvent.on(startBtn, "click", function () {
+      //   control.spliceWaypoints(0, 1, e.latlng);
+      //   map.closePopup();
+      // });
+
+      // L.DomEvent.on(destBtn, "click", function () {
+      //   control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+      //   map.closePopup();
+      // });
+    });
 
     if (isMapStatic) {
       let waypoints = document.getElementsByClassName(
@@ -120,7 +145,7 @@ const Map = (props) => {
       }
     }
   }, [
-    onWaypointsHandler,
+    waypointsHandler,
     userWaypointsInput,
     isMapStatic,
     calculatedTripDataHandler,
@@ -131,10 +156,28 @@ const Map = (props) => {
 };
 
 function createButton(label, container) {
-  let btn = L.DomUtil.create("button", "", container);
+  let btn = L.DomUtil.create("button", "button-save", container);
   btn.setAttribute("type", "button");
   btn.innerHTML = label;
   return btn;
 }
+
+function createInput(container) {
+  let btn = L.DomUtil.create("input", "", container);
+  // btn.setAttribute("type", "button");
+  // btn.innerHTML = label;
+  return btn;
+}
+
+// function createImage(container) {
+//   let btn = L.DomUtil.create("img", "", container);
+//   // btn.setAttribute("type", "button");
+//   // btn.innerHTML = label;
+//   btn.src =
+//     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/db/72/f1/photo0jpg.jpg?w=1200&h=1200&s=1";
+//   btn.height = 100;
+//   btn.width = 100;
+//   return btn;
+// }
 
 export default Map;

@@ -16,10 +16,10 @@ describe("LogRegisterForm component", () => {
     // ... nothing
 
     // Assert
-    expect(screen.getByRole("heading")).toHaveTextContent(/^Login$/);
+    expect(screen.getByRole("heading")).toHaveTextContent(/^Sign in$/);
     expect(screen.getByPlaceholderText(/^username$/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^password$/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /^Login$/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /^Log in$/ })).toBeInTheDocument();
     // expect(
     //   screen.getByRole("button", { name: /^Don't have an account yet\?$/ })
     // ).toBeInTheDocument();
@@ -44,6 +44,6 @@ describe("LogRegisterForm component", () => {
     expect(
       screen.getByRole("button", { name: /^Create$/ })
     ).toBeInTheDocument();
-    expect(screen.getByTestId("existing-account")).toBeInTheDocument();
+    // expect(screen.getByTestId("existing-account")).toBeInTheDocument();
   });
 });

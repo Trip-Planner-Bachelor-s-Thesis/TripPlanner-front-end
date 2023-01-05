@@ -6,15 +6,14 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Chip from "@mui/joy/Chip";
 
-import styles from "./TripDetailsFavorite.module.css";
-import TripInformation from "../Utils/TripInformation";
-import PreferencesDescription from "../Utils/PreferencesDescription";
-import Map from "../Map/Map";
-//import MapReactLeaflet from "../Map/MapReactLeaflet";
-import LogRegisterContext from "../../contexts/log-register-context";
-import fetchUrls from "../../helpers/fetch_urls";
+import styles from "../../TripDetailsFavorite/TripInformationFavorite.module.css";
+import TripInformation from "../TripInformation";
+import PreferencesDescription from "../PreferencesDescription";
+import Map from "../../Map/Map";
+import LogRegisterContext from "../../../contexts/log-register-context";
+import fetchUrls from "../../../helpers/fetch_urls";
 
-const TripDetailsFavorite = () => {
+const TripDetailsFavoriteTest = () => {
   const { token, updateJoinedTrip } = useContext(LogRegisterContext);
   const [isLoadingJoin, setIsLoadingJoin] = useState(false);
   const [trip, setTrip] = useState(null);
@@ -115,4 +114,4 @@ const TripDetailsFavorite = () => {
   );
 };
 
-export default TripDetailsFavorite;
+export default TripDetailsFavoriteTest;

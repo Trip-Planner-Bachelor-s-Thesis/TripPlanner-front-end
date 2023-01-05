@@ -76,7 +76,7 @@ const Home = (props) => {
           </Sheet>
         </Sheet>
       </Modal>
-      <div className={styles["home-page-description"]}>
+      {/* <div className={styles["home-page-description"]}>
         <h3 className={styles["title"]}>Welcome to the Trip Planner</h3>
         <p className={styles["description"]}>
           Our goal is to foster the communities in which like minded people can
@@ -93,7 +93,7 @@ const Home = (props) => {
         ) : (
           <img src={require("../../assets/travel.png")} alt="" style={{borderRadius: "4px"}}></img>
         )}
-      </div>
+      </div> */}
       {/* <footer className={styles["authors-footer"]}>{`Noman Noor \u00A0\u00A0 Marcin Świerkot \u00A0\u00A0 Nader Tavana`}</footer> */}
     </section>
   );

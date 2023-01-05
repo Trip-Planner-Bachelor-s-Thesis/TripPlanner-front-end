@@ -5,18 +5,17 @@ import Sheet from "@mui/joy/Sheet";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Chip from "@mui/joy/Chip";
+import styles from "../../TripDetailsAll/TripDetailsAll.module.css";
+import TripInformation from "../TripInformation";
+import PreferencesDescription from "../PreferencesDescription";
+import Map from "../../Map/Map";
+import LogRegisterContext from "../../../contexts/log-register-context";
+import fetchUrls from "../../../helpers/fetch_urls";
 
-import styles from "./TripDetailsFavorite.module.css";
-import TripInformation from "../Utils/TripInformation";
-import PreferencesDescription from "../Utils/PreferencesDescription";
-import Map from "../Map/Map";
-//import MapReactLeaflet from "../Map/MapReactLeaflet";
-import LogRegisterContext from "../../contexts/log-register-context";
-import fetchUrls from "../../helpers/fetch_urls";
-
-const TripDetailsFavorite = () => {
+const TripDetailsAllTest = () => {
   const { token, updateJoinedTrip } = useContext(LogRegisterContext);
   const [isLoadingJoin, setIsLoadingJoin] = useState(false);
+  const [isLoadingFavorites, setIsLoadingFavorites] = useState(false);
   const [trip, setTrip] = useState(null);
   const { tripId } = useParams();
   const navigate = useNavigate();
@@ -54,6 +53,27 @@ const TripDetailsFavorite = () => {
       .catch((error) => {
         console.log(error);
       });
+    // await new Promise((r) => setTimeout(r, 1000)); 
+  };
+
+  const addFavoritesHandler = async () => {
+    setIsLoadingFavorites(true);
+    fetch(`${fetchUrls["add-favorite-trips"]}/${tripId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setIsLoadingFavorites(false);
+        navigate("/favorite-trips", { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -65,11 +85,12 @@ const TripDetailsFavorite = () => {
             <PreferencesDescription
               tripData={trip}
               onJoinHandler={joinHandler}
+              onAddFavoritesHandler={addFavoritesHandler}
               isJoined={trip.isJoinedByCurrentUser}
               isFavorite={trip.isFavoriteForCurrentUser}
               isCreated={trip.isCreatedByCurrentUser}
               isLoadingJoin={isLoadingJoin}
-              isLoadingFavorites={false}
+              isLoadingFavorites={isLoadingFavorites}
             />
             <div className={styles["map-only-container"]}>
               <Sheet
@@ -115,4 +136,4 @@ const TripDetailsFavorite = () => {
   );
 };
 
-export default TripDetailsFavorite;
+export default TripDetailsAllTest;

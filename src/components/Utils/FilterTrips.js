@@ -100,6 +100,7 @@ const FilterTrips = (props) => {
             onChange={typeDropDownHandler}
             value={enteredType}
             data-testid="type-option"
+            sx={{width: 150}}
           >
             <Option value="car">Car trip</Option>
             <Option value="bike">Bike ride</Option>
@@ -114,10 +115,16 @@ const FilterTrips = (props) => {
             onChange={preferencesDropDownHandler}
             value={enteredPreferences}
             data-testid="preferences-option"
+            sx={{width: 160}}
           >
             <Option value="Entertainment">Entertainment</Option>
             <Option value="Sightseeing">Sightseeing</Option>
+            <Option value="Exploring">Exploring</Option>
+            <Option value="Culture">Culture</Option>
+            <Option value="History">History</Option>
+            <Option value="Free ride">Free ride</Option>
             <Option value="Training">Training</Option>
+            <Option value="Nature">Nature</Option>
           </Select>
         </FormControl>
 

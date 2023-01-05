@@ -4,7 +4,7 @@ import NavigationBarBootstrap from "./components/Layout/NavigationBarBootstrap";
 import MainContent from "./components/Layout/MainContent";
 import LogRegisterContext from "./contexts/log-register-context";
 
-function App() {
+function App(props) {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [firstLogin, setFirstLogin] = useState(false);
   const [joinedTrip, setJoinedTrip] = useState(false);

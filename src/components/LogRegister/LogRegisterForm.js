@@ -184,7 +184,7 @@ const LogRegisterForm = () => {
         </form>
         <Typography
           endDecorator={
-            <Link onClick={toggleHandler}>
+            <Link data-testid="no-account" onClick={toggleHandler}>
               {isLoginForm ? "Sign up" : "Sign in"}
             </Link>
           }

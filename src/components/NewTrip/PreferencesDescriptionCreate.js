@@ -47,11 +47,12 @@ const PreferencesDescriptionCreate = (props) => {
           {[
             "Entertainment",
             "Sightseeing",
-            "Free ride",
-            "Training",
             "Exploring",
             "Culture",
             "History",
+            "Free ride",
+            "Training",
+            "Nature",
           ].map((item) => (
             <ListItem key={item}>
               {props.enteredPreferences.includes(item) && (

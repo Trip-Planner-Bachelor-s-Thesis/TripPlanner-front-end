@@ -82,7 +82,7 @@ const PreferencesDescription = (props) => {
       >
         Show participants
       </Button>
-      {props.isJoined && <Button
+      {(props.isJoined || props.isCreated) && <Button
         color="primary"
         variant="soft"
         sx={{ mb: 1, width: "100%" }}

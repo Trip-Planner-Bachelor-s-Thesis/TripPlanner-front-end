@@ -5,10 +5,10 @@ import Sheet from "@mui/joy/Sheet";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Chip from "@mui/joy/Chip";
-
 import styles from "./TripDetailsAll.module.css";
 import TripInformation from "../Utils/TripInformation";
 import PreferencesDescription from "../Utils/PreferencesDescription";
+//import MapReactLeaflet from "../Map/MapReactLeaflet";
 import Map from "../Map/Map";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";

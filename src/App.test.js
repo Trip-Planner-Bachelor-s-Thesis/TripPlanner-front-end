@@ -2,14 +2,12 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import LogRegisterContext from "./contexts/log-register-context";
 import NavigationBarBootstrap from "./components/Layout/NavigationBarBootstrap";
-import MainContent from "./components/Layout/MainContent";
 
 function renderNavigationBar(context) {
   return render(
     <BrowserRouter>
       <LogRegisterContext.Provider value={context}>
         <NavigationBarBootstrap isTest={true} />
-        <MainContent isTest={true}  />
       </LogRegisterContext.Provider>
     </BrowserRouter>
   );
@@ -89,3 +87,4 @@ describe("App component", () => {
     ).not.toBeInTheDocument();
   });
 });
+ 

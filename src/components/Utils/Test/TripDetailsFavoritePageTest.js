@@ -1,10 +1,10 @@
 import styles from "./Pages.module.css";
-import TripDetailsAll from "../components/TripDetailsAll/TripDetailsAll";
+import TripDetailsFavoriteTest from "./TripDetailsFavoriteTest";
 
 const TripDetailsAllPage = (props) => {
   return (
     <main className={styles["main-container"]}>
-      <TripDetailsAll />
+      {props.isTest ? <TripDetailsFavoriteTest /> : <TripDetailsFavorite />}  
     </main>
   );
 };

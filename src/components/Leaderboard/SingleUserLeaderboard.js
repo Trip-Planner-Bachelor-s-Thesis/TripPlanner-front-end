@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 // import styles from "./SingleUserLeaderboard.module.css";
-import ListDivider from "@mui/joy/ListDivider";
+// import ListDivider from "@mui/joy/ListDivider";
 import ListItem from "@mui/joy/ListItem";
-import ListItemDecorator from "@mui/joy/ListItemDecorator";
+// import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import PersonIcon from "@mui/icons-material/Person";
 import StarIcon from "@mui/icons-material/Star";
@@ -12,7 +12,7 @@ import NumbersIcon from "@mui/icons-material/Numbers";
 // import Tooltip from "@mui/joy/Tooltip";
 // import IconButton from "@mui/joy/IconButton";
 // import StarIcon from "@mui/icons-material/Star";
-import Sheet from "@mui/joy/Sheet";
+// import Sheet from "@mui/joy/Sheet";
 
 const SingleUserLeaderboard = (props) => {
   return (

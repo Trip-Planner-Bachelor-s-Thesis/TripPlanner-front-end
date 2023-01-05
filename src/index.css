@@ -141,3 +141,8 @@ leaflet-routing-alternatives-container {
     transform: rotate(360deg);
   }
 }
+
+.button-save {
+  margin-left: 10px;
+  border-radius: 5px;
+}

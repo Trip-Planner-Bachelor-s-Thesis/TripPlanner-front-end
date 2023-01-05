@@ -1,7 +1,7 @@
 import styles from "./Pages.module.css";
 import TripDetailsFavorite from "../components/TripDetailsFavorite/TripDetailsFavorite";
 
-const TripDetailsAllPage = () => {
+const TripDetailsFavoritePage = (props) => {
   return (
     <main className={styles["main-container"]}>
       <TripDetailsFavorite />
@@ -9,4 +9,4 @@ const TripDetailsAllPage = () => {
   );
 };
 
-export default TripDetailsAllPage;
+export default TripDetailsFavoritePage;

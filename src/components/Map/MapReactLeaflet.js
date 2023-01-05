@@ -2,9 +2,9 @@ import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet-control-geocoder";
 import "lrm-graphhopper";
-import { MapContainer } from 'react-leaflet/MapContainer'
-import { TileLayer } from 'react-leaflet/TileLayer'
-import { useMap } from 'react-leaflet/hooks'
+import { MapContainer } from "react-leaflet/MapContainer";
+import { TileLayer } from "react-leaflet/TileLayer";
+import { useMap } from "react-leaflet/hooks";
 
 import styles from "./Map.module.css";
 import { useState } from "react";
@@ -51,7 +51,7 @@ const RoutingControl = (props) => {
       routeWhileDragging: false,
       router: L.Routing.graphHopper("44c78c7e-16d3-4fd5-80a9-fa1b12807da7", {
         urlParameters: {
-          vehicle: "bike",
+          vehicle: props.typeOfTransport,
         },
       }),
       geocoder: L.Control.Geocoder.nominatim(),

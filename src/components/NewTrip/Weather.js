@@ -35,7 +35,7 @@ function Weather(props) {
       .then((res) => res.json())
       .then((result) => {
         setWeather(result);
-        console.log(result);
+        // console.log(result);
       });
   }, [lat, lon]);
 

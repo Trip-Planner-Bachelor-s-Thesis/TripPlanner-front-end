@@ -42,12 +42,13 @@ const DropdownList = (props) => {
             <Input type="time" onChange={timeDropDownHandler} />
           </FormControl>
 
-          <FormControl>
+          <FormControl sx={{zIndex: 10000}}>
             {/* <FormLabel sx={{ alignSelf: "center" }}>Trip type</FormLabel> */}
             <Select
               placeholder="Choose type"
               onChange={typeDropDownHandler}
-              sx={{ mx: 2 }}
+              value={props.enteredType}
+              sx={{ mx: 2}}
             >
               <Option value="car">Car trip</Option>
               <Option value="bike">Bike ride</Option>
