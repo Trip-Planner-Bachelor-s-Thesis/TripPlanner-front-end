@@ -4,7 +4,7 @@ import Typography from "@mui/joy/Typography";
 import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import Tab from "@mui/joy/Tab";
-import List from "@mui/joy/List";
+//import List from "@mui/joy/List";
 import Sheet from "@mui/joy/Sheet";
 import SingleUserLeaderboard from "./SingleUserLeaderboard";
 import LogRegisterContext from "../../contexts/log-register-context";
@@ -142,7 +142,7 @@ const Leaderboard = () => {
                 variant={index === 0 ? "soft" : "plain"}
                 color={index === 0 ? "primary" : "neutral"}
               >
-                Best voyager
+                Longest traveller
               </Tab>
               <Tab
                 variant={index === 1 ? "soft" : "plain"}
@@ -179,33 +179,78 @@ const Leaderboard = () => {
           }}
         >
           {isSendingRequest && <SpinnerBox />}
-          {allFetchedUsers &&
-            (allFetchedUsers.length === 0 ? (
-              <p className={styles["no-posts-found"]}>
-                No users on the leaderboard
-              </p>
-            ) : (
-              <List
-                sx={{
-                  m: 0,
-                  p: 0,
-                }}
-              >
-                {allFetchedUsers.map((user, indexNumber) => (
-                  <SingleUserLeaderboard
-                    key={user.username}
-                    index={indexNumber}
-                    username={user.username}
-                    distance={user.distance}
-                    numTripsCreated={user.numTripsCreated}
-                    numTripsJoined={user.numTripsJoined}
-                    organizerRating={user.organizerRating}
-                    userRating={user.userRating}
-                    type={index}
-                  ></SingleUserLeaderboard>
-                ))}
-              </List>
-            ))}
+          {allFetchedUsers && <table>
+            <tbody>
+              {index === 0 && (
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Distance covered</th>
+                  <th scope="col">Trips organized</th>
+                  <th scope="col">Trips joined</th>
+                  <th scope="col">Organizer rating</th>
+                  <th scope="col">Participant rating</th>
+                </tr>
+              )}
+              {index === 1 && (
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Trips organized</th>
+                  <th scope="col">Trips joined</th>
+                  <th scope="col">Organizer rating</th>
+                  <th scope="col">Participant rating</th>
+                  <th scope="col">Distance covered</th>
+                </tr>
+              )}
+              {index === 2 && (
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Trips joined</th>
+                  <th scope="col">Trips organized</th>
+                  <th scope="col">Organizer rating</th>
+                  <th scope="col">Participant rating</th>
+                  <th scope="col">Distance covered</th>
+                </tr>
+              )}
+              {index === 3 && (
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Organizer rating</th>
+                  <th scope="col">Participant rating</th>
+                  <th scope="col">Trips organized</th>
+                  <th scope="col">Trips joined</th>
+                  <th scope="col">Distance covered</th>
+                </tr>
+              )}
+              {index === 4 && (
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Participant rating</th>
+                  <th scope="col">Organizer rating</th>
+                  <th scope="col">Trips organized</th>
+                  <th scope="col">Trips joined</th>
+                  <th scope="col">Distance covered</th>
+                </tr>
+              )}
+              {allFetchedUsers.map((user, indexNumber) => (
+              <SingleUserLeaderboard
+                key={user.username}
+                index={indexNumber}
+                username={user.username}
+                distance={user.distance}
+                numTripsCreated={user.numTripsCreated}
+                numTripsJoined={user.numTripsJoined}
+                organizerRating={user.organizerRating}
+                userRating={user.userRating}
+                type={index}
+              ></SingleUserLeaderboard>
+              ))}
+            </tbody>
+          </table>}
         </Sheet>
       </div>
     </section>
