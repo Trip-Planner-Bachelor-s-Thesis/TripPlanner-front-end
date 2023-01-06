@@ -109,150 +109,152 @@ const Leaderboard = () => {
 
   return (
     <section className={styles["posts-section"]}>
-      <div className={styles["posts"]}>
-        <div className={styles["tabs-container"]}>
-          <Typography level="h6" sx={{ mb: 2, textAlign: "center" }}>
-            Browse through leaderboards
-          </Typography>
-          <Tabs
-            aria-label="Outlined tabs"
-            value={index}
-            onChange={(event, value) => {
-              setIndex(value);
-              if (value === 0) {
-                setAllFetchedUsers(distanceFetchedUsers);
-              }
-              if (value === 1) {
-                setAllFetchedUsers(organizerFetchedUsers);
-              }
-              if (value === 2) {
-                setAllFetchedUsers(joinedFetchedUsers);
-              }
-              if (value === 3) {
-                setAllFetchedUsers(ratingOrganizerFetchedUsers);
-              }
-              if (value === 4) {
-                setAllFetchedUsers(ratingUserFetchedUsers);
-              }
+      {isSendingRequest && <SpinnerBox />}
+      {allFetchedUsers && (
+        <div className={styles["posts"]}>
+          <div className={styles["tabs-container"]}>
+            <Typography level="h6" sx={{ mb: 2, textAlign: "center" }}>
+              Browse through leaderboards
+            </Typography>
+            <Tabs
+              aria-label="Outlined tabs"
+              value={index}
+              onChange={(event, value) => {
+                setIndex(value);
+                if (value === 0) {
+                  setAllFetchedUsers(distanceFetchedUsers);
+                }
+                if (value === 1) {
+                  setAllFetchedUsers(organizerFetchedUsers);
+                }
+                if (value === 2) {
+                  setAllFetchedUsers(joinedFetchedUsers);
+                }
+                if (value === 3) {
+                  setAllFetchedUsers(ratingOrganizerFetchedUsers);
+                }
+                if (value === 4) {
+                  setAllFetchedUsers(ratingUserFetchedUsers);
+                }
+              }}
+              sx={{ borderRadius: "lg" }}
+            >
+              <TabList variant="outlined">
+                <Tab
+                  variant={index === 0 ? "soft" : "plain"}
+                  color={index === 0 ? "primary" : "neutral"}
+                >
+                  Longest traveller
+                </Tab>
+                <Tab
+                  variant={index === 1 ? "soft" : "plain"}
+                  color={index === 1 ? "primary" : "neutral"}
+                >
+                  Most frequent organizer
+                </Tab>
+                <Tab
+                  variant={index === 2 ? "soft" : "plain"}
+                  color={index === 2 ? "primary" : "neutral"}
+                >
+                  Most frequent participant
+                </Tab>
+                <Tab
+                  variant={index === 3 ? "soft" : "plain"}
+                  color={index === 3 ? "primary" : "neutral"}
+                >
+                  Best organizer
+                </Tab>
+                <Tab
+                  variant={index === 4 ? "soft" : "plain"}
+                  color={index === 4 ? "primary" : "neutral"}
+                >
+                  Best participant
+                </Tab>
+              </TabList>
+            </Tabs>
+          </div>
+          <Sheet
+            sx={{
+              height: "85%",
+              width: "100%",
+              borderRadius: "md",
             }}
-            sx={{ borderRadius: "lg" }}
           >
-            <TabList variant="outlined">
-              <Tab
-                variant={index === 0 ? "soft" : "plain"}
-                color={index === 0 ? "primary" : "neutral"}
-              >
-                Longest traveller
-              </Tab>
-              <Tab
-                variant={index === 1 ? "soft" : "plain"}
-                color={index === 1 ? "primary" : "neutral"}
-              >
-                Most frequent organizer
-              </Tab>
-              <Tab
-                variant={index === 2 ? "soft" : "plain"}
-                color={index === 2 ? "primary" : "neutral"}
-              >
-                Most frequent participant
-              </Tab>
-              <Tab
-                variant={index === 3 ? "soft" : "plain"}
-                color={index === 3 ? "primary" : "neutral"}
-              >
-                Best organizer
-              </Tab>
-              <Tab
-                variant={index === 4 ? "soft" : "plain"}
-                color={index === 4 ? "primary" : "neutral"}
-              >
-                Best participant
-              </Tab>
-            </TabList>
-          </Tabs>
+            <table className={styles["table-style"]}>
+              <tbody>
+                {index === 0 && (
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Distance covered</th>
+                    <th scope="col">Trips organized</th>
+                    <th scope="col">Trips joined</th>
+                    <th scope="col">Organizer rating</th>
+                    <th scope="col">Participant rating</th>
+                  </tr>
+                )}
+                {index === 1 && (
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Trips organized</th>
+                    <th scope="col">Trips joined</th>
+                    <th scope="col">Organizer rating</th>
+                    <th scope="col">Participant rating</th>
+                    <th scope="col">Distance covered</th>
+                  </tr>
+                )}
+                {index === 2 && (
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Trips joined</th>
+                    <th scope="col">Trips organized</th>
+                    <th scope="col">Organizer rating</th>
+                    <th scope="col">Participant rating</th>
+                    <th scope="col">Distance covered</th>
+                  </tr>
+                )}
+                {index === 3 && (
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Organizer rating</th>
+                    <th scope="col">Participant rating</th>
+                    <th scope="col">Trips organized</th>
+                    <th scope="col">Trips joined</th>
+                    <th scope="col">Distance covered</th>
+                  </tr>
+                )}
+                {index === 4 && (
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Participant rating</th>
+                    <th scope="col">Organizer rating</th>
+                    <th scope="col">Trips organized</th>
+                    <th scope="col">Trips joined</th>
+                    <th scope="col">Distance covered</th>
+                  </tr>
+                )}
+                {allFetchedUsers.map((user, indexNumber) => (
+                  <SingleUserLeaderboard
+                    key={user.username}
+                    index={indexNumber}
+                    username={user.username}
+                    distance={user.distance}
+                    numTripsCreated={user.numTripsCreated}
+                    numTripsJoined={user.numTripsJoined}
+                    organizerRating={user.organizerRating}
+                    userRating={user.userRating}
+                    type={index}
+                  ></SingleUserLeaderboard>
+                ))}
+              </tbody>
+            </table>
+          </Sheet>
         </div>
-        <Sheet
-          sx={{
-            height: "85%",
-            width: "100%",
-            borderRadius: "md",
-          }}
-        >
-          {isSendingRequest && <SpinnerBox />}
-          {allFetchedUsers && <table>
-            <tbody>
-              {index === 0 && (
-                <tr>
-                  <th scope="col">Rank</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Distance covered</th>
-                  <th scope="col">Trips organized</th>
-                  <th scope="col">Trips joined</th>
-                  <th scope="col">Organizer rating</th>
-                  <th scope="col">Participant rating</th>
-                </tr>
-              )}
-              {index === 1 && (
-                <tr>
-                  <th scope="col">Rank</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Trips organized</th>
-                  <th scope="col">Trips joined</th>
-                  <th scope="col">Organizer rating</th>
-                  <th scope="col">Participant rating</th>
-                  <th scope="col">Distance covered</th>
-                </tr>
-              )}
-              {index === 2 && (
-                <tr>
-                  <th scope="col">Rank</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Trips joined</th>
-                  <th scope="col">Trips organized</th>
-                  <th scope="col">Organizer rating</th>
-                  <th scope="col">Participant rating</th>
-                  <th scope="col">Distance covered</th>
-                </tr>
-              )}
-              {index === 3 && (
-                <tr>
-                  <th scope="col">Rank</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Organizer rating</th>
-                  <th scope="col">Participant rating</th>
-                  <th scope="col">Trips organized</th>
-                  <th scope="col">Trips joined</th>
-                  <th scope="col">Distance covered</th>
-                </tr>
-              )}
-              {index === 4 && (
-                <tr>
-                  <th scope="col">Rank</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Participant rating</th>
-                  <th scope="col">Organizer rating</th>
-                  <th scope="col">Trips organized</th>
-                  <th scope="col">Trips joined</th>
-                  <th scope="col">Distance covered</th>
-                </tr>
-              )}
-              {allFetchedUsers.map((user, indexNumber) => (
-              <SingleUserLeaderboard
-                key={user.username}
-                index={indexNumber}
-                username={user.username}
-                distance={user.distance}
-                numTripsCreated={user.numTripsCreated}
-                numTripsJoined={user.numTripsJoined}
-                organizerRating={user.organizerRating}
-                userRating={user.userRating}
-                type={index}
-              ></SingleUserLeaderboard>
-              ))}
-            </tbody>
-          </table>}
-        </Sheet>
-      </div>
+      )}
     </section>
   );
 };
