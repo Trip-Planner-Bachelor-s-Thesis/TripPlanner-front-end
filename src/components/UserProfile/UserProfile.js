@@ -8,7 +8,7 @@ import TabPanel from "@mui/joy/TabPanel";
 import SpinnerBox from "../Utils/SpinnerBox";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";
-import Preferences from "../Preferences/Preferences";
+import Preferences from "./Preferences";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 
@@ -49,15 +49,20 @@ const UserProfile = () => {
       {isSendingRequest && <SpinnerBox />}
       {currentUser && (
         <>
-          <Typography level="h6" sx={{ mb: 4, textAlign: "center" }}>
-            User profile
+          <Typography level="h6" sx={{ mb: 1.5, textAlign: "center" }}>
+            Personal information
           </Typography>
           <Sheet sx={{ mb: 2, textAlign: "center" }}>
-            <Typography level="body1">Email: {currentUser.email}</Typography>
-            <Typography level="body1">
+            <Typography level="body1" sx={{ fontStyle: "italic" }}>
+              Email: {currentUser.email}
+            </Typography>
+            <Typography level="body1" sx={{ fontStyle: "italic" }}>
               Username: {currentUser.userName}
             </Typography>
           </Sheet>
+          <Typography level="h6" sx={{ mb: 2, textAlign: "center" }}>
+            Trip preferences
+          </Typography>
           <Sheet sx={{ width: "50%", m: "0 auto", mb: 4 }}>
             <Tabs
               aria-label="Outlined tabs"
