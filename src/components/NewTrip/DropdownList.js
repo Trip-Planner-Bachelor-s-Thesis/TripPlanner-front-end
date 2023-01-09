@@ -33,17 +33,14 @@ const DropdownList = (props) => {
       <form onSubmit={submitHandler}>
         <div className={styles["form-container"]}>
           <FormControl>
-            {/* <FormLabel sx={{ alignSelf: "center" }}>Trip date</FormLabel> */}
             <Input type="date" data-testid="date" onChange={dateDropDownHandler} />
           </FormControl>
 
           <FormControl sx={{ ml: 2 }}>
-            {/* <FormLabel sx={{ alignSelf: "center" }}>Trip date</FormLabel> */}
             <Input type="time" onChange={timeDropDownHandler} />
           </FormControl>
 
-          <FormControl sx={{zIndex: 10000}}>
-            {/* <FormLabel sx={{ alignSelf: "center" }}>Trip type</FormLabel> */}
+          <FormControl sx={{zIndex: 1000}}>
             <Select
               placeholder="Choose type"
               onChange={typeDropDownHandler}
@@ -61,6 +58,7 @@ const DropdownList = (props) => {
             type="submit"
             disabled={!props.enableCreateButtonFlag}
             endDecorator={<KeyboardArrowRight />}
+            loading={props.isSendingRequest}
           >
             Create
           </Button>

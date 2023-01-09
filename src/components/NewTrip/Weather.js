@@ -14,16 +14,14 @@ const api = {
 function Weather(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [weather, setWeather] = useState({});
-
   let lat = 1;
   let lon = 1;
 
-  //console.log(props.enteredWayPoints);
   function weatherClickHandler() {
     setIsOpen(true);
   }
-  
-  if(props.enteredWayPoints){
+
+  if (props.enteredWayPoints) {
     lat = props.enteredWayPoints.lat;
     lon = props.enteredWayPoints.lng;
   }
@@ -35,84 +33,103 @@ function Weather(props) {
       .then((res) => res.json())
       .then((result) => {
         setWeather(result);
-        // console.log(result);
       });
   }, [lat, lon]);
-
-  //console.log(weather);
 
   return (
     <Fragment>
       <Button
         color="primary"
         variant="soft"
-        sx={{ width: "100%" }}
+        sx={{ width: "100%"}}
         onClick={weatherClickHandler}
       >
         Check weather
       </Button>
 
-      {props.isDestinantion &&  <Modal
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <Sheet
-         
+      {props.isDestinantion && (
+        <Modal
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <ModalClose
-            variant="outlined"
-            sx={{
-              top: "calc(-1/4 * var(--IconButton-size))",
-              right: "calc(-1/4 * var(--IconButton-size))",
-              boxShadow: "0 2px 12px 0 rgba(0 0 0 / 0.2)",
-              borderRadius: "50%",
-              bgcolor: "white",
-            }}
-          />
-          {weather.main && (
-            <div className={styles["weather"]}>
-            <div className={styles["top"]}>
-              <div>
-                <p className={styles["city"]}>{weather.name}, {weather.sys.country}</p>
-                <p className={styles["weather-description"]}>{weather.weather[0].description}</p>
+          <Sheet>
+            <ModalClose
+              variant="outlined"
+              sx={{
+                top: "calc(-1/4 * var(--IconButton-size))",
+                right: "calc(-1/4 * var(--IconButton-size))",
+                boxShadow: "0 2px 12px 0 rgba(0 0 0 / 0.2)",
+                borderRadius: "50%",
+                bgcolor: "white",
+              }}
+            />
+            {weather.main && (
+              <div className={styles["weather"]}>
+                <div className={styles["top"]}>
+                  <div>
+                    <p className={styles["city"]}>
+                      {weather.name}, {weather.sys.country}
+                    </p>
+                    <p className={styles["weather-description"]}>
+                      {weather.weather[0].description}
+                    </p>
+                  </div>
+                  <img
+                    alt="weather"
+                    className="weather-icon"
+                    src={`icons/${weather.weather[0].icon}.png`}
+                  />
+                </div>
+                <div className={styles["bottom"]}>
+                  <p className={styles["temperature"]}>
+                    {Math.round(weather.main.temp)}°C
+                  </p>
+                  <div className={styles["details"]}>
+                    <div className={styles["parameter-row"]}>
+                      <span className={styles["parameter-label"]}>Details</span>
+                    </div>
+                    <div className={styles["parameter-row"]}>
+                      <span className={styles["parameter-label"]}>
+                        Feels like
+                      </span>
+                      <span className={styles["parameter-value"]}>
+                        {Math.round(weather.main.feels_like)}°C
+                      </span>
+                    </div>
+                    <div className={styles["parameter-row"]}>
+                      <span className={styles["parameter-label"]}>Wind</span>
+                      <span className={styles["parameter-value"]}>
+                        {weather.wind.speed} m/s
+                      </span>
+                    </div>
+                    <div className={styles["parameter-row"]}>
+                      <span className={styles["parameter-label"]}>
+                        Humidity
+                      </span>
+                      <span className={styles["parameter-value"]}>
+                        {weather.main.humidity}%
+                      </span>
+                    </div>
+                    <div className={styles["parameter-row"]}>
+                      <span className={styles["parameter-label"]}>
+                        Pressure
+                      </span>
+                      <span className={styles["parameter-value"]}>
+                        {weather.main.pressure} hPa
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <img
-                alt="weather"
-                className="weather-icon"
-                src={`icons/${weather.weather[0].icon}.png`}
-              />
-            </div>
-            <div className={styles["bottom"]}>
-              <p className={styles["temperature"]}>{Math.round(weather.main.temp)}°C</p>
-              <div className={styles["details"]}>
-                <div className={styles["parameter-row"]}>
-                  <span className={styles["parameter-label"]}>Details</span>
-                </div>
-                <div className={styles["parameter-row"]}>
-                  <span className={styles["parameter-label"]}>Feels like</span>
-                  <span className={styles["parameter-value"]}>
-                    {Math.round(weather.main.feels_like)}°C
-                  </span>
-                </div>
-                <div className={styles["parameter-row"]}>
-                  <span className={styles["parameter-label"]}>Wind</span>
-                  <span className={styles["parameter-value"]}>{weather.wind.speed} m/s</span>
-                </div>
-                <div className={styles["parameter-row"]}>
-                  <span className={styles["parameter-label"]}>Humidity</span>
-                  <span className={styles["parameter-value"]}>{weather.main.humidity}%</span>
-                </div>
-                <div className={styles["parameter-row"]}>
-                  <span className={styles["parameter-label"]}>Pressure</span>
-                  <span className={styles["parameter-value"]}>{weather.main.pressure} hPa</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          )}
-        </Sheet>
-      </Modal>}
+            )}
+          </Sheet>
+        </Modal>
+      )}
     </Fragment>
   );
 }

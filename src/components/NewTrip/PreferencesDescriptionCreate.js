@@ -18,7 +18,7 @@ const PreferencesDescriptionCreate = (props) => {
         minRows={6}
         maxRows={7}
         placeholder="Tell us more about the planned trip so that other users will know what to expect ... "
-        sx={{ mb: 2}}
+        sx={{ mb: 2 }}
         onBlur={(event) => props.onDescriptionHandler(event.target.value)}
       />
       <Sheet
@@ -106,8 +106,12 @@ const PreferencesDescriptionCreate = (props) => {
           </Typography>
         </Sheet>
       )}
-
-      <Weather enteredWayPoints={props.wayPoints[props.wayPoints.length - 1]} isDestinantion={isDestinationAvailable}  />
+      {props.calculatedTripData && (
+        <Weather
+          enteredWayPoints={props.wayPoints[props.wayPoints.length - 1]}
+          isDestinantion={isDestinationAvailable}
+        />
+      )}
     </div>
   );
 };

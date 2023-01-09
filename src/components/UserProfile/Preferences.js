@@ -2,7 +2,7 @@ import Slider from "@mui/joy/Slider";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useState } from "react";
 
 function Preferences(props) {
   let textWidth = 133;
@@ -15,12 +15,45 @@ function Preferences(props) {
   const [freeride, setFreeride] = useState(props.freeride);
   const [training, setTraining] = useState(props.training);
   const [nature, setNature] = useState(props.nature);
-  const [test, setTest] = useState(0);
-  console.log(test);
+
+  const entertainmentHandler = (event) => {
+    setEntertainment(event.target.value);
+  };
+
+  const sightseeingHandler = (event) => {
+    setSightseeing(event.target.value);
+  };
+  const exploringHandler = (event) => {
+    setExploring(event.target.value);
+  };
+  const cultureHandler = (event) => {
+    setCulture(event.target.value);
+  };
+  const historyHandler = (event) => {
+    setHistory(event.target.value);
+  };
+  const freerideHandler = (event) => {
+    setFreeride(event.target.value);
+  };
+  const trainingHandler = (event) => {
+    setTraining(event.target.value);
+  };
+  const natureHandler = (event) => {
+    setNature(event.target.value);
+  };
 
   const savePreferences = () => {
-    setTest((previousState) => previousState + 1);
-    props.onSavePreferences();
+    let preferences = {
+      entertainment: entertainment,
+      sightseeing: sightseeing,
+      exploring: exploring,
+      culture: culture,
+      history: history,
+      freeride: freeride,
+      training: training,
+      nature: nature
+    }
+    props.onSavePreferences(props.tripType, preferences);
   };
 
   return (
@@ -36,7 +69,8 @@ function Preferences(props) {
           min={0}
           max={6}
           valueLabelDisplay="auto"
-          defaultValue={entertainment}
+          value={entertainment}
+          onChange={entertainmentHandler}
         />
       </Sheet>
       <Sheet sx={{ display: "flex", alignItems: "center", gap: 4, mb: 0.15 }}>
@@ -50,7 +84,8 @@ function Preferences(props) {
           min={0}
           max={6}
           valueLabelDisplay="auto"
-          defaultValue={sightseeing}
+          value={sightseeing}
+          onChange={sightseeingHandler}
         />
       </Sheet>
       <Sheet sx={{ display: "flex", alignItems: "center", gap: 4, mb: 0.15 }}>
@@ -64,7 +99,8 @@ function Preferences(props) {
           min={0}
           max={6}
           valueLabelDisplay="auto"
-          defaultValue={exploring}
+          value={exploring}
+          onChange={exploringHandler}
         />
       </Sheet>
       <Sheet sx={{ display: "flex", alignItems: "center", gap: 4, mb: 0.15 }}>
@@ -78,7 +114,8 @@ function Preferences(props) {
           min={0}
           max={6}
           valueLabelDisplay="auto"
-          defaultValue={culture}
+          value={culture}
+          onChange={cultureHandler}
         />
       </Sheet>
       <Sheet sx={{ display: "flex", alignItems: "center", gap: 4, mb: 0.15 }}>
@@ -92,7 +129,8 @@ function Preferences(props) {
           min={0}
           max={6}
           valueLabelDisplay="auto"
-          defaultValue={history}
+          value={history}
+          onChange={historyHandler}
         />
       </Sheet>
       <Sheet sx={{ display: "flex", alignItems: "center", gap: 4, mb: 0.15 }}>
@@ -106,7 +144,8 @@ function Preferences(props) {
           min={0}
           max={6}
           valueLabelDisplay="auto"
-          defaultValue={freeride}
+          value={freeride}
+          onChange={freerideHandler}
         />
       </Sheet>
       <Sheet sx={{ display: "flex", alignItems: "center", gap: 4, mb: 0.15 }}>
@@ -120,7 +159,8 @@ function Preferences(props) {
           min={0}
           max={6}
           valueLabelDisplay="auto"
-          defaultValue={training}
+          value={training}
+          onChange={trainingHandler}
         />
       </Sheet>
       <Sheet sx={{ display: "flex", alignItems: "center", gap: 4, mb: 0.15 }}>
@@ -134,7 +174,8 @@ function Preferences(props) {
           min={0}
           max={6}
           valueLabelDisplay="auto"
-          defaultValue={nature}
+          value={nature}
+          onChange={natureHandler}
         />
       </Sheet>
       <Button
@@ -142,6 +183,7 @@ function Preferences(props) {
         variant="soft"
         sx={{ width: 100, mt: 2 }}
         onClick={savePreferences}
+        loading={props.isSendingRequest}
       >
         Save
       </Button>

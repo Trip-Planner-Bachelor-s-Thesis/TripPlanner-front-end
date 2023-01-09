@@ -19,6 +19,10 @@ const fetchUrls = {
     "https://tripplannerapi20221213230613.azurewebsites.net/my-favorites/all",
   "add-favorite-trips":
     "https://tripplannerapi20221213230613.azurewebsites.net/my-favorites/add",
+  rating:
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/UserRating",
+  preferences:
+    "https://tripplannerapi20221213230613.azurewebsites.net/api/TripTypePreference",
   posts: "https://tripplannerapi20221213230613.azurewebsites.net/api/Post/trip",
   leaderboard: "https://tripplannerapi20221213230613.azurewebsites.net",
 };

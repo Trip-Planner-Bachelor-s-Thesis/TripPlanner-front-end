@@ -7,45 +7,45 @@ import SpinnerBox from "../Utils/SpinnerBox";
 import LogRegisterContext from "../../contexts/log-register-context";
 import LogRegisterPage from "../../pages/LogRegisterPage";
 import HomePage from "../../pages/HomePage";
-// import NotFoundPage from "../../pages/NotFoundPage";
-// import NewTripPage from "../../pages/NewTripPage";
-// import AllTripsPage from "../../pages/AllTripsPage";
-// import TripDetailsAllPage from "../../pages/TripDetailsAllPage";
-// import MyTripsPage from "../../pages/MyTripsPage";
-// import TripDetailsMyPage from "../../pages/TripDetailsMyPage";
-// import ProfilePage from "../../pages/ProfilePage";
-// import HelpPage from "../../pages/HelpPage";
-// import PostsPage from "../../pages/PostsPage";
-// import LogRegisterAdminPage from "../../pages/LogRegisterAdminPage";
-// import FavoriteTripsPage from "../../pages/FavoriteTripsPage";
-// import TripDetailsFavoritePage from "../../pages/TripDetailsFavoritePage";
-// import AdminPanelPage from "../../pages/AdminPanelPage";
-// import LeaderboardPage from "../../pages/LeaderboardPage";
+import NotFoundPage from "../../pages/NotFoundPage";
+import NewTripPage from "../../pages/NewTripPage";
+import AllTripsPage from "../../pages/AllTripsPage";
+import TripDetailsAllPage from "../../pages/TripDetailsAllPage";
+import MyTripsPage from "../../pages/MyTripsPage";
+import TripDetailsMyPage from "../../pages/TripDetailsMyPage";
+import ProfilePage from "../../pages/ProfilePage";
+import HelpPage from "../../pages/HelpPage";
+import PostsPage from "../../pages/PostsPage";
+import LogRegisterAdminPage from "../../pages/LogRegisterAdminPage";
+import FavoriteTripsPage from "../../pages/FavoriteTripsPage";
+import TripDetailsFavoritePage from "../../pages/TripDetailsFavoritePage";
+import AdminPanelPage from "../../pages/AdminPanelPage";
+import LeaderboardPage from "../../pages/LeaderboardPage";
 
-const NotFoundPage = React.lazy(() => import("../../pages/NotFoundPage"));
-const NewTripPage = React.lazy(() => import("../../pages/NewTripPage"));
-const AllTripsPage = React.lazy(() => import("../../pages/AllTripsPage"));
-const TripDetailsAllPage = React.lazy(() =>
-  import("../../pages/TripDetailsAllPage")
-);
-const MyTripsPage = React.lazy(() => import("../../pages/MyTripsPage"));
-const TripDetailsMyPage = React.lazy(() =>
-  import("../../pages/TripDetailsMyPage")
-);
-const ProfilePage = React.lazy(() => import("../../pages/ProfilePage"));
-const HelpPage = React.lazy(() => import("../../pages/HelpPage"));
-const PostsPage = React.lazy(() => import("../../pages/PostsPage"));
-const LogRegisterAdminPage = React.lazy(() =>
-  import("../../pages/LogRegisterAdminPage")
-);
-const FavoriteTripsPage = React.lazy(() =>
-  import("../../pages/FavoriteTripsPage")
-);
-const TripDetailsFavoritePage = React.lazy(() =>
-  import("../../pages/TripDetailsFavoritePage")
-);
-const AdminPanelPage = React.lazy(() => import("../../pages/AdminPanelPage"));
-const LeaderboardPage = React.lazy(() => import("../../pages/LeaderboardPage"));
+// const NotFoundPage = React.lazy(() => import("../../pages/NotFoundPage"));
+// const NewTripPage = React.lazy(() => import("../../pages/NewTripPage"));
+// const AllTripsPage = React.lazy(() => import("../../pages/AllTripsPage"));
+// const TripDetailsAllPage = React.lazy(() =>
+//   import("../../pages/TripDetailsAllPage")
+// );
+// const MyTripsPage = React.lazy(() => import("../../pages/MyTripsPage"));
+// const TripDetailsMyPage = React.lazy(() =>
+//   import("../../pages/TripDetailsMyPage")
+// );
+// const ProfilePage = React.lazy(() => import("../../pages/ProfilePage"));
+// const HelpPage = React.lazy(() => import("../../pages/HelpPage"));
+// const PostsPage = React.lazy(() => import("../../pages/PostsPage"));
+// const LogRegisterAdminPage = React.lazy(() =>
+//   import("../../pages/LogRegisterAdminPage")
+// );
+// const FavoriteTripsPage = React.lazy(() =>
+//   import("../../pages/FavoriteTripsPage")
+// );
+// const TripDetailsFavoritePage = React.lazy(() =>
+//   import("../../pages/TripDetailsFavoritePage")
+// );
+// const AdminPanelPage = React.lazy(() => import("../../pages/AdminPanelPage"));
+// const LeaderboardPage = React.lazy(() => import("../../pages/LeaderboardPage"));
 
 const MainContent = (props) => {
   const logRegisterContext = useContext(LogRegisterContext);

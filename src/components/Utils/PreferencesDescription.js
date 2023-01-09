@@ -11,10 +11,14 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Avatar from "@mui/joy/Avatar";
 import StarIcon from "@mui/icons-material/Star";
+import Select from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
 
 import styles from "./PreferencesDescription.module.css";
 
 const PreferencesDescription = (props) => {
+  let userListWidth = 175;
+  let rateButtonWidth = 150;
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   let hours = Math.floor(props.tripData.totalTime / 3600);
@@ -34,6 +38,16 @@ const PreferencesDescription = (props) => {
 
   const addFavoritesHandler = async () => {
     props.onAddFavoritesHandler();
+  };
+
+  const rateUser = (username, isParticpant, index) => {
+    console.log(username);
+    isParticpant &&
+      console.log(document.getElementById(`participant${index}`).innerHTML);
+    !isParticpant &&
+      console.log(document.getElementById(`organizer`).innerHTML);
+    document.getElementById(`participant-div${index}`).style.visibility =
+      "hidden";
   };
 
   return (
@@ -82,32 +96,38 @@ const PreferencesDescription = (props) => {
       >
         Show participants
       </Button>
-      {(props.isJoined || props.isCreated) && <Button
-        color="primary"
-        variant="soft"
-        sx={{ mb: 1, width: "100%" }}
-        onClick={chatHandler}
-      >
-        Open chat
-      </Button>}
-      {!props.isJoined && !props.isCreated && <Button
-        color="primary"
-        variant="soft"
-        sx={{ mb: 1, width: "100%" }}
-        onClick={joinHandler}
-        loading={props.isLoadingJoin}
-      >
-        Join trip
-      </Button>}
-      {!props.isFavorite && <Button
-        color="primary"
-        variant="soft"
-        sx={{ mb: 1, width: "100%" }}
-        onClick={addFavoritesHandler}
-        loading={props.isLoadingFavorites}
-      >
-        Add to favorites
-      </Button>}
+      {(props.isJoined || props.isCreated) && (
+        <Button
+          color="primary"
+          variant="soft"
+          sx={{ mb: 1, width: "100%" }}
+          onClick={chatHandler}
+        >
+          Open chat
+        </Button>
+      )}
+      {!props.isJoined && !props.isCreated && (
+        <Button
+          color="primary"
+          variant="soft"
+          sx={{ mb: 1, width: "100%" }}
+          onClick={joinHandler}
+          loading={props.isLoadingJoin}
+        >
+          Join trip
+        </Button>
+      )}
+      {!props.isFavorite && (
+        <Button
+          color="primary"
+          variant="soft"
+          sx={{ mb: 1, width: "100%" }}
+          onClick={addFavoritesHandler}
+          loading={props.isLoadingFavorites}
+        >
+          Add to favorites
+        </Button>
+      )}
 
       <Modal
         open={isOpen}
@@ -118,7 +138,6 @@ const PreferencesDescription = (props) => {
           variant="outlined"
           sx={{
             maxHeight: "80%",
-            width: "25%",
             borderRadius: "md",
             p: 3,
             boxShadow: "lg",
@@ -137,7 +156,7 @@ const PreferencesDescription = (props) => {
           <Typography level="body1" sx={{ mb: 1, textAlign: "center" }}>
             Organiser
           </Typography>
-          <Sheet>
+          <Sheet sx={{ px: 2 }}>
             <List
               column="true"
               wrap
@@ -150,20 +169,64 @@ const PreferencesDescription = (props) => {
               }}
             >
               <ListItem key={props.tripData.creator.email}>
-                <ListItemDecorator sx={{ mr: 0 }}>
-                  <Avatar size="sm" />
-                </ListItemDecorator>
-                {props.tripData.creator.username}
-                &#160; &#160;
-                {props.tripData.creator.organizerRating.toFixed(2)}
-                <StarIcon sx={{ ml: 0.25 }} />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    width: userListWidth,
+                    overflowX: "auto",
+                  }}
+                >
+                  <ListItemDecorator sx={{ mr: 0 }}>
+                    <Avatar size="sm" />
+                  </ListItemDecorator>
+                  <div style={{ verticalAlign: "center" }}>
+                    {props.tripData.creator.username}
+                  </div>
+                  &#160; &#160;
+                  <div style={{ verticalAlign: "center" }}>
+                    {props.tripData.creator.organizerRating.toFixed(2)}
+                  </div>
+                  <StarIcon sx={{ ml: 0.25 }} />
+                </div>
+                <div
+                  id="organizer-div"
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    width: rateButtonWidth,
+                  }}
+                >
+                  <Select size="sm" placeholder="-" id="organizer">
+                    <Option value="-">-</Option>
+                    <Option value="1">1</Option>
+                    <Option value="2">2</Option>
+                    <Option value="3">3</Option>
+                    <Option value="4">4</Option>
+                    <Option value="4">5</Option>
+                  </Select>
+                  <Button
+                    id="organizer-button"
+                    size="sm"
+                    variant="soft"
+                    sx={{ ml: 1 }}
+                    onClick={(event) => {
+                      let isParticpant = false;
+                      event.preventDefault();
+                      rateUser(props.tripData.creator.username, isParticpant);
+                    }}
+                  >
+                    Rate
+                  </Button>
+                </div>
               </ListItem>
             </List>
           </Sheet>
-          <Typography level="body1" sx={{ my: 1, textAlign: "center" }}>
+          <Typography level="body1" sx={{ my: 1, mt: 2, textAlign: "center" }}>
             Participants
           </Typography>
-          <Sheet sx={{ maxHeight: 400, overflow: "auto" }}>
+          <Sheet sx={{ maxHeight: 300, overflowY: "auto", px: 2 }}>
             <List
               column="true"
               wrap
@@ -175,18 +238,68 @@ const PreferencesDescription = (props) => {
                 justifyContent: "center",
               }}
             >
-              {props.tripData.members.map((item) => (
-                item.username !== props.tripData.creator.username &&
-                <ListItem key={item.email}>
-                  <ListItemDecorator sx={{ mr: 0 }}>
-                    <Avatar size="sm" />
-                  </ListItemDecorator>
-                  {item.username}
-                  &#160; &#160;
-                  {item.userRating.toFixed(2)}
-                  <StarIcon sx={{ ml: 0.25 }} />
-                </ListItem>
-              ))}
+              {props.tripData.members.map(
+                (item, index) =>
+                  item.username !== props.tripData.creator.username && (
+                    <ListItem key={item.email}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-start",
+                          alignItems: "center",
+                          width: userListWidth,
+                          overflowX: "auto",
+                        }}
+                      >
+                        <ListItemDecorator sx={{ mr: 0 }}>
+                          <Avatar size="sm" />
+                        </ListItemDecorator>
+                        <div style={{ verticalAlign: "center" }}>
+                          {item.username}
+                        </div>
+                        &#160; &#160;
+                        <div style={{ verticalAlign: "center" }}>
+                          {item.organizerRating.toFixed(2)}
+                        </div>
+                        <StarIcon sx={{ ml: 0.25 }} />
+                      </div>
+                      <div
+                        id={`participant-div${index}`}
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          width: rateButtonWidth,
+                        }}
+                      >
+                        <Select
+                          size="sm"
+                          placeholder="-"
+                          id={`participant${index}`}
+                        >
+                          <Option value="-">-</Option>
+                          <Option value="1">1</Option>
+                          <Option value="2">2</Option>
+                          <Option value="3">3</Option>
+                          <Option value="4">4</Option>
+                          <Option value="4">5</Option>
+                        </Select>
+                        <Button
+                          id={`participant-button${index}`}
+                          size="sm"
+                          variant="soft"
+                          sx={{ ml: 1 }}
+                          onClick={(event) => {
+                            let isParticpant = true;
+                            event.preventDefault();
+                            rateUser(item.username, isParticpant, index);
+                          }}
+                        >
+                          Rate
+                        </Button>
+                      </div>
+                    </ListItem>
+                  )
+              )}
             </List>
           </Sheet>
         </Sheet>

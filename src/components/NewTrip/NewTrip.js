@@ -20,6 +20,7 @@ const NewTrip = () => {
   const [enteredTime, setEnteredTime] = useState("");
   const [enteredWaypoints, setEnteredWaypoints] = useState([]);
   const [calculatedTripData, setCalculatedTripData] = useState(null);
+  const [isSendingRequest, setIsSendingRequest] = useState(false);
 
   let enableCreateButtonFlag = !!(
     enteredType &&
@@ -56,13 +57,13 @@ const NewTrip = () => {
   }, []);
 
   const calculatedTripDataHandler = useCallback((value) => {
-    console.log("aaaaa");
     setCalculatedTripData(value);
   }, []);
 
   const pinsHandler = useCallback((value) => {}, []);
 
   const submitFormHandler = async () => {
+    setIsSendingRequest(true);
     let tripData = {
       type: enteredType,
       preferences: enteredPreferences,
@@ -73,7 +74,7 @@ const NewTrip = () => {
       distance: calculatedTripData.distance,
       totalTime: calculatedTripData.totalTime,
     };
-    //console.log(tripData);
+    console.log(JSON.stringify(tripData));
     const response = await fetch(fetchUrls["create-trip"], {
       method: "POST",
       body: JSON.stringify(tripData),
@@ -87,6 +88,7 @@ const NewTrip = () => {
       alert(data.message || "Could not create trip.");
     } else {
       updateJoinedTrip(false);
+      setIsSendingRequest(false);
       navigate("/my-trips", { replace: true });
     }
   };
@@ -101,6 +103,7 @@ const NewTrip = () => {
           onSubmitFormHandler={submitFormHandler}
           enableCreateButtonFlag={enableCreateButtonFlag}
           enteredType={enteredType}
+          isSendingRequest={isSendingRequest}
         />
         <div className={styles["map-details-container"]}>
           <PreferencesDescriptionCreate
