@@ -9,22 +9,28 @@ function App(props) {
   const [firstLogin, setFirstLogin] = useState(false);
   const [joinedTrip, setJoinedTrip] = useState(false);
   const [isAdmin, setIsAdmin] = useState(localStorage.getItem("admin"));
+  const [username, setUsername] = useState(localStorage.getItem("username"));
 
-  const loginHandler = (token, isFirstLogin, isAdmin) => {
+  const loginHandler = (token, isFirstLogin, isAdmin, username) => {
     localStorage.removeItem("token");
     localStorage.removeItem("admin");
+    localStorage.removeItem("username");
     localStorage.setItem("token", token);
     localStorage.setItem("admin", isAdmin);
+    localStorage.setItem("username", username);
     setFirstLogin(isFirstLogin);
     setToken(token);
     setIsAdmin(isAdmin);
+    setUsername(username);
   };
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("admin");
+    localStorage.removeItem("username");
     setToken(null);
     setIsAdmin(null);
+    setUsername(null);
   };
 
   const updateFirstLoginHandler = () => {
@@ -47,6 +53,7 @@ function App(props) {
     firstLogin: firstLogin,
     joinedTrip: joinedTrip,
     isAdmin: isAdmin,
+    username: username,
     login: loginHandler,
     logout: logoutHandler,
     updateFirstLogin: updateFirstLoginHandler,

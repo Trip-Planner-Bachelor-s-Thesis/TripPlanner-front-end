@@ -73,17 +73,28 @@ const AllTrips = () => {
     fetch(fetchUrls["get-all-trips"], {
       headers: { Authorization: "Bearer " + token },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
       .then((data) => {
         let trips = [];
+        let recommendedTrips = [];
         for (const trip of data.trips) {
-          trips.push(trip);
+          trip.isRecommended && recommendedTrips.push(trip);
+          !trip.isRecommended && trips.push(trip);
         }
-        let sortedTrips = trips.sort((a, b) => new Date(a.date) - new Date(b.date));
+        let sortedTripsRecommended = recommendedTrips.sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        let sortedTrips = trips.sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        let allTrips = sortedTripsRecommended.concat(sortedTrips);
         setisSendingRequest(false);
-        setAllFetchedTrips(sortedTrips);
-        setAllTrips(sortedTrips);
-        console.log(sortedTrips);
+        setAllFetchedTrips(allTrips);
+        setAllTrips(allTrips);
+        console.log(allTrips);
       })
       .catch((error) => {
         console.log(error);

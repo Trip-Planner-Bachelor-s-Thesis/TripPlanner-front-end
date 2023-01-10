@@ -17,6 +17,7 @@ import fetchUrls from "../../helpers/fetch_urls";
 const TripDetailsMy = () => {
   const { token } = useContext(LogRegisterContext);
   const [isLoadingFavorites, setIsLoadingFavorites] = useState(false);
+  const [isNewRating, setIsNewRating] = useState(0);
   const [trip, setTrip] = useState(null);
   const { tripId } = useParams();
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const TripDetailsMy = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [tripId, token]);
+  }, [tripId, token, isNewRating]);
 
   const addFavoritesHandler = async () => {
     setIsLoadingFavorites(true);
@@ -55,6 +56,10 @@ const TripDetailsMy = () => {
       });
   };
 
+  const rateUser = () => {
+    setIsNewRating((previousState) => previousState + 1);
+  };
+
   return (
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
@@ -69,6 +74,7 @@ const TripDetailsMy = () => {
               isCreated={trip.isCreatedByCurrentUser}
               isLoadingJoin={false}
               isLoadingFavorites={isLoadingFavorites}
+              onRateUser={rateUser}
             />
             <div className={styles["map-only-container"]}>
               <Sheet

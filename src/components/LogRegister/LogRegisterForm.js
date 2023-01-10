@@ -95,10 +95,10 @@ const LogRegisterForm = () => {
         console.log(data);
         data.token &&
           isLoginForm &&
-          logRegisterContext.login(data.token, false, false);
+          logRegisterContext.login(data.token, false, false, username);
         data.token &&
           !isLoginForm &&
-          logRegisterContext.login(data.token, true, false);
+          logRegisterContext.login(data.token, true, false, username);
         data.token && navigate("/", { replace: true });
       })
       .catch((error) => {

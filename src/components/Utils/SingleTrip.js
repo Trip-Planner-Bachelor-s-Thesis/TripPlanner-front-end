@@ -17,6 +17,8 @@ import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import RecommendIcon from "@mui/icons-material/Recommend";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
 const SingleTrip = (props) => {
   const { token } = useContext(LogRegisterContext);
@@ -65,11 +67,20 @@ const SingleTrip = (props) => {
       >
         <Typography
           level="body1"
-          startDecorator={<CalendarMonthIcon />}
-          sx={{ my: 0.5, textAlign: "center" }}
+          sx={{
+            my: 0.5,
+            textAlign: "center",
+            display: "flex",
+            alignItems: "center",
+          }}
           data-testid="date-type"
         >
-          {day}.{month}.{year} &#160; &#160;
+          {props.tripData.isRecommended && <ThumbUpAltIcon sx={{mr: 0.25}} />}
+          {props.tripData.isRecommended && (
+            <Typography sx={{fontStyle: "italic", mr: 2}}>Recommended</Typography>
+          )}
+          <CalendarMonthIcon sx={{ mr: 0.5 }} />
+          <Typography sx={{mr: 2}}>{day}.{month}.{year}</Typography>
           {props.tripData.type === "car" && (
             <DirectionsCarIcon sx={{ mr: 0.5 }} />
           )}

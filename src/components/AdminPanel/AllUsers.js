@@ -38,7 +38,10 @@ const AllUsers = (props) => {
     fetch(fetchUrls["get-all-users"], {
       headers: { Authorization: "Bearer " + token },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
       .then((data) => {
         let users = [];
         for (let user of data.users) {
