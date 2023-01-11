@@ -24,6 +24,7 @@ const fetchUrls = {
   preferences:
     "https://tripplannerapi20221213230613.azurewebsites.net/api/TripTypePreference",
   posts: "https://tripplannerapi20221213230613.azurewebsites.net/api/Post/trip",
+  pins: "https://tripplannerapi20221213230613.azurewebsites.net/pins",
   leaderboard: "https://tripplannerapi20221213230613.azurewebsites.net",
 };
 

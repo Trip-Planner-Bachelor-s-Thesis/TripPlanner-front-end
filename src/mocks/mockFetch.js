@@ -34,10 +34,10 @@ const postList = {
 
 export default async function mockFetch(url) {
   switch (url) {
-    case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips/created-future":
-    case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips/created-past":
-    case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips/joined-future":
-    case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips/joined-past":
+    case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips/created_future":
+    case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips/created_past":
+    case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips/joined_future":
+    case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/my-trips/joined_past":
     case "https://tripplannerapi20221213230613.azurewebsites.net/api/Trip/all": {
       return {
         ok: true,

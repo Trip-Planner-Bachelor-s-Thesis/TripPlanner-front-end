@@ -1,6 +1,6 @@
 import { toBeEnabled } from "@testing-library/jest-dom/dist/matchers";
 import { render, screen } from "@testing-library/react";
-import Map from "./Map";
+import Map from "./MapReactLeaflet";
 
 describe("Map component", () => {
   test("renders start and end fields as enabled in case of creating new trip", () => {

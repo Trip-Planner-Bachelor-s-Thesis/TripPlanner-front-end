@@ -28,7 +28,7 @@ describe("AllTrips component", () => {
     expect(filterButton).toBeEnabled();
     expect(screen.getByRole("heading")).toHaveTextContent("Browse through available trips");
     expect(screen.getByRole("button", { name: /^Reset$/ })).toBeEnabled();
-    expect(screen.getByTestId("date-type")).toHaveTextContent("30.11.2022 Car trip");
+    expect(screen.getByTestId("date-type")).toHaveTextContent("30.11.2022Car trip");
     expect(screen.getByTestId("waypoints")).toHaveTextContent("OlsztynWarszawa");
     expect(screen.getByRole("link", {name: "Show details"})).toBeInTheDocument();
   });

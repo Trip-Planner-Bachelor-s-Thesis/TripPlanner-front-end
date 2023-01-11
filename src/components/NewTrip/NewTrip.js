@@ -6,7 +6,6 @@ import styles from "./NewTrip.module.css";
 import PreferencesDescriptionCreate from "./PreferencesDescriptionCreate";
 import DropdownList from "./DropdownList";
 import Map from "../Map/Map";
-//import MapReactLeaflet from "../Map/MapReactLeaflet";
 import LogRegisterContext from "../../contexts/log-register-context";
 
 const NewTrip = () => {

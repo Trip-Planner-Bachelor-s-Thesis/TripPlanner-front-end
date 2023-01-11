@@ -59,7 +59,7 @@ describe("MyTrips component", () => {
       "Browse through my trips"
     );
     expect(screen.getByTestId("date-type")).toHaveTextContent(
-      "30.11.2022 Car trip"
+      "30.11.2022Car trip"
     );
     expect(screen.getByTestId("waypoints")).toHaveTextContent(
       "OlsztynWarszawa"

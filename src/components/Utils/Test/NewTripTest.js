@@ -5,7 +5,7 @@ import fetchUrls from "../../../helpers/fetch_urls";
 import styles from "../../NewTrip/NewTrip.module.css";
 import PreferencesDescriptionCreate from "../../NewTrip/PreferencesDescriptionCreate";
 import DropdownList from "../../NewTrip/DropdownList";
-import Map from "../../Map/Map";
+import Map from "../../Map/MapReactLeaflet";
 import LogRegisterContext from "../../../contexts/log-register-context";
 
 const NewTripTest = () => {
