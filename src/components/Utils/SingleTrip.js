@@ -17,7 +17,6 @@ import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import RecommendIcon from "@mui/icons-material/Recommend";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
 const SingleTrip = (props) => {

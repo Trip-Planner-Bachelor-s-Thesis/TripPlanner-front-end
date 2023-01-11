@@ -2,7 +2,7 @@ import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet-control-geocoder";
 import "lrm-graphhopper";
-import React, { memo, useState } from "react";
+import { useState } from "react";
 import { MapContainer } from "react-leaflet/MapContainer";
 import { TileLayer } from "react-leaflet/TileLayer";
 import { useMap } from "react-leaflet/hooks";
@@ -22,16 +22,12 @@ let greenIcon = new L.Icon({
 
 let routingControl;
 
-const RoutingControlMemo = memo(RoutingControl, routingPropsEqual);
-
-function Map(props) {
+const Map = (props) => {
   let userWaypointsInput = props.userWaypointsInput;
   let typeOfTransport = props.typeOfTransport ? props.typeOfTransport : "car";
   if (userWaypointsInput.length === 0) {
     userWaypointsInput = false;
   }
-
-  console.log("map-render");
 
   return (
     <MapContainer
@@ -44,28 +40,27 @@ function Map(props) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <RoutingControlMemo
+      <RoutingControl
+        onPinsHandler={props.onPinsHandler}
         onWaypointsHandler={props.onWaypointsHandler}
         userWaypointsInput={props.userWaypointsInput}
         onCalculatedTripDataHandler={props.onCalculatedTripDataHandler}
         typeOfTransport={typeOfTransport}
         isMapStatic={props.staticMap}
       />
-      <PinsControl
-        isMapStatic={props.staticMap}
-        userPinsInput={props.userPinsInput}
-        onPinsHandler={props.onPinsHandler}
-      ></PinsControl>
     </MapContainer>
   );
-}
+};
 
-function RoutingControl(props) {
+const RoutingControl = (props) => {
+  const [pins, setPins] = useState([]);
   const map = useMap();
-  console.log("routing-render");
-  if (routingControl) {
+  //console.log(pins);
+  if (routingControl && props.isMapStatic) {
+    console.log("aaaa");
     routingControl.remove();
     routingControl = undefined;
+    console.log(routingControl);
   }
 
   let userWaypointsInputTransformed = [];
@@ -79,60 +74,39 @@ function RoutingControl(props) {
     });
   }
 
-  routingControl = L.Routing.control({
-    waypoints: userWaypointsInputTransformed,
-    routeWhileDragging: true,
-    router: L.Routing.graphHopper("44c78c7e-16d3-4fd5-80a9-fa1b12807da7", {
-      urlParameters: {
-        vehicle: props.typeOfTransport,
-      },
-    }),
-    geocoder: L.Control.Geocoder.nominatim(),
-  }).on("routeselected", function (e) {
-    if (!props.isMapStatic) {
-      let route = e.route;
-      let userWaypointsReturn = [];
-      route.inputWaypoints.forEach((element) => {
-        let waypoint = {
-          lat: element.latLng.lat,
-          lng: element.latLng.lng,
-          name: element.name,
+  if (routingControl === undefined) {
+    console.log("bbb");
+    routingControl = L.Routing.control({
+      waypoints: userWaypointsInputTransformed,
+      routeWhileDragging: true,
+      geocoder: L.Control.Geocoder.nominatim(),
+    }).on("routeselected", function (e) {
+      if (!props.isMapStatic) {
+        let route = e.route;
+        let userWaypointsReturn = [];
+        route.inputWaypoints.forEach((element) => {
+          let waypoint = {
+            lat: element.latLng.lat,
+            lng: element.latLng.lng,
+            name: element.name,
+          };
+          userWaypointsReturn.push(waypoint);
+        });
+        let summary = route.summary;
+        let hours = Math.floor(summary.totalTime / 3600);
+        let minutes = Math.round((summary.totalTime - hours * 3600) / 60);
+        let tripData = {
+          distance: Math.round(summary.totalDistance / 1000),
+          totalTime: summary.totalTime,
+          timeHours: hours,
+          timeMinutes: minutes,
         };
-        userWaypointsReturn.push(waypoint);
-      });
-      let summary = route.summary;
-      let hours = Math.floor(summary.totalTime / 3600);
-      let minutes = Math.round((summary.totalTime - hours * 3600) / 60);
-      let tripData = {
-        distance: Math.round(summary.totalDistance / 1000),
-        totalTime: summary.totalTime,
-        timeHours: hours,
-        timeMinutes: minutes,
-      };
-      props.onWaypointsHandler(userWaypointsReturn);
-      props.onCalculatedTripDataHandler(tripData);
-    }
-  });
-  routingControl.addTo(map);
-
-  if (props.isMapStatic) {
-    let waypoints = document.getElementsByClassName("leaflet-routing-geocoder");
-    for (let waypoint of waypoints) {
-      waypoint.style.pointerEvents = "none";
-    }
-    let buttonAdd = document.getElementsByClassName(
-      "leaflet-routing-add-waypoint"
-    );
-    for (let button of buttonAdd) {
-      button.style.visibility = "hidden";
-    }
+        props.onWaypointsHandler(userWaypointsReturn);
+        props.onCalculatedTripDataHandler(tripData);
+      }
+    });
+    routingControl.addTo(map);
   }
-}
-
-function PinsControl(props) {
-  const [pins, setPins] = useState([]);
-  const map = useMap();
-  console.log(pins);
 
   map.on("click", function (e) {
     let container = L.DomUtil.create("div");
@@ -158,28 +132,33 @@ function PinsControl(props) {
           name: inputField.value,
         },
       ]);
-      setPins([
-        ...pins,
-        {
-          lat: e.latlng.lat,
-          lng: e.latlng.lng,
-          name: inputField.value,
-        },
-      ]);
     });
   });
 
-  // for (const pin of pins) {
-  //   console.log("aaa");
-  //   L.marker([pin.lat, pin.lng], { icon: greenIcon })
-  //     .bindPopup(
-  //       pin.name.startsWith("http")
-  //         ? `<img src=${pin.name} alt='Image' height='200' width='200' />`
-  //         : pin.name
-  //     )
-  //     .addTo(map);
-  // }
-}
+  for (const pin of pins) {
+    L.marker([pin.lat, pin.lng], { icon: greenIcon })
+      .bindPopup(
+        pin.name.startsWith("http")
+          ? `<img src=${pin.name} alt='Image' height='200' width='200' />`
+          : pin.name
+      )
+      .addTo(map);
+  }
+
+  if (props.isMapStatic) {
+    let waypoints = document.getElementsByClassName("leaflet-routing-geocoder");
+    for (let waypoint of waypoints) {
+      waypoint.style.pointerEvents = "none";
+    }
+    let buttonAdd = document.getElementsByClassName(
+      "leaflet-routing-add-waypoint"
+    );
+    for (let button of buttonAdd) {
+      button.style.visibility = "hidden";
+    }
+  }
+  //console.log(routingControl);
+};
 
 function createButton(label, container) {
   let btn = L.DomUtil.create("button", "button-save", container);
@@ -193,15 +172,4 @@ function createInput(container) {
   return btn;
 }
 
-function mapPropsEqual(prevProps, nextProps) {
-  console.log("comparison");
-  return prevProps.typeOfTransport === nextProps.typeOfTransport;
-}
-
-function routingPropsEqual(prevProps, nextProps) {
-  console.log("comparison-routing");
-  return prevProps.typeOfTransport === nextProps.typeOfTransport;
-}
-
-export const MapMemo = memo(Map, mapPropsEqual);
-export default MapMemo;
+export default Map;

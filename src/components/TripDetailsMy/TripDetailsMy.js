@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
@@ -60,6 +60,10 @@ const TripDetailsMy = () => {
     setIsNewRating((previousState) => previousState + 1);
   };
 
+  const pinsHandler = useCallback((value) => {
+    console.log(value);
+  }, []);
+
   return (
     <section className={styles["new-trip-section"]}>
       <div className={styles["new-trip"]}>
@@ -111,6 +115,7 @@ const TripDetailsMy = () => {
                 onWaypointsHandler={null}
                 onCalculatedTripDataHandler={null}
                 typeOfTransport={trip.type}
+                onPinsHandler={pinsHandler}
               />
             </div>
           </div>

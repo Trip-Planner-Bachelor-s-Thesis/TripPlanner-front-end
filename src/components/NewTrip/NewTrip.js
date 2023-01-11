@@ -1,4 +1,4 @@
-import { useCallback, useState, useContext } from "react";
+import { React, useCallback, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import fetchUrls from "../../helpers/fetch_urls";
@@ -13,12 +13,13 @@ const NewTrip = () => {
   const navigate = useNavigate();
   const { token, updateJoinedTrip } = useContext(LogRegisterContext);
 
-  const [enteredType, setEnteredType] = useState("");
+  const [enteredType, setEnteredType] = useState("car");
   const [enteredPreferences, setEnteredPreferences] = useState([]);
   const [enteredDescription, setEnteredDescription] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
   const [enteredTime, setEnteredTime] = useState("");
   const [enteredWaypoints, setEnteredWaypoints] = useState([]);
+  const [enteredPins, setEnteredPins] = useState([]);
   const [calculatedTripData, setCalculatedTripData] = useState(null);
   const [isSendingRequest, setIsSendingRequest] = useState(false);
 
@@ -54,13 +55,18 @@ const NewTrip = () => {
 
   const waypointsHandler = useCallback((value) => {
     setEnteredWaypoints(value);
+    //console.log("test");
   }, []);
 
   const calculatedTripDataHandler = useCallback((value) => {
     setCalculatedTripData(value);
+    //console.log("test2");
   }, []);
 
-  const pinsHandler = useCallback((value) => {}, []);
+  const pinsHandler = useCallback((value) => {
+    setEnteredPins(value);
+    console.log(value);
+  }, []);
 
   const submitFormHandler = async () => {
     setIsSendingRequest(true);
@@ -71,6 +77,7 @@ const NewTrip = () => {
       date: enteredDate,
       startTime: enteredTime,
       waypoints: enteredWaypoints,
+      pins: enteredPins,
       distance: calculatedTripData.distance,
       totalTime: calculatedTripData.totalTime,
     };
@@ -119,7 +126,9 @@ const NewTrip = () => {
               onWaypointsHandler={waypointsHandler}
               onCalculatedTripDataHandler={calculatedTripDataHandler}
               typeOfTransport={enteredType}
-              userWaypointsInput={[]}
+              userWaypointsInput={enteredWaypoints}
+              userPinsInput={enteredPins}
+              staticMap={false}
             />
           </div>
         </div>

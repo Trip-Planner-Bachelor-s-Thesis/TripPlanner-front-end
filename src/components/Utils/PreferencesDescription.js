@@ -30,7 +30,6 @@ const PreferencesDescription = (props) => {
   let rateButtonWidth = 150;
 
   const { token, username } = useContext(LogRegisterContext);
-  console.log(username);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   let hours = Math.floor(props.tripData.totalTime / 3600);

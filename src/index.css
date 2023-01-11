@@ -95,6 +95,9 @@ leaflet-routing-alternatives-container {
   display: none !important;
 }
 
+.leaflet-control-zoom {
+  border: none !important;
+}
 /* .navigation-bar-bootstrap {
   background-color: #7646ef !important; 
 } */

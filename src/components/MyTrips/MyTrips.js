@@ -67,7 +67,7 @@ const MyTrips = () => {
   const [paginationState, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch(fetchUrls["get-my-trips"] + "/created-past", {
+    fetch(fetchUrls["get-my-trips"] + "/created_past", {
       headers: { Authorization: "Bearer " + token },
     })
       .then((response) => response.json())
@@ -82,7 +82,7 @@ const MyTrips = () => {
         console.log(error);
       });
 
-    fetch(fetchUrls["get-my-trips"] + "/joined-past", {
+    fetch(fetchUrls["get-my-trips"] + "/joined_past", {
       headers: { Authorization: "Bearer " + token },
     })
       .then((response) => response.json())
@@ -97,7 +97,7 @@ const MyTrips = () => {
         console.log(error);
       });
 
-    fetch(fetchUrls["get-my-trips"] + "/joined-future", {
+    fetch(fetchUrls["get-my-trips"] + "/joined_future", {
       headers: { Authorization: "Bearer " + token },
     })
       .then((response) => response.json())
@@ -117,7 +117,7 @@ const MyTrips = () => {
         console.log(error);
       });
 
-    fetch(fetchUrls["get-my-trips"] + "/created-future", {
+    fetch(fetchUrls["get-my-trips"] + "/created_future", {
       headers: { Authorization: "Bearer " + token },
     })
       .then((response) => response.json())

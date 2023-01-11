@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
@@ -54,7 +54,7 @@ const TripDetailsAll = () => {
       .catch((error) => {
         console.log(error);
       });
-    // await new Promise((r) => setTimeout(r, 1000)); 
+    // await new Promise((r) => setTimeout(r, 1000));
   };
 
   const addFavoritesHandler = async () => {
@@ -76,6 +76,10 @@ const TripDetailsAll = () => {
         console.log(error);
       });
   };
+
+  const pinsHandler = useCallback((value) => {
+    console.log(value);
+  }, []);
 
   return (
     <section className={styles["new-trip-section"]}>
@@ -128,6 +132,7 @@ const TripDetailsAll = () => {
                 onWaypointsHandler={null}
                 onCalculatedTripDataHandler={null}
                 typeOfTransport={trip.type}
+                onPinsHandler={pinsHandler}
               />
             </div>
           </div>
