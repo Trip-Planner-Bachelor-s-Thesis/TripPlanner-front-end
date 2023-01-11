@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
@@ -56,9 +56,29 @@ const TripDetailsFavorite = () => {
       });
   };
 
-  const pinsHandler = useCallback((value) => {
+  const pinsHandler = (value) => {
     console.log(value);
-  }, []);
+    let pinData = {
+      tripId: tripId,
+      pins: [{ lat: value.lat, lng: value.lng, name: value.name }],
+    };
+    fetch(fetchUrls.pins, {
+      method: "POST",
+      body: JSON.stringify(pinData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("test");
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <section className={styles["new-trip-section"]}>
@@ -111,6 +131,10 @@ const TripDetailsFavorite = () => {
                 onCalculatedTripDataHandler={null}
                 typeOfTransport={trip.type}
                 onPinsHandler={pinsHandler}
+                userPinsInput={trip.pins}
+                isCreatedByCurrentUser={trip.isCreatedByCurrentUser}
+                isJoinedByCurrentUser={trip.isJoinedByCurrentUser}
+                isTripCreated={false}
               />
             </div>
           </div>

@@ -55,6 +55,9 @@ function Map(props) {
         isMapStatic={props.staticMap}
         userPinsInput={props.userPinsInput}
         onPinsHandler={props.onPinsHandler}
+        isCreatedByCurrentUser={props.isCreatedByCurrentUser}
+        isJoinedByCurrentUser={props.isJoinedByCurrentUser}
+        isTripCreated={props.isTripCreated}
       ></PinsControl>
     </MapContainer>
   );
@@ -134,51 +137,63 @@ function PinsControl(props) {
   const map = useMap();
   console.log(pins);
 
-  map.on("click", function (e) {
-    let container = L.DomUtil.create("div");
-    let inputField = createInput(container);
-    let saveBtn = createButton("Save", container);
-
-    L.popup().setContent(container).setLatLng(e.latlng).openOn(map);
-
-    L.DomEvent.on(saveBtn, "click", function () {
-      L.marker(e.latlng, { icon: greenIcon })
+  if (props.isMapStatic) {
+    for (const pin of props.userPinsInput) {
+      L.marker([pin.lat, pin.lng], { icon: greenIcon })
         .bindPopup(
-          inputField.value.startsWith("http")
-            ? `<img src=${inputField.value} alt='Image' height='200' width='200' />`
-            : inputField.value
+          pin.name.startsWith("http")
+            ? `<img src=${pin.name} alt='Image' height='200' width='200' />`
+            : pin.name
         )
         .addTo(map);
-      map.closePopup();
-      props.onPinsHandler([
-        ...pins,
-        {
-          lat: e.latlng.lat,
-          lng: e.latlng.lng,
-          name: inputField.value,
-        },
-      ]);
-      setPins([
-        ...pins,
-        {
-          lat: e.latlng.lat,
-          lng: e.latlng.lng,
-          name: inputField.value,
-        },
-      ]);
-    });
-  });
+    }
+  }
 
-  // for (const pin of pins) {
-  //   console.log("aaa");
-  //   L.marker([pin.lat, pin.lng], { icon: greenIcon })
-  //     .bindPopup(
-  //       pin.name.startsWith("http")
-  //         ? `<img src=${pin.name} alt='Image' height='200' width='200' />`
-  //         : pin.name
-  //     )
-  //     .addTo(map);
-  // }
+  if (props.isCreatedByCurrentUser || props.isJoinedByCurrentUser || props.isTripCreated) {
+    map.on("click", function (e) {
+      let container = L.DomUtil.create("div");
+      let inputField = createInput(container);
+      let saveBtn = createButton("Save", container);
+
+      L.popup().setContent(container).setLatLng(e.latlng).openOn(map);
+
+      L.DomEvent.on(saveBtn, "click", function () {
+        L.marker(e.latlng, { icon: greenIcon })
+          .bindPopup(
+            inputField.value.startsWith("http")
+              ? `<img src=${inputField.value} alt='Image' height='200' width='200' />`
+              : inputField.value
+          )
+          .addTo(map);
+        map.closePopup();
+        if (!props.isMapStatic) {
+          props.onPinsHandler([
+            ...pins,
+            {
+              lat: e.latlng.lat,
+              lng: e.latlng.lng,
+              name: inputField.value,
+            },
+          ]);
+          setPins([
+            ...pins,
+            {
+              lat: e.latlng.lat,
+              lng: e.latlng.lng,
+              name: inputField.value,
+            },
+          ]);
+        }
+        if (props.isMapStatic) {
+          props.onPinsHandler({
+            lat: e.latlng.lat,
+            lng: e.latlng.lng,
+            name: inputField.value,
+          });
+        }
+      });
+    });
+  }
 }
 
 function createButton(label, container) {

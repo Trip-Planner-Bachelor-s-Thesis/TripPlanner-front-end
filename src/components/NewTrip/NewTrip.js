@@ -128,6 +128,7 @@ const NewTrip = () => {
               userWaypointsInput={enteredWaypoints}
               userPinsInput={enteredPins}
               staticMap={false}
+              isTripCreated={true}
             />
           </div>
         </div>
