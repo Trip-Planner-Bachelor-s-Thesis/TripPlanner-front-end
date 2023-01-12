@@ -19,9 +19,11 @@ import fetchUrls from "../../helpers/fetch_urls";
 import styles from "./PreferencesDescription.module.css";
 
 const PreferencesDescription = (props) => {
+  console.log(props.isCreated);
+  console.log(props.isJoined);
   let currentDate = new Date();
   let disableFlag;
-  currentDate.setDate(currentDate.getDate() + 1);
+  currentDate.setDate(currentDate.getDate());
   currentDate.setHours(0, 0, 0, 0);
   new Date(props.tripData.date).getTime() <= currentDate.getTime()
     ? (disableFlag = false)
@@ -230,7 +232,7 @@ const PreferencesDescription = (props) => {
                   </div>
                   <StarIcon sx={{ ml: 0.25 }} />
                 </div>
-                {props.tripData.creator.username !== username && (
+                {(props.isCreated || props.isJoined) && props.tripData.creator.username !== username && (
                   <div
                     id="organizer-div"
                     style={{
@@ -311,7 +313,7 @@ const PreferencesDescription = (props) => {
                         </div>
                         <StarIcon sx={{ ml: 0.25 }} />
                       </div>
-                      {item.username !== username && (
+                      {(props.isCreated || props.isJoined) && item.username !== username && (
                         <div
                           id={`participant-div${index}`}
                           style={{
