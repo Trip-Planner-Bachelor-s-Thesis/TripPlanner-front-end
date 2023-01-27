@@ -181,7 +181,6 @@ const Leaderboard = () => {
             }}
           >
             <table className={styles["table-style"]}>
-              <tbody>
                 {index === 0 && (
                   <tr>
                     <th scope="col">Rank</th>
@@ -250,7 +249,6 @@ const Leaderboard = () => {
                     type={index}
                   ></SingleUserLeaderboard>
                 ))}
-              </tbody>
             </table>
           </Sheet>
         </div>

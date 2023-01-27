@@ -20,9 +20,6 @@ describe("LogRegisterForm component", () => {
     expect(screen.getByPlaceholderText(/^username$/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^password$/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /^Log in$/ })).toBeInTheDocument();
-    // expect(
-    //   screen.getByRole("button", { name: /^Don't have an account yet\?$/ })
-    // ).toBeInTheDocument();
   });
 
   test("renders sing up form correctly", () => {
@@ -44,6 +41,5 @@ describe("LogRegisterForm component", () => {
     expect(
       screen.getByRole("button", { name: /^Create$/ })
     ).toBeInTheDocument();
-    // expect(screen.getByTestId("existing-account")).toBeInTheDocument();
   });
 });

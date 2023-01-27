@@ -1,11 +1,10 @@
 import Accordion from "react-bootstrap/Accordion";
 
-import styles from "./Help.module.css";
 
 const Help = () => {
   return (
     <section>
-      <div styles={styles["accordion-container"]}>
+      <div>
         <Accordion alwaysOpen>
           <Accordion.Item eventKey="0">
             <Accordion.Header>How to create trip?</Accordion.Header>

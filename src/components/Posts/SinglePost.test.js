@@ -18,7 +18,6 @@ describe("SinglePost component", () => {
     // ... nothing
 
     // Assert
-
     expect(screen.getByTestId("date")).toHaveTextContent("4 December 2022");
     expect(screen.getByTestId("content")).toHaveTextContent(
       `There are many variations of passages of Lorem Ipsum available`

@@ -1,10 +1,3 @@
-.list-of-trips {
-    list-style: none;
-    width: 50%;
-    margin: 0 auto;
-    padding: 0;
-  }
-
 .no-trips-found {
   margin: 1rem auto;
   text-align: center;
@@ -12,7 +5,7 @@
 }
 
 .tabs-container {
-    width: 66%;
-    margin: 0 auto;
-    margin-bottom: 2rem;
+  width: 66%;
+  margin: 0 auto;
+  margin-bottom: 2rem;
 }

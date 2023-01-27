@@ -7,11 +7,8 @@
 }
 
 body {
-  /* font-family: "Nunito Sans"; */
   font-family: "Public Sans";
-  /* font-family: 'Open Sans', 'Lato', sans-serif; */
   margin: 0;
-  /* background-color: #e7f8f8; */
   background-color: white;
 }
 
@@ -22,7 +19,6 @@ h4,
 h5,
 h6 {
   font-family: "Public Sans";
-  /* font-family: "Lato", sans-serif; */
 }
 
 .centered {
@@ -39,10 +35,7 @@ h6 {
 }
 
 .nav-link.active {
-  /* color: #aa65d8 !important; */
-  /* color: #0275d8 !important; */
   text-decoration: underline !important;
-  /* color: #19dafa !important; */
 }
 
 .login-button-style.active {
@@ -59,7 +52,6 @@ h6 {
 }
 
 .leaflet-routing-container {
-  /* border-radius: 8px; */
   border: none !important;
 }
 
@@ -98,9 +90,6 @@ leaflet-routing-alternatives-container {
 .leaflet-control-zoom {
   border: none !important;
 }
-/* .navigation-bar-bootstrap {
-  background-color: #7646ef !important; 
-} */
 
 .nav-item button {
   color: black !important;

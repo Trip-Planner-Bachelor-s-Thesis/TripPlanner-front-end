@@ -74,7 +74,6 @@ const FilterTrips = (props) => {
       </Typography>
       <div className={styles["form-container"]}>
         <FormControl  sx={{ mx: 1 }}>
-          {/* <FormLabel sx={{ alignSelf: "center", visibility: "hidden" }}>Start date</FormLabel> */}
           <Input
             type="date"
             onChange={startDateDropDownHandler}
@@ -84,7 +83,6 @@ const FilterTrips = (props) => {
         </FormControl>
 
         <FormControl  sx={{ mx: 1 }}>
-          {/* <FormLabel sx={{ alignSelf: "center" }}>Trip date</FormLabel> */}
           <Input
             type="date"
             onChange={endDateDropDownHandler}
@@ -94,7 +92,6 @@ const FilterTrips = (props) => {
         </FormControl>
 
         <FormControl  sx={{ mx: 1 }}>
-          {/* <FormLabel sx={{ alignSelf: "center" }}>Trip type</FormLabel> */}
           <Select
             placeholder="Choose type"
             onChange={typeDropDownHandler}
@@ -109,7 +106,6 @@ const FilterTrips = (props) => {
         </FormControl>
 
         <FormControl sx={{ mx: 1 }}>
-          {/* <FormLabel sx={{ alignSelf: "center" }}>Trip type</FormLabel> */}
           <Select
             placeholder="Choose tags"
             onChange={preferencesDropDownHandler}

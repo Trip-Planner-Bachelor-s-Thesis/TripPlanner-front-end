@@ -9,28 +9,6 @@
   height: 100%;
 }
 
-.button-switch-display-users {
-  padding: 0.5rem 1.5rem;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  font: inherit;
-  color: white;
-  background-color: #aa65d8;
-  border: 1px solid #aa65d8;
-  border-radius: 4px;
-}
-
-.button-switch-display-users:hover {
-  background-color: #9418e7;
-  border: 1px solid #9418e7;
-}
-
-.tabs-container {
-  width: 33%;
-  margin: 2rem auto;
-  margin-top: 0rem;
-}
-
 .map-details-container {
   display: flex;
   justify-content: space-between;

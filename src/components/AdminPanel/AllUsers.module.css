@@ -1,19 +1,5 @@
-.all-posts-container {
-  width: 75%;
-  height: 85%;
-  overflow: scroll;
-  border-radius: 8px;
-}
-
 .no-posts-found {
   margin: 1rem auto;
   text-align: center;
   font-size: 1.25rem;
-}
-
-.list-of-posts {
-  list-style: none;
-  width: 85%;
-  margin: 0 auto;
-  padding: 0;
 }

@@ -85,8 +85,6 @@ const PreferencesDescription = (props) => {
           console.log("success");
         }
       })
-      // .then((data) => {
-      // })
       .catch((error) => {
         console.log(error);
       });

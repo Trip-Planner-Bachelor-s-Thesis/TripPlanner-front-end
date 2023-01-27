@@ -18,7 +18,6 @@ let greenIcon = new L.Icon({
 });
 
 const Map = (props) => {
-  //let onPinsHadler = props.onPinsHadler;
   let waypointsHandler = props.onWaypointsHandler;
   let userWaypointsInput = props.userWaypointsInput;
   let calculatedTripDataHandler = props.onCalculatedTripDataHandler;
@@ -96,13 +95,9 @@ const Map = (props) => {
       .addTo(map);
 
     map.on("click", function (e) {
-      //console.log(e);
       let container = L.DomUtil.create("div");
-      // let startBtn = createButton("Start from this location", container);
-      // let destBtn = createButton("Go to this location", container);
       let inputField = createInput(container);
       let saveBtn = createButton("Save", container);
-      // let image = createImage(container);
 
       L.popup().setContent(container).setLatLng(e.latlng).openOn(map);
 
@@ -117,16 +112,6 @@ const Map = (props) => {
           .addTo(map);
         map.closePopup();
       });
-
-      // L.DomEvent.on(startBtn, "click", function () {
-      //   control.spliceWaypoints(0, 1, e.latlng);
-      //   map.closePopup();
-      // });
-
-      // L.DomEvent.on(destBtn, "click", function () {
-      //   control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
-      //   map.closePopup();
-      // });
     });
 
     if (isMapStatic) {
@@ -163,20 +148,7 @@ function createButton(label, container) {
 
 function createInput(container) {
   let btn = L.DomUtil.create("input", "", container);
-  // btn.setAttribute("type", "button");
-  // btn.innerHTML = label;
   return btn;
 }
-
-// function createImage(container) {
-//   let btn = L.DomUtil.create("img", "", container);
-//   // btn.setAttribute("type", "button");
-//   // btn.innerHTML = label;
-//   btn.src =
-//     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/db/72/f1/photo0jpg.jpg?w=1200&h=1200&s=1";
-//   btn.height = 100;
-//   btn.width = 100;
-//   return btn;
-// }
 
 export default Map;

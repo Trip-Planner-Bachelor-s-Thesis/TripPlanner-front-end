@@ -10,7 +10,6 @@ import styles from "./TripDetailsFavorite.module.css";
 import TripInformation from "../Utils/TripInformation";
 import PreferencesDescription from "../Utils/PreferencesDescription";
 import Map from "../Map/Map";
-//import MapReactLeaflet from "../Map/MapReactLeaflet";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";
 

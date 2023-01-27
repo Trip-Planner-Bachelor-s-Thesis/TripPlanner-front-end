@@ -1,18 +1,6 @@
 import { Fragment } from "react";
-// import styles from "./SingleUserLeaderboard.module.css";
-// import ListDivider from "@mui/joy/ListDivider";
-//import ListItem from "@mui/joy/ListItem";
-// import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-//import PersonIcon from "@mui/icons-material/Person";
 import StarIcon from "@mui/icons-material/Star";
-//import SportsScoreIcon from "@mui/icons-material/SportsScore";
-//import NumbersIcon from "@mui/icons-material/Numbers";
-// import Avatar from "@mui/joy/Avatar";
-// import Tooltip from "@mui/joy/Tooltip";
-// import IconButton from "@mui/joy/IconButton";
-// import StarIcon from "@mui/icons-material/Star";
-// import Sheet from "@mui/joy/Sheet";
 
 const SingleUserLeaderboard = (props) => {
   return (

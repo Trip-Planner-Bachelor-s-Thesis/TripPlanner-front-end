@@ -8,7 +8,6 @@ import Chip from "@mui/joy/Chip";
 import styles from "./TripDetailsAll.module.css";
 import TripInformation from "../Utils/TripInformation";
 import PreferencesDescription from "../Utils/PreferencesDescription";
-//import MapReactLeaflet from "../Map/MapReactLeaflet";
 import Map from "../Map/Map";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";
@@ -54,7 +53,6 @@ const TripDetailsAll = () => {
       .catch((error) => {
         console.log(error);
       });
-    // await new Promise((r) => setTimeout(r, 1000));
   };
 
   const addFavoritesHandler = async () => {

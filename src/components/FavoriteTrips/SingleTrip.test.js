@@ -34,7 +34,6 @@ describe("SingleTrip component", () => {
 
     // Assert
     expect(screen.getByTestId("date-type")).toHaveTextContent("30.11.2022 Car trip");
-    // expect(screen.getByTestId("waypoints")).toHaveTextContent("OlsztynWarszawa");
     expect(screen.getByRole("link", {name: "Show details"})).toBeInTheDocument();
   });
 });

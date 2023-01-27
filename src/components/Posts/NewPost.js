@@ -61,9 +61,6 @@ const NewPost = (props) => {
             <SendIcon sx={{m: 0, p: 0}} />
           </Button>
         </Tooltip>
-        {/* <Button loading>
-
-        </Button> */}
       </form>
     </div>
   );

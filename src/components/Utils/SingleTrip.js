@@ -134,13 +134,6 @@ const SingleTrip = (props) => {
             </IconButton>
           )}
         </Sheet>
-        {/* <Link
-          component={LinkRouter}
-          to={`${props.tripData.tripId}`}
-          sx={{ mt: 0.5, textAlign: "center" }}
-        >
-          Show details
-        </Link> */}
       </Sheet>
     </ListItem>
   );

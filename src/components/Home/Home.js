@@ -1,7 +1,5 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-// import Modal from "react-bootstrap/Modal";
-// import Button from "react-bootstrap/Button";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
@@ -76,25 +74,6 @@ const Home = (props) => {
           </Sheet>
         </Sheet>
       </Modal>
-      {/* <div className={styles["home-page-description"]}>
-        <h3 className={styles["title"]}>Welcome to the Trip Planner</h3>
-        <p className={styles["description"]}>
-          Our goal is to foster the communities in which like minded people can
-          go on trips together while trying our best to help with the planning
-          of such a grand endeavour
-        </p>
-      </div>
-      <div className={styles["home-page-images"]}>
-        {props.isTest ? (
-          <img
-            src="https://www.pngall.com/wp-content/uploads/5/Silhouette-Mountain-Bike-Transparent.png"
-            alt=""
-          ></img>
-        ) : (
-          <img src={require("../../assets/travel.png")} alt="" style={{borderRadius: "4px"}}></img>
-        )}
-      </div> */}
-      {/* <footer className={styles["authors-footer"]}>{`Noman Noor \u00A0\u00A0 Marcin Świerkot \u00A0\u00A0 Nader Tavana`}</footer> */}
     </section>
   );
 };

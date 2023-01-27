@@ -32,7 +32,6 @@ const AllUsers = (props) => {
         console.log(error);
       });
   };
-  //const postsContainerRef = useRef();
 
   useEffect(() => {
     fetch(fetchUrls["get-all-users"], {
@@ -58,31 +57,20 @@ const AllUsers = (props) => {
         });
         setisSendingRequest(false);
         setAllFetchedUsers(sortedUsers);
-        //setTimeout(handleScroll, 500);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [token, isUserDeleted]);
 
-  // const handleScroll = () => {
-  //   postsContainerRef.current?.scrollIntoView({
-  //     behavior: "smooth",
-  //     block: "end",
-  //     inline: "nearest",
-  //   });
-  // };
-
   return (
     <Fragment>
       <Sheet
-        // variant="outlined"
         sx={{
           height: "85%",
           width: "75%",
           borderRadius: "md",
           overflow: "scroll",
-          // boxShadow: "lg",
           p: 2,
         }}
       >
@@ -111,7 +99,6 @@ const AllUsers = (props) => {
               ))}
             </List>
           ))}
-        {/* <div ref={postsContainerRef}></div> */}
       </Sheet>
     </Fragment>
   );

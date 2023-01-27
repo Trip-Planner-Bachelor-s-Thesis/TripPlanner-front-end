@@ -4,7 +4,6 @@ import TabList from "@mui/joy/TabList";
 import Tab from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
 
-//import styles from "./UserProfile.module.css";
 import SpinnerBox from "../Utils/SpinnerBox";
 import LogRegisterContext from "../../contexts/log-register-context";
 import fetchUrls from "../../helpers/fetch_urls";
